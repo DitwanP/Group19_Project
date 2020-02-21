@@ -1,8 +1,4 @@
-from django.shortcuts import render
-
-# Create your views here.
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
 
 def cart(request):
-    return HttpResponse('<h1>Bookstore Shopping Cart</h1>')
+    return render(request, 'shopping_cart/cart.html')
