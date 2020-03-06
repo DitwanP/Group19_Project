@@ -45,6 +45,8 @@ INSTALLED_APPS = [
 
     'home',
     'shopping_cart.apps.ShoppingCartConfig',
+    'products',
+    'profile_management.apps.ProfileManagementConfig',
 
 ]
 
@@ -135,6 +137,13 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+# Stripe and Braintree Settings
+
+
+
 # Authentication 
 
 AUTHENTICATION_BACKENDS = (
@@ -146,8 +155,6 @@ AUTHENTICATION_BACKENDS = (
     
 )
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
-
 SITE_ID = 1
-CART_SESSION_ID = 'cart'
+
+LOGIN_REDIRECT_URL = '/home'

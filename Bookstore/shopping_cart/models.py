@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 
-from accounts.models import Profile
+from profile_management.models import Profile
 from products.models import Product
 
 class Cart_item(models.Model):

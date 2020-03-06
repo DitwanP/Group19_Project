@@ -34,7 +34,7 @@
             <form class="form-inline my-2 my-lg-0">   
                 <a class="btn btn-success btn-sm ml-3" href="{%  url 'shopping_cart:cart' %}">
                     <i class="fa fa-shopping-cart"></i> Cart
-                    <span class="badge badge-light">3</span>
+                    <span class="badge badge-light">4</span>
                 </a>
             </form>
         </div>
@@ -45,6 +45,16 @@
         <h1 class="jumbotron-heading">TEMPLATE FOR HOMEPAGE</h1>
      </div>
 </section>
+
+<div class="row">
+{% for object in object_list %}
+    <div class="col-sm-3">
+        <p>{{object.name}}</p>
+        <p>Price: ${{ object.price }}</p>
+        <a href="{% url 'shopping_cart:add_to_cart' object.id %}" class="btn btn-dark">Add to Cart</a>
+    </div>
+{% endfor %}
+</div>
 
 <!-- Footer -->
 <footer class="text-dark">
