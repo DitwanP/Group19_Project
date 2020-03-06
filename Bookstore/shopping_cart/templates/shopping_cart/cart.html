@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
+  
 <head>
     <meta charset="UTF-8">
     <title> Bookbuy </title>
-
+  
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
-
+  
 <body>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <script src="/static/js/cart.js"></script>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <script src="/static/js/cart.js"></script>
+
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" href="#">G19 Bookstore </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,19 +36,20 @@
             <form class="form-inline my-2 my-lg-0">   
                 <a class="btn btn-success btn-sm ml-3" href="{%  url 'shopping_cart:cart' %}">
                     <i class="fa fa-shopping-cart"></i> Cart
-                    <span class="badge badge-light">3</span>
+                    <span class="badge badge-light">4</span>
                 </a>
             </form>
         </div>
     </div>
-</nav>
-<section class="jumbotron text-center">
+  </nav>
+
+  <section class="jumbotron text-center">
     <div class="container">
         <h1 class="jumbotron-heading">YOUR CART</h1>
      </div>
-</section>
+  </section>
 
-<div class="container mb-4">
+  <div class="container mb-4">
     <div class="row">
         <div class="col-12">
             <div class="table-responsive">
@@ -60,57 +62,62 @@
                             <th scope="col" class="text-right">Price</th>
                             <th> </th>
                         </tr>
-                    </thead>
-                    <tbody>
-
-                        {% for item in items %}
-                        <!-- Items -->
-                        <tr>
-                            <td>{{item.name}}</td>
-                            <td>{{item.availability}}</td>
-                            <td><input class="form-control" type="text" value={{item.quantity}} /></td>
-                            <td class="text-right">${{item.price}}</td>
-                            <td class="text-right"><button class="btn btn-sm btn-danger" id="deleteBtn" onclick="return confirm('Are you sure you want to remove this item?')"><i class="fa fa-trash"></i> Remove </button> </td>
-                        </tr>
-
+                        {% for item in order.get_cart_items %}
+                          <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>
+                              {{ item.product.name }}
+                              <span class="pull-right">
+                                <a href="{% url 'shopping_cart:delete_item' item.id %}" 
+                                data-balloon="remove this item from cart" class="text-danger" 
+                                onclick="return confirm_delete();">
+                                  <i class="fas fa-trash"></i>
+                                </a>
+                              </span>
+                            </td>
+                            <td>{{ item.product.price }}</td>
+                          </tr>
+                        {% empty %}
+                          <tr>
+                            <td colspan= 3> Your cart is empty. </td>
+                          </tr>
                         {% endfor %}
 
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Sub-Total</td>
-                            <td class="text-right">$ In-Progress </td>
+                          {% if order.get_cart_total != None %}
+                          <td colspan=2>
+                            <strong class="pull-right">Order Total:</strong>
+                          </td>
+                        
+                          <td colspan= 1>
+                            $<strong>{{ order.get_cart_total }}</strong>
+                          </td>
+
+                          {% endif %}
                         </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Shipping</td>
-                            <td class="text-right">$ 0.00</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><strong>Total</strong></td>
-                            <td class="text-right"><strong>$ In-Progress </strong></td>
-                        </tr>
-                    </tbody>
+                      <tr>
+                        <td colspan=1 >
+                          <a href="{% url 'homepage:the_homepage'  %}" class="btn btn-warning pull-left">
+                            {% if order %}Continue Shopping{% else %}Continue Shopping {% endif %}
+                          </a> 
+                        </td>
+                        <td colspan=2>
+                          {% if order.get_cart_items %}
+                            <a href="{% url 'shopping_cart:cart' %}" class="pull-right btn btn-primary">Proceed To Checkout</a>
+                          {% endif %}
+                        </td>
+                      </tr>
                 </table>
-            </div>
-        </div>
-        <div class="col mb-2">
-            <div class="row">
-                <div class="col-sm-12  col-md-6">
-                    <a class="btn btn-lg btn-block btn-dark text-uppercase" href="{% url 'homepage:the_homepage' %}">Continue Shopping</a>
-                </div>
-                <div class="col-sm-12 col-md-6 text-right">
-                    <button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>
-                </div>
-            </div>
-        </div>
+      
     </div>
-</div>
+  </section>
 </body>
-</html>
+
+
+{% block scripts %}
+  <script>
+  function confirm_delete(){
+    return confirm("Do you want to remove this item from cart?");
+  }
+  </script>
+{% endblock scripts %}
