@@ -27,6 +27,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('cart/', include('shopping_cart.urls', namespace='shopping_cart')),
     path('book/<int:pk>', views.bookDetailsView.as_view(), name='book-details'),
+    path('author/<int:pk>', views.bookAuthorsView.as_view(), name='book-author'),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
