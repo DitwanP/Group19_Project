@@ -17,7 +17,6 @@ class BookInfo(models.Model):
     genre = models.CharField(max_length=30)
     publisher = models.CharField(max_length=1000)
     price = models.DecimalField(max_digits=5, decimal_places=2)
-    averageRating = models.DecimalField(max_digits=3, decimal_places=2)
     authorName = models.ForeignKey(BookAuthor, on_delete=models.CASCADE)
     coverImage = models.ImageField(upload_to='images/')
 
