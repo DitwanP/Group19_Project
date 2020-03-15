@@ -23,11 +23,13 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('', include('home.urls')),
-    path('admin/', admin.site.urls),
-    path('accounts/', include('allauth.urls')),
-    path('cart/', include('shopping_cart.urls', namespace='shopping_cart')),
+    url(r'^admin/', admin.site.urls),
+    url(r'^cart/', include('shopping_cart.urls', namespace='shopping_cart')),
     url(r'^products/', include('products.urls', namespace='products')),
+    url(r'^profiles/', include('accounts.urls', namespace='accounts')),
+    url(r'^accounts/', include('allauth.urls'))
 ]
 
 if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

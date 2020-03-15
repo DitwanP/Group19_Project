@@ -42,11 +42,13 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'stripe',
 
-    'home',
-    'shopping_cart.apps.ShoppingCartConfig',
     'products',
-    'profile_management.apps.ProfileManagementConfig',
+    'accounts',
+    'home',
+    'shopping_cart',
+    'profile_management',
 
 ]
 
@@ -142,19 +144,26 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 # Stripe and Braintree Settings
 
-
+if DEBUG:
+    # test keys
+    STRIPE_PUBLISHABLE_KEY = ''
+    STRIPE_SECRET_KEY = ''
+    BT_ENVIRONMENT='sandbox'
+    BT_MERCHANT_ID='YOUR BT_MERCHANT_ID'
+    BT_PUBLIC_KEY='YOUR BT_PUBLIC_KEY'
+    BT_PRIVATE_KEY='YOUR BT_PRIVATE_KEY'
+else:
+    # live keys
+    STRIPE_PUBLISHABLE_KEY = 'YOUR STRIPE LIVE PUB KEY'
+    STRIPE_SECRET_KEY = 'YOUR STRIPE LIVE SECRET KEY'
 
 # Authentication 
 
 AUTHENTICATION_BACKENDS = (
-    
-    # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
-    # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
-    
+    'allauth.account.auth_backends.AuthenticationBackend',  
 )
 
 SITE_ID = 1
 
-LOGIN_REDIRECT_URL = '/home'
+LOGIN_REDIRECT_URL = '/products'

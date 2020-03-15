@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+    <meta charset="UTF-8">
+    <title> Bookbuy </title>
+  
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+</head>
+  
+<body>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">G19 Bookstore </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+            <ul class="navbar-nav m-auto">
+                <li class="nav-item m-auto">
+                    <a class="nav-link" href="{% url 'homepage:the_homepage' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Profile <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+
+            <form class="form-inline my-2 my-lg-0">   
+                <a class="btn btn-success btn-sm ml-3" href="{%  url 'shopping_cart:order_summary' %}">
+                    <i class="fa fa-shopping-cart"></i> Cart
+                    <span class="badge badge-light"></span>
+                </a>
+            </form>
+        </div>
+    </div>
+  </nav>
+
+  <section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">YOUR CART</h1>
+     </div>
+  </section>
+
+  <div class="container mb-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Book</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col" class="text-right">Price</th>
+                            <th scope="col"> </th>
+                            <th scope="col"> </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for book in books_for_order %}
+                          <tr>
+                            <td>{{ book.book.name }}</td>                    
+                            <td><input type="number" class="count" name="qty" value="1"></td>
+                            <td class="text-right" id="price">${{ book.book.price }}</td>
+                            <td class="text-right">
+                              <button class="btn btn-sm btn-dark"> 
+                                <a href="{% url 'shopping_cart:add_to_saved_from_cart' book.book_id %}" style="color:white">Save for later</a>
+                              </button>
+                            </td>
+                            <td>
+                              <button class="btn btn-sm btn-danger"> 
+                                <a href="{% url 'shopping_cart:delete_item' book.id %}" style="color:white"
+                                  onclick="return confirm_delete();">Remove 
+                                </a>
+                              </button>
+                            </td>
+                          </tr>
+                        {% empty %}
+                          <tr>
+                            <td colspan= 6> Your cart is empty. </td>
+                          </tr>
+                        {% endfor %}
+
+                        <tr>
+                          {% if user_order.get_cart_total != None %}
+                          <td colspan=1></td>
+                          <td colspan=1></td>
+                          <td  class="text-right"><strong>Order Total:</strong></td>
+                          <td>$<strong>{{ user_order.get_cart_total }}</strong></td>
+                          <td colspan=2></td>
+                          {% endif %}
+                        </tr>
+                        <tr>
+                          <td colspan=3>
+                            <a href="{% url 'homepage:the_homepage'  %}" class="btn-lg btn-warning pull-left">
+                              {% if user_order %}Continue Shopping{% else %}Continue Shopping {% endif %}
+                            </a> 
+                          </td>
+                          <td colspan=1 class="text-right">
+                            {% if user_order.get_cart_items %}
+                              <a href="{% url 'shopping_cart:checkout' %}" class="pull-right btn-lg btn-primary">Checkout</a>
+                            {% endif %}
+                          </td>
+                          <td colspan=2></td>
+                        </tr>
+                      </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="container mb-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped">  
+                  <thead>
+                    <tr>
+                        <th scope="col"></th> 
+                        <th scope="col"></th> 
+                        <th scope="col"></th> 
+                        <th scope="col">Saved for later</th>
+                        <th scope="col"></th> 
+                        <th scope="col"></th> 
+                        <th scope="col"></th> 
+                    </tr>
+                  </thead>            
+                  <thead>
+                    <tr>
+                        <th scope="col">Book</th>
+                        <th scope="col"></th> 
+                        <th scope="col"></th> 
+                        <th scope="col"></th> 
+                        <th scope="col" class="text-right">Price</th>
+                        <th scope="col"></th>   
+                        <th scope="col"></th> 
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for book in sbooks %}
+                      <tr>
+                        <td>{{ book.saved_book.name }}</td>
+                        <td></td> 
+                        <td></td>  
+                        <td></td>          
+                        <td class="text-right" id="price">${{ book.saved_book.price }}</td>
+                        <td class="text-right"><button class="btn btn-sm btn-success"> 
+                          <a href="{% url 'shopping_cart:add_to_cart_from_saved' book.saved_book.id %}" style="color:white">Add to cart</button>
+                          </a>
+                        </td>
+                        <td><button class="btn btn-sm btn-danger"> 
+                          <a href="{% url 'shopping_cart:delete_item_from_saved' book.id %}" style="color:white"
+                            onclick="return confirm_delete_saved();">Remove</button>
+                          </a>
+                        </td>
+                      </tr>
+                    {% empty %}
+                      <tr>
+                        <td colspan= 7> Your don't have any saved items. </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>
+
+</body>
+
+
+{% block scripts %}
+  <script>
+    function confirm_delete(){
+      return confirm("Are you sure you want to remove this item from cart?");
+    }
+
+    function confirm_save(){
+      return confirm("Are you sure you want to save this item for later?");
+    }  </script>
+{% endblock scripts %}

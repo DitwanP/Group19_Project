@@ -19,8 +19,9 @@ class Migration(migrations.Migration):
             name='Profile',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('ebooks', models.ManyToManyField(blank=True, to='products.books')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('stripe_id', models.CharField(blank=True, max_length=200, null=True)),
+                ('ebook', models.ManyToManyField(blank=True, related_name='ebooks', to='products.books')),
+                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='user2user', to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]
