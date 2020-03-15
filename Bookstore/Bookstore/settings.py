@@ -41,11 +41,16 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'stripe',
 
+    'products',
+    'accounts',
     'home',
     'shopping_cart',
+    'profile_management',
     'book_details',
-]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -83,8 +88,11 @@ WSGI_APPLICATION = 'Bookstore.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Bookstore',
+        'USER': 'postgres',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
     }
 }
 
@@ -126,19 +134,39 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+# Stripe and Braintree Settings
+
+if DEBUG:
+    # test keys
+    STRIPE_PUBLISHABLE_KEY = ''
+    STRIPE_SECRET_KEY = ''
+    BT_ENVIRONMENT='sandbox'
+    BT_MERCHANT_ID='YOUR BT_MERCHANT_ID'
+    BT_PUBLIC_KEY='YOUR BT_PUBLIC_KEY'
+    BT_PRIVATE_KEY='YOUR BT_PRIVATE_KEY'
+else:
+    # live keys
+    STRIPE_PUBLISHABLE_KEY = 'YOUR STRIPE LIVE PUB KEY'
+    STRIPE_SECRET_KEY = 'YOUR STRIPE LIVE SECRET KEY'
 
 SITE_ID = 1
 CART_SESSION_ID = 'cart'
 
 # Authentication 
 AUTHENTICATION_BACKENDS = (
-    
-    # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
-    # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
-    
+    'allauth.account.auth_backends.AuthenticationBackend',  
 )
+
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = '/products'
 
