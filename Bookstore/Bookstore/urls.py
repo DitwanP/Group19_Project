@@ -28,8 +28,10 @@ urlpatterns = [
     url(r'^products/', include('products.urls', namespace='products')),
     url(r'^profiles/', include('accounts.urls', namespace='accounts')),
     url(r'^accounts/', include('allauth.urls'))
+    path('book/<int:pk>', views.bookDetailsView.as_view(), name='book-details'),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

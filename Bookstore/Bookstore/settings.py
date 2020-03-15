@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -37,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+  
     'django.contrib.sites',
     'allauth',
     'allauth.account',
@@ -49,8 +48,9 @@ INSTALLED_APPS = [
     'home',
     'shopping_cart',
     'profile_management',
+    'book_details',
 
-]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -67,7 +67,7 @@ ROOT_URLCONF = 'Bookstore.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -157,8 +157,10 @@ else:
     STRIPE_PUBLISHABLE_KEY = 'YOUR STRIPE LIVE PUB KEY'
     STRIPE_SECRET_KEY = 'YOUR STRIPE LIVE SECRET KEY'
 
-# Authentication 
+SITE_ID = 1
+CART_SESSION_ID = 'cart'
 
+# Authentication 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',  
@@ -167,3 +169,4 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 1
 
 LOGIN_REDIRECT_URL = '/products'
+
