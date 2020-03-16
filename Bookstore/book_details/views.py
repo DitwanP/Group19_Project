@@ -27,9 +27,24 @@ class bookDetailsView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(bookDetailsView, self).get_context_data(**kwargs)
+        book = BookInfo.objects.get(pk=self.kwargs.get('pk'))
         context['book'] = BookInfo.objects.get(pk=self.kwargs.get('pk'))
-        context['author'] = BookAuthor.objects.get(pk=self.kwargs.get('pk'))
+        context['author'] = book.authorName
         return context
         
     def get_queryset(self):
         return BookInfo.objects.all()
+
+    
+class bookAuthorsView(generic.DetailView):
+    template_name= "book_author.html"
+
+    def get_context_data(self, **kwargs):
+        context=super(bookAuthorsView, self).get_context_data(**kwargs)
+        author = BookAuthor.objects.get(pk=self.kwargs.get('pk'))
+        context['author'] = BookAuthor.objects.get(pk=self.kwargs.get('pk'))
+        context['books'] = BookInfo.objects.filter(authorName__authorName=author.authorName)
+        return context
+    
+    def get_queryset(self):
+        return BookAuthor.objects.all()

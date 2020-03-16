@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--- <!DOCTYPE html>
 <html>
     <body>
         Title: {{ book.bookName }} <br>
@@ -12,4 +12,179 @@
         
 
     </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        #myImg {
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+        }
+
+        #myImg:hover {opacity: 0.7;}
+
+        .modal {
+        display: none; 
+        position: fixed; 
+        z-index: 1; 
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%; 
+        height: 100%; 
+        overflow: auto; 
+        background-color: rgb(0,0,0); 
+        background-color: rgba(0,0,0,0.9); 
+        }
+
+        .modal-content {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 400px;
+        }
+
+        .close {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        font-size: 60px;
+        font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+        cursor: pointer;
+        }
+    </style>
+    
+    <meta charset="UTF-8">
+    <title> {{book.bookName}} </title>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">G19 Bookstore </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+            <ul class="navbar-nav m-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'homepage:the_homepage' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Profile <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+
+            <form class="form-inline my-2 my-lg-0">   
+                <a class="btn btn-success btn-sm ml-3" href="{%  url 'shopping_cart:cart' %}">
+                    <i class="fa fa-shopping-cart"></i> Cart
+                    <span class="badge badge-light">3</span>
+                </a>
+            </form>
+        </div>
+    </div>
+</nav>
+<section class="jumbotron text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="text-center">
+                    <img id="myImg" img src="{{ book.coverImage.url }}" style="width:250px;height:400px;" class="rounded" alt="{{book.bookName}}">
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                      </div>
+                    </div>
+            </div>
+          <div class="col">
+            <h1 class="jumbotron-heading"><u>{{book.bookName}}</h1></u><br>
+            {{book.description}}<br>
+          </div>
+          <div class="col">
+            <font size="6">About The Author:<br> <a href="../author/{{author.pk}}">{{author.authorName}}</a></font><br>
+            {{author.authorBio}}
+          </div>
+          </div>
+     </div>
+     
+</section>
+
+<div class="container">
+    <div class="row">
+    <div class="col">
+        <font size="4"><center><br>
+        Genre: {{book.genre}} <br>
+        Publisher: {{book.publisher}}<br>
+        Rating: --- <br></center></font>
+      </div>
+      <div class="col">
+        <font size="6">
+            ${{book.price}}<br>
+            <button type="button" class="btn btn-primary btn-lg">Add to Cart</button>
+            <button type="button" class="btn btn-outline-primary btn-lg">Add to Wishlist</button>
+        </font>
+      </div>
+      </div>
+<br><br><br>
+
+
+<div class="jumbotron">
+    <h1 class="display-">User Reviews:</h1> <br><br><br><br>
+    <font size ="4">
+        No Current Reviews
+    </font>
+</div>
+
+
+<!-- Footer -->
+<footer class="text-dark">
+    <div class="container">
+        <div class="row">
+            </div>
+            <div class="col-12 copyright mt-3">
+                <p class="float-left">
+                    <a href="#">Back to top</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<script>
+    var modal = document.getElementById("myModal");
+
+    var img = document.getElementById("myImg");
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    img.onclick = function(){
+    modal.style.display = "block";
+    modalImg.src = this.src;
+    captionText.innerHTML = this.alt;
+    }
+
+    var span = document.getElementsByClassName("close")[0];
+
+    span.onclick = function() {
+    modal.style.display = "none";
+    }
+</script>
+</body>
+
+
 </html>
+

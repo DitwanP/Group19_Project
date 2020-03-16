@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^profiles/', include('accounts.urls', namespace='accounts')),
     url(r'^accounts/', include('allauth.urls')),
     path('book/<int:pk>', views.bookDetailsView.as_view(), name='book-details'),
+    path('author/<int:pk>', views.bookAuthorsView.as_view(), name='book-author'),
 ]
 
 if settings.DEBUG:
