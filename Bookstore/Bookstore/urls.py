@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^cart/', include('shopping_cart.urls', namespace='shopping_cart')),
     url(r'^products/', include('products.urls', namespace='products')),
     url(r'^profiles/', include('accounts.urls', namespace='accounts')),
-    url(r'^accounts/', include('allauth.urls'))
+    url(r'^accounts/', include('allauth.urls')),
     path('book/<int:pk>', views.bookDetailsView.as_view(), name='book-details'),
 ]
 

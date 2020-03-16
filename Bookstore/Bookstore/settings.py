@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'shopping_cart',
     'profile_management',
     'book_details',
+]
 
 
 
