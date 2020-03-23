@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from .models import BookInfo
 from .models import BookAuthor
 from django.views import generic
+
+from products.models import books
 # Create your views here.
 #def bookView(request):
     #book = BookInfo.objects.get(bookName = 'Criss Cross')

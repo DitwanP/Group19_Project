@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 
+from accounts.models import Profile
+from products.models import books
 # Create your models here.
 
 class BookAuthor(models.Model):
