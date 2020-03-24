@@ -1,0 +1,147 @@
+<header>
+    <!-- header-top-area-start -->
+    <div class="header-top-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-12">
+
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <div class="account-area text-right">
+                        <ul>
+                            <li><a href="{% url 'book_browsing:account' %}">My Account</a></li>
+                            <li><a href="{% url 'book_browsing:checkout' %}">Checkout</a></li>
+                            <li><a href="{% url 'book_browsing:login' %}">Sign in</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- header-top-area-end -->
+
+    <!-- header-mid-area-start -->
+    <div class="header-mid-area ptb-40">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-5 col-12">
+                    <div class="header-search">
+                        <form action="search.html">
+                            <input type="text" placeholder="Search entire store here...">
+                            <button type="submit" class="search-btn"><i class='fa fa-search'></i></button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-4 col-12">
+                    <div class="logo-area text-center logo-xs-mrg">
+                        <h3>Group 19 Online Book Store</h3>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-12">
+                    <div class="my-cart">
+                        <ul>
+                            <li><a href="javascript:void(0)"><i class="fa fa-shopping-cart"></i>My Cart</a>
+                                <span>2</span>
+                                <div class="mini-cart-sub">
+                                    <div class="cart-product">
+                                        <div class="single-cart">
+                                            <div class="cart-img">
+                                                <a href="javascript:void(0)"><img src="/static/images/1(1).jpg" alt="book"></a>
+                                            </div>
+                                            <div class="cart-info">
+                                                <h5><a href="javascript:void(0)">Joust Duffle Bag</a></h5>
+                                                <p>1 x $60.00</p>
+                                            </div>
+                                            <div class="cart-icon">
+                                                <a href="javascript:void(0)"><i class="fa fa-remove"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="single-cart">
+                                            <div class="cart-img">
+                                                <a href="javascript:void(0)"><img src="/static/images/3(1).jpg" alt="book"></a>
+                                            </div>
+                                            <div class="cart-info">
+                                                <h5><a href="javascript:void(0)">Chaz Kangeroo Hoodie</a></h5>
+                                                <p>1 x $52.00</p>
+                                            </div>
+                                            <div class="cart-icon">
+                                                <a href="javascript:void(0)"><i class="fa fa-remove"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cart-totals">
+                                        <h5>Total <span>$12.00</span></h5>
+                                    </div>
+                                    <div class="cart-bottom">
+                                        <a class="view-cart" href="{% url 'book_browsing:cart' %}">view cart</a>
+                                        <a href="{% url 'book_browsing:checkout' %}">Check out</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- header-mid-area-end -->
+
+    <!-- main-menu-area-start -->
+    <div class="main-menu-area d-md-none d-none d-lg-block sticky-header-1" id="header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="menu-area">
+                        <nav>
+                            <ul>
+                                <li class="active"><a href="{% url 'book_browsing:home' %}">Home<i class="fa fa-angle-down"></i></a>
+                                    <div class="sub-menu">
+                                        <ul>
+                                            <li><a href="{% url 'book_browsing:about' %}">About Us</a></li>
+                                            <li><a href="{% url 'book_browsing:contact' %}">Contact Us</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li><a href="{% url 'book_browsing:book' %}">Book</a></li>
+                                <li><a href="javascript:void(0)" class="book-list" id="book" data-target="productBook">Audio books</a></li>
+                                <li><a href="javascript:void(0)" class="book-list" data-target="productBook">Children’s books</a></li>
+                                <li><a href="{% url 'book_browsing:blog' %}">Blog</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="safe-area">
+                        <a href="{% url 'book_browsing:sales-off' %}">sales off</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- main-menu-area-end -->
+
+    <!-- mobile-menu-area-start -->
+    <div class="mobile-menu-area d-lg-none d-block fix">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="mobile-menu">
+                        <nav id="mobile-menu-active" style="display: block;">
+                            <ul id="nav">
+                                <li><a href="{% url 'book_browsing:home' %}">Home</a>
+                                    <ul>
+                                        <li><a href="{% url 'book_browsing:about' %}">About Us</a></li>
+                                        <li><a href="{% url 'book_browsing:contact' %}">Contact Us</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="{% url 'book_browsing:book' %}">Book</a></li>
+                                <li><a href="javascript:void(0)" class="book-list" id="book" data-target="productBook">Audio books</a></li>
+                                <li><a href="javascript:void(0)" class="book-list" data-target="productBook">children’s books</a></li>
+                                <li><a href="{% url 'book_browsing:blog' %}">blog</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- mobile-menu-area-end -->
+</header>

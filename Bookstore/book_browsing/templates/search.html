@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<!-- saved from url=(0063)# -->
+<html class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" lang="en" style="">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Book Store – Book Shop</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="./resources/images/favicon.png">
+
+    <!-- all css here -->
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="./resources/css/bootstrap.min.css">
+    <!-- animate css -->
+    <link rel="stylesheet" href="./resources/css/animate.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="./resources/css/meanmenu.min.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="./resources/css/owl.carousel.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="./resources/css/font-awesome.min.css">
+    <!-- flexslider.css-->
+    <link rel="stylesheet" href="./resources/css/flexslider.css">
+    <!-- chosen.min.css-->
+    <link rel="stylesheet" href="./resources/css/chosen.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="./resources/css/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="./resources/css/responsive.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- header-area-start -->
+<header>
+    <!-- header-top-area-start -->
+    <div class="header-top-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-12">
+
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <div class="account-area text-right">
+                        <ul>
+                            <li><a href="account.html">My Account</a></li>
+                            <li><a href="javascript:void(0)">Checkout</a></li>
+                            <li><a href="login.html">Sign in</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- header-top-area-end -->
+    <!-- header-mid-area-start -->
+    <div class="header-mid-area ptb-40">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-5 col-12">
+                    <div class="header-search">
+                        <form action="javascript:void(0)">
+                            <input type="text" placeholder="Search entire store here...">
+                            <a href="javascript:void(0)"><i class="fa fa-search"></i></a>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-4 col-12">
+                    <div class="logo-area text-center logo-xs-mrg">
+                        <!--                        <a href="javascript:void(0)"><img src="./resources/images/logo.png" alt="logo"></a>-->
+                        <h3>Group 19 Online Book Store</h3>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-12">
+                    <div class="my-cart">
+                        <ul>
+                            <li><a href="javascript:void(0)"><i class="fa fa-shopping-cart"></i>My Cart</a>
+                                <span>2</span>
+                                <div class="mini-cart-sub">
+                                    <div class="cart-product">
+                                        <div class="single-cart">
+                                            <div class="cart-img">
+                                                <a href="javascript:void(0)"><img src="./resources/images/1(1).jpg" alt="book"></a>
+                                            </div>
+                                            <div class="cart-info">
+                                                <h5><a href="javascript:void(0)">Joust Duffle Bag</a></h5>
+                                                <p>1 x $60.00</p>
+                                            </div>
+                                            <div class="cart-icon">
+                                                <a href="javascript:void(0)"><i class="fa fa-remove"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="single-cart">
+                                            <div class="cart-img">
+                                                <a href="javascript:void(0)"><img src="./resources/images/3(1).jpg" alt="book"></a>
+                                            </div>
+                                            <div class="cart-info">
+                                                <h5><a href="javascript:void(0)">Chaz Kangeroo Hoodie</a></h5>
+                                                <p>1 x $52.00</p>
+                                            </div>
+                                            <div class="cart-icon">
+                                                <a href="javascript:void(0)"><i class="fa fa-remove"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cart-totals">
+                                        <h5>Total <span>$12.00</span></h5>
+                                    </div>
+                                    <div class="cart-bottom">
+                                        <a class="view-cart" href="javascript:void(0)">view cart</a>
+                                        <a href="javascript:void(0)">Check out</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- header-mid-area-end -->
+    <!-- main-menu-area-start -->
+    <div class="main-menu-area d-md-none d-none d-lg-block sticky-header-1" id="header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="menu-area">
+                        <nav>
+                            <ul>
+                                <li class="active"><a href="javascript:void(0)">Home<i class="fa fa-angle-down"></i></a>
+                                    <div class="sub-menu">
+                                        <ul>
+                                            <li><a href="javascript:void(0)">Home-1</a></li>
+                                            <li><a href="javascript:void(0)">Home-2</a></li>
+                                            <li><a href="javascript:void(0)">Home-3</a></li>
+                                            <li><a href="javascript:void(0)">Home-4</a></li>
+                                            <li><a href="javascript:void(0)">Home-5</a></li>
+                                            <li><a href="javascript:void(0)">Home-6</a></li>
+                                            <li><a href="javascript:void(0)">Home-7</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li><a href="javascript:void(0)">Book</a></li>
+                                <li><a href="javascript:void(0)">Audio books</a></li>
+                                <li><a href="javascript:void(0)">children’s books</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="safe-area">
+                        <a href="javascript:void(0)">sales off</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- main-menu-area-end -->
+    <!-- mobile-menu-area-start -->
+    <div class="mobile-menu-area d-lg-none d-block fix">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="mobile-menu">
+                        <nav id="mobile-menu-active" style="display: block;">
+                            <ul id="nav">
+                                <li><a href="javascript:void(0)">Home</a>
+                                    <ul>
+                                        <li><a href="javascript:void(0)">Home-1</a></li>
+                                        <li><a href="javascript:void(0)">Home-2</a></li>
+                                        <li><a href="javascript:void(0)">Home-3</a></li>
+                                        <li><a href="javascript:void(0)">Home-4</a></li>
+                                        <li><a href="javascript:void(0)">Home-5</a></li>
+                                        <li><a href="javascript:void(0)">Home-6</a></li>
+                                        <li><a href="javascript:void(0)">Home-7</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="javascript:void(0)">Book</a>
+                                    <ul>
+                                        <li><a href="javascript:void(0)">Tops &amp; Tees</a></li>
+                                        <li><a href="javascript:void(0)">Polo Short Sleeve</a></li>
+                                        <li><a href="javascript:void(0)">Graphic T-Shirts</a></li>
+                                        <li><a href="javascript:void(0)">Jackets &amp; Coats</a></li>
+                                        <li><a href="javascript:void(0)">Fashion Jackets</a></li>
+                                        <li><a href="javascript:void(0)">Crochet</a></li>
+                                        <li><a href="javascript:void(0)">Sleeveless</a></li>
+                                        <li><a href="javascript:void(0)">Stripes</a></li>
+                                        <li><a href="javascript:void(0)">Sweaters</a></li>
+                                        <li><a href="javascript:void(0)">hoodies</a></li>
+                                        <li><a href="javascript:void(0)">Heeled sandals</a></li>
+                                        <li><a href="javascript:void(0)">Polo Short Sleeve</a></li>
+                                        <li><a href="javascript:void(0)">Flat sandals</a></li>
+                                        <li><a href="javascript:void(0)">Short Sleeve</a></li>
+                                        <li><a href="javascript:void(0)">Long Sleeve</a></li>
+                                        <li><a href="javascript:void(0)">Polo Short Sleeve</a></li>
+                                        <li><a href="javascript:void(0)">Sleeveless</a></li>
+                                        <li><a href="javascript:void(0)">Graphic T-Shirts</a></li>
+                                        <li><a href="javascript:void(0)">Hoodies</a></li>
+                                        <li><a href="javascript:void(0)">Jackets</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="javascript:void(0)">Audio books</a>
+                                    <ul>
+                                        <li><a href="javascript:void(0)">Tops &amp; Tees</a></li>
+                                        <li><a href="javascript:void(0)">Sweaters</a></li>
+                                        <li><a href="javascript:void(0)">Hoodies</a></li>
+                                        <li><a href="javascript:void(0)">Jackets &amp; Coats</a></li>
+                                        <li><a href="javascript:void(0)">Long Sleeve</a></li>
+                                        <li><a href="javascript:void(0)">Short Sleeve</a></li>
+                                        <li><a href="javascript:void(0)">Polo Short Sleeve</a></li>
+                                        <li><a href="javascript:void(0)">Sleeveless</a></li>
+                                        <li><a href="javascript:void(0)">Sweaters</a></li>
+                                        <li><a href="javascript:void(0)">Hoodies</a></li>
+                                        <li><a href="javascript:void(0)">Wedges</a></li>
+                                        <li><a href="javascript:void(0)">Vests</a></li>
+                                        <li><a href="javascript:void(0)">Polo Short Sleeve</a></li>
+                                        <li><a href="javascript:void(0)">Sleeveless</a></li>
+                                        <li><a href="javascript:void(0)">Graphic T-Shirts</a></li>
+                                        <li><a href="javascript:void(0)">Hoodies</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="javascript:void(0)">children’s books</a>
+                                    <ul>
+                                        <li><a href="javascript:void(0)">Shirts</a></li>
+                                        <li><a href="javascript:void(0)">Florals</a></li>
+                                        <li><a href="javascript:void(0)">Crochet</a></li>
+                                        <li><a href="javascript:void(0)">Stripes</a></li>
+                                        <li><a href="javascript:void(0)">Shorts</a></li>
+                                        <li><a href="javascript:void(0)">Dresses</a></li>
+                                        <li><a href="javascript:void(0)">Trousers</a></li>
+                                        <li><a href="javascript:void(0)">Jeans</a></li>
+                                        <li><a href="javascript:void(0)">Heeled sandals</a></li>
+                                        <li><a href="javascript:void(0)">Flat sandals</a></li>
+                                        <li><a href="javascript:void(0)">Wedges</a></li>
+                                        <li><a href="javascript:void(0)">Ankle boots</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="javascript:void(0)">blog</a>
+                                    <ul>
+                                        <li><a href="javascript:void(0)">Blog</a></li>
+                                        <li><a href="javascript:void(0)">blog-details</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="javascript:void(0)">Page</a>
+                                    <ul>
+                                        <li><a href="javascript:void(0)">shop</a></li>
+                                        <li><a href="shop-list.html">shop list view</a></li>
+                                        <li><a href="javascript:void(0)">product-details</a></li>
+                                        <li><a href="product-details-affiliate.html">product-affiliate</a></li>
+                                        <li><a href="javascript:void(0)">blog</a></li>
+                                        <li><a href="javascript:void(0)">blog-details</a></li>
+                                        <li><a href="contact.html">contact</a></li>
+                                        <li><a href="book.html">about</a></li>
+                                        <li><a href="login.html">login</a></li>
+                                        <li><a href="register.html">register</a></li>
+                                        <li><a href="my-account.html">my-account</a></li>
+                                        <li><a href="cart.html">cart</a></li>
+                                        <li><a href="compare.html">compare</a></li>
+                                        <li><a href="checkout.html">checkout</a></li>
+                                        <li><a href="wishlist.html">wishlist</a></li>
+                                        <li><a href="404.html">404 Page</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- mobile-menu-area-end -->
+</header>
+<div class="breadcrumbs-area mb-70">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumbs-menu">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="product-wrapper">
+        <div class="product-img">
+            <a href="javascript:void(0)">
+                <img src="./resources/images/3(1).jpg" alt="book" class="primary">
+            </a>
+            <div class="quick-view">
+                <a class="action-view" href="javascript:void(0)" data-target="#productModal" data-toggle="modal" title="Quick View">
+                    <i class="fa fa-search-plus"></i>
+                </a>
+            </div>
+            <div class="product-flag">
+                <ul>
+                    <li><span class="sale">new</span> <br></li>
+                </ul>
+            </div>
+        </div>
+        <div class="product-details text-center">
+            <div class="product-rating">
+                <ul>
+                    <li><a href="javascript:void(0)"><i class="fa fa-star"></i></a></li>
+                    <li><a href="javascript:void(0)"><i class="fa fa-star"></i></a></li>
+                    <li><a href="javascript:void(0)"><i class="fa fa-star"></i></a></li>
+                    <li><a href="javascript:void(0)"><i class="fa fa-star"></i></a></li>
+                    <li><a href="javascript:void(0)"><i class="fa fa-star"></i></a></li>
+                </ul>
+            </div>
+            <h4><a href="javascript:void(0)">Chaz Kangeroo Hoodie</a></h4>
+            <div class="product-price">
+                <ul>
+                    <li>$52.00</li>
+                </ul>
+            </div>
+        </div>
+        <div class="product-link">
+            <div class="product-button">
+                <a href="javascript:void(0)" title="Add to cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+            </div>
+            <div class="add-to-link">
+                <ul>
+                    <li><a href="product-details.html" title="Details"><i class="fa fa-external-link"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- footer-area-start -->
+<footer>
+    <!-- footer-top-start -->
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer-top-menu bb-2">
+                        <nav>
+                            <ul>
+                                <li><a href="javascript:void(0)">home</a></li>
+                                <li><a href="javascript:void(0)">Enable Cookies</a></li>
+                                <li><a href="javascript:void(0)">Privacy and Cookie Policy</a></li>
+                                <li><a href="javascript:void(0)">contact us</a></li>
+                                <li><a href="javascript:void(0)">blog</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- footer-top-start -->
+    <!-- footer-mid-start -->
+    <div class="footer-mid ptb-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-12">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-12">
+                            <div class="single-footer br-2 xs-mb">
+                                <div class="footer-title mb-20">
+                                    <h3>Products</h3>
+                                </div>
+                                <div class="footer-mid-menu">
+                                    <ul>
+                                        <li><a href="book.html">About us</a></li>
+                                        <li><a href="javascript:void(0)">Prices drop </a></li>
+                                        <li><a href="javascript:void(0)">New products</a></li>
+                                        <li><a href="javascript:void(0)">Best sales</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-12">
+                            <div class="single-footer br-2 xs-mb">
+                                <div class="footer-title mb-20">
+                                    <h3>Our company</h3>
+                                </div>
+                                <div class="footer-mid-menu">
+                                    <ul>
+                                        <li><a href="contact.html">Contact us</a></li>
+                                        <li><a href="javascript:void(0)">Sitemap</a></li>
+                                        <li><a href="javascript:void(0)">Stores</a></li>
+                                        <li><a href="register.html">My account </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-12">
+                            <div class="single-footer br-2 xs-mb">
+                                <div class="footer-title mb-20">
+                                    <h3>Your account</h3>
+                                </div>
+                                <div class="footer-mid-menu">
+                                    <ul>
+                                        <li><a href="contact.html">Addresses</a></li>
+                                        <li><a href="javascript:void(0)">Credit slips </a></li>
+                                        <li><a href="javascript:void(0)"> Orders</a></li>
+                                        <li><a href="javascript:void(0)">Personal info</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="single-footer mrg-sm">
+                        <div class="footer-title mb-20">
+                            <h3>STORE INFORMATION</h3>
+                        </div>
+                        <div class="footer-contact">
+                            <p class="adress">
+                                <span>My Company</span>
+                                33351, Florida, USA.
+                            </p>
+                            <p><span>Call us now:</span> (+1)347-972-0000</p>
+                            <p><span>Email:</span> support@group19.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- footer-mid-end -->
+    <!-- footer-bottom-start -->
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="row bt-2">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <div class="copy-right-area">
+                        <p>Copyright ©<a href="javascript:void(0)">Group 19 Online Book Store</a>. All Right Reserved.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <div class="payment-img text-right">
+                        <a href="javascript:void(0)"><img src="./resources/images/1(3).png" alt="payment"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- footer-bottom-end -->
+</footer>
+<!-- footer-area-end -->
+<!-- Modal -->
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-5 col-sm-5 col-xs-12">
+                        <div class="modal-tab">
+                            <div class="product-details-large tab-content">
+                                <div class="tab-pane active" id="image-1">
+                                    <img src="./resources/images/quickview-l4.jpg" alt="">
+                                </div>
+                                <div class="tab-pane" id="image-2">
+                                    <img src="./resources/images/quickview-l2.jpg" alt="">
+                                </div>
+                                <div class="tab-pane" id="image-3">
+                                    <img src="./resources/images/quickview-l3.jpg" alt="">
+                                </div>
+                                <div class="tab-pane" id="image-4">
+                                    <img src="./resources/images/quickview-l5.jpg" alt="">
+                                </div>
+                            </div>
+                            <div class="product-details-small quickview-active owl-carousel owl-loaded owl-drag">
+
+
+                                <div class="owl-stage-outer">
+                                    <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s;">
+                                        <div class="owl-item"><a class="active" href="#image-1"><img src="./resources/images/quickview-s4.jpg" alt=""></a></div>
+                                        <div class="owl-item"><a href="#image-2"><img src="./resources/images/quickview-s2.jpg" alt=""></a></div>
+                                        <div class="owl-item"><a href="#image-3"><img src="./resources/images/quickview-s3.jpg" alt=""></a></div>
+                                        <div class="owl-item"><a href="#image-4"><img src="./resources/images/quickview-s5.jpg" alt=""></a></div>
+                                    </div>
+                                </div>
+                                <div class="owl-nav">
+                                    <button type="button" role="presentation" class="owl-prev"><i class="fa fa-angle-left"></i></button>
+                                    <button type="button" role="presentation" class="owl-next"><i class="fa fa-angle-right"></i></button>
+                                </div>
+                                <div class="owl-dots">
+                                    <button role="button" class="owl-dot active"><span></span></button>
+                                    <button role="button" class="owl-dot"><span></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-sm-7 col-xs-12">
+                        <div class="modal-pro-content">
+                            <h3>Chaz Kangeroo Hoodie3</h3>
+                            <div class="price">
+                                <span>$70.00</span>
+                            </div>
+                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet.</p>
+                            <div class="quick-view-select">
+                                <div class="select-option-part">
+                                    <label>Size*</label>
+                                    <select class="select">
+                                        <option value="">S</option>
+                                        <option value="">M</option>
+                                        <option value="">L</option>
+                                    </select>
+                                </div>
+                                <div class="quickview-color-wrap">
+                                    <label>Color*</label>
+                                    <div class="quickview-color">
+                                        <ul>
+                                            <li class="blue">b</li>
+                                            <li class="red">r</li>
+                                            <li class="pink">p</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <form action="javascript:void(0)">
+                                <input type="number" value="1">
+                                <button>Add to cart</button>
+                            </form>
+                            <span><i class="fa fa-check"></i> In stock</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal end -->
+
+
+<!-- all js here -->
+<!-- jquery latest version -->
+<script src="./resources/js/jquery-1.12.0.min.js"></script>
+<script src="./resources/js/modernizr-2.8.3.min.js"></script>
+<!-- popper js -->
+<script src="./resources/js/popper.min.js"></script>
+<!-- bootstrap js -->
+<script src="./resources/js/bootstrap.min.js"></script>
+<!-- owl.carousel js -->
+<script src="./resources/js/owl.carousel.min.js"></script>
+<!-- meanmenu js -->
+<script src="./resources/js/jquery.meanmenu.js"></script>
+<!-- wow js -->
+<script src="./resources/js/wow.min.js"></script>
+<!-- jquery.parallax-1.1.3.js -->
+<script src="./resources/js/jquery.parallax-1.1.3.js"></script>
+<!-- jquery.countdown.min.js -->
+<script src="./resources/js/jquery.countdown.min.js"></script>
+<!-- jquery.flexslider.js -->
+<script src="./resources/js/jquery.flexslider.js"></script>
+<!-- chosen.jquery.min.js -->
+<script src="./resources/js/chosen.jquery.min.js"></script>
+<!-- jquery.counterup.min.js -->
+<script src="./resources/js/jquery.counterup.min.js"></script>
+<!-- waypoints.min.js -->
+<script src="./resources/js/waypoints.min.js"></script>
+<!-- plugins js -->
+<script src="./resources/js/plugins.js"></script>
+<!-- main js -->
+<script src="./resources/js/main.js"></script>
+
+</body>
+</html>

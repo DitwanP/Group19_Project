@@ -26,7 +26,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -36,21 +35,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-  
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'stripe',
-
     'products',
+    'stripe',
     'accounts',
     'home',
     'shopping_cart',
     'profile_management',
     'book_details',
-
-
+    'book_browsing'
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -82,7 +79,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Bookstore.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -95,7 +91,6 @@ DATABASES = {
         'HOST': 'localhost',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -115,7 +110,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -129,7 +123,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
@@ -140,7 +133,7 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Stripe and Braintree Settings
 
@@ -148,10 +141,10 @@ if DEBUG:
     # test keys
     STRIPE_PUBLISHABLE_KEY = ''
     STRIPE_SECRET_KEY = ''
-    BT_ENVIRONMENT='sandbox'
-    BT_MERCHANT_ID='YOUR BT_MERCHANT_ID'
-    BT_PUBLIC_KEY='YOUR BT_PUBLIC_KEY'
-    BT_PRIVATE_KEY='YOUR BT_PRIVATE_KEY'
+    BT_ENVIRONMENT = 'sandbox'
+    BT_MERCHANT_ID = 'YOUR BT_MERCHANT_ID'
+    BT_PUBLIC_KEY = 'YOUR BT_PUBLIC_KEY'
+    BT_PRIVATE_KEY = 'YOUR BT_PRIVATE_KEY'
 else:
     # live keys
     STRIPE_PUBLISHABLE_KEY = 'YOUR STRIPE LIVE PUB KEY'
@@ -163,10 +156,9 @@ CART_SESSION_ID = 'cart'
 # Authentication 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',  
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 SITE_ID = 1
 
 LOGIN_REDIRECT_URL = '/products'
-
