@@ -65,3 +65,8 @@ def newBook(request):
 def cart(request):
     template = 'cart.html',
     return render(request, template)
+
+
+def search(request):
+    template = 'search.html',
+    return render(request, template)

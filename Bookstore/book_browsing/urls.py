@@ -18,5 +18,6 @@ urlpatterns = [
     path('blog-details/', views.blogDetails, name='blog-details'),
     path('order/', views.order, name='order'),
     path('new-book/', views.newBook, name='new-book'),
-    path('cart/', views.cart, name='cart')
+    path('cart/', views.cart, name='cart'),
+    path('search/', views.search, name='search')
 ]
