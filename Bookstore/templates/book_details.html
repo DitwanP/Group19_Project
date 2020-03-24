@@ -54,6 +54,7 @@
 </head>
 <body>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    {{ message }}
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" href="#">G19 Bookstore </a>
@@ -75,9 +76,9 @@
             </ul>
 
             <form class="form-inline my-2 my-lg-0">   
-                <a class="btn btn-success btn-sm ml-3" href="{%  url 'shopping_cart:cart' %}">
+                <a class="btn btn-success btn-sm ml-3" href="{%  url 'shopping_cart:order_summary' %}">
                     <i class="fa fa-shopping-cart"></i> Cart
-                    <span class="badge badge-light">3</span>
+                    <span class="badge badge-light"></span>
                 </a>
             </form>
         </div>
@@ -97,7 +98,7 @@
                     </div>
             </div>
           <div class="col">
-            <h1 class="jumbotron-heading"><u>{{book.bookName}}</h1></u><br>
+            <h1 class="jumbotron-heading"><u>{{book.name}}</h1></u><br>
             {{book.description}}<br>
           </div>
           <div class="col">
@@ -120,8 +121,12 @@
       <div class="col">
         <font size="6">
             ${{book.price}}<br>
-            <button type="button" class="btn btn-primary btn-lg">Add to Cart</button>
-            <button type="button" class="btn btn-outline-primary btn-lg">Add to Wishlist</button>
+            <button type="button" class="btn btn-primary btn-lg">
+                <a href="{% url 'shopping_cart:add_to_cart_from_detail' object.id %}" style="color: white;">Add to Cart</a>
+            </button>
+            <button type="button" class="btn btn-outline-primary btn-lg">
+                <a href="{% url 'shopping_cart:add_to_saved_from_detail' object.id %}">Save for later</a>
+            </button>
         </font>
       </div>
       </div>

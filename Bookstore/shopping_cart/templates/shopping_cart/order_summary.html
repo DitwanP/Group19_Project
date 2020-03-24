@@ -64,7 +64,7 @@
                       <tbody>
                         {% for book in books_for_order %}
                           <tr>
-                            <td>{{ book.book.name }}</td>                    
+                            <td>'{{ book.book.name }}'</td>                    
                             <td><input type="number" class="count" name="qty" value="1"></td>
                             <td class="text-right" id="price">${{ book.book.price }}</td>
                             <td class="text-right">
@@ -145,7 +145,7 @@
                   <tbody>
                     {% for book in sbooks %}
                       <tr>
-                        <td>{{ book.saved_book.name }}</td>
+                        <td>'{{ book.saved_book.name }}'</td>
                         <td></td> 
                         <td></td>  
                         <td></td>          
