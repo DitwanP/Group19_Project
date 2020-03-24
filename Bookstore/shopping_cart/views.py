@@ -56,7 +56,7 @@ def add_to_cart(request, **kwargs):
     context = {'user_order': user_order, 'books_for_order': books_for_order, 'sbooks': sbooks}
 
     # show confirmation message and redirect back to the same page
-    messages.info(request, "Item has bee added to cart")
+    messages.info(request, "Item has been added to cart")
     return redirect(reverse('products:product-list'))
 
 @login_required()
@@ -68,7 +68,6 @@ def add_to_cart_from_detail(request, **kwargs):
     book = books.objects.filter(id=kwargs.get('item_id', "")).first()
 
     book_id = kwargs.get('item_id', "")
-    print(book_id)
 
     # check if the user already owns this book
     if book in request.user.profile.ebooks.all():
@@ -92,7 +91,7 @@ def add_to_cart_from_detail(request, **kwargs):
     context = {'user_order': user_order, 'books_for_order': books_for_order, 'sbooks': sbooks}
 
     # show confirmation message and redirect back to the same page
-    messages.info(request, "Item has bee added to cart")
+    messages.info(request, "Item has been added to cart")
     return redirect(reverse('book_details', args=book_id))
 
 @login_required()
@@ -119,6 +118,7 @@ def add_to_cart_from_saved(request, **kwargs):
 
     context = {'user_order': user_order, 'books_for_order': books_for_order, 'sbooks': sbooks}
 
+    messages.info(request, "Item has been added to cart")
     return render(request,'shopping_cart/order_summary.html', context)
 
 @login_required()
@@ -208,6 +208,7 @@ def add_to_saved_from_cart(request, **kwargs):
         user_save.save()
 
     context = {'sbooks': sbooks, 'books_for_order': books_for_order, 'user_order': user_order}
+    messages.info(request, "Item added to saved for later.")
     return render(request,'shopping_cart/order_summary.html', context)
 
 @login_required()
@@ -251,6 +252,7 @@ def delete_from_cart(request, item_id):
     books_for_order = OrderItem.objects.all()
 
     context = {'sbooks': sbooks, 'books_for_order': books_for_order, 'user_order': user_order}
+    messages.info(request, "Item has been removed from cart.")
     return render(request,'shopping_cart/order_summary.html', context)
 
 @login_required()
@@ -268,6 +270,7 @@ def delete_from_saved(request, item_id):
     books_for_order = OrderItem.objects.all()
 
     context = {'sbooks': sbooks, 'books_for_order': books_for_order, 'user_order': user_order}
+    messages.info(request, "Item has been removed from cart.")
     return render(request,'shopping_cart/order_summary.html', context)
 
 @login_required()
