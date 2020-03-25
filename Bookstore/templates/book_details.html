@@ -90,7 +90,7 @@
         <div class="row">
             <div class="col">
                 <div class="text-center">
-                    <img id="myImg" img src="{{ book.coverImage.url }}" style="width:250px;height:400px;" class="rounded" alt="{{book.bookName}}">
+                    <img id="myImg" img src="{{ book.coverImage.url }}" style="width:250px;height:400px;" class="rounded" alt="{{book.name}}">
                     <div id="myModal" class="modal">
                         <span class="close">&times;</span>
                         <img class="modal-content" id="img01">
@@ -103,8 +103,8 @@
             {{book.description}}<br>
           </div>
           <div class="col">
-            <font size="6">About The Author:<br> <a href="../author/{{author.pk}}">{{book.author}}</a></font><br>
-            {{author.authorBio}}
+            <font size="6">About The Author:<br> <a href="../author/{{book.authorInfo.pk}}">{{book.author}}</a></font><br>
+            {{book.authorInfo.authorBio}}
           </div>
           </div>
      </div>

@@ -4,7 +4,7 @@ from .models import BookInfo
 from .models import BookAuthor
 from django.views import generic
 
-from products.models import books
+from products.models import *
 # Create your views here.
 #def bookView(request):
     #book = BookInfo.objects.get(bookName = 'Criss Cross')
@@ -43,9 +43,9 @@ class bookAuthorsView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context=super(bookAuthorsView, self).get_context_data(**kwargs)
-        author = books.objects.get(pk=self.kwargs.get('pk'))
-        context['author'] = books.objects.filter(authorName__authorName=books.author)
-        context['books'] = BookInfo.objects.filter(authorName__authorName=author.authorName)
+        author = authors.objects.get(pk=self.kwargs.get('pk'))
+        context['author'] = author
+        context['books'] = books.objects.filter(author=author.authorName)
         return context
     
     def get_queryset(self):
