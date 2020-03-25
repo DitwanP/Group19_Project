@@ -44,7 +44,7 @@ class bookAuthorsView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context=super(bookAuthorsView, self).get_context_data(**kwargs)
         author = books.objects.get(pk=self.kwargs.get('pk'))
-        context['author'] = BookAuthor.objects.get(pk=self.kwargs.get('pk'))
+        context['author'] = books.objects.filter(authorName__authorName=books.author)
         context['books'] = BookInfo.objects.filter(authorName__authorName=author.authorName)
         return context
     
