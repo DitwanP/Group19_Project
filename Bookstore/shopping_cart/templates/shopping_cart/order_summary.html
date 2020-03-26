@@ -2,15 +2,61 @@
 <html lang="en">
   
 <head>
-    <meta charset="UTF-8">
-    <title> Bookbuy </title>
-  
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <style>
+    #myImg {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    }
+
+    #myImg:hover {opacity: 0.7;}
+
+    .modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.9); 
+    }
+
+    .modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 400px;
+    }
+
+    .close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    font-size: 60px;
+    font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+    cursor: pointer;
+    }
+  </style>
+
+  <meta charset="UTF-8">
+  <title> Bookbuy </title>
+
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
   
 <body>
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
   <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" href="#">G19 Bookstore </a>
@@ -57,9 +103,10 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">Book</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col" class="text-right">Price</th>
+                            <th></th>
+                            <th scope="col"><strong>Book</strong></th>
+                            <th scope="col"><strong>Quantity</strong></th>
+                            <th scope="col" class="text-right"><strong>Price</strong></th>
                             <th scope="col"> </th>
                             <th scope="col"> </th>
                         </tr>
@@ -67,7 +114,8 @@
                       <tbody>
                         {% for book in books_for_order %}
                           <tr>
-                            <td>'{{ book.book.name }}'</td>                    
+                            <td><img src="{{ book.book.coverImage.url }} " class="rounded" style="width:50px;height:80px;" alt="{{book.name}}"></td>
+                            <td><a href="/book/{{book.book.pk}}" style="color:black">'{{ book.book.name }}'</a></td>                    
                             <td><input type="number" class="count" name="qty" value="1"></td>
                             <td class="text-right" id="price">${{ book.book.price }}</td>
                             <td class="text-right">
@@ -91,11 +139,11 @@
 
                         <tr>
                           {% if user_order.get_cart_total != None %}
-                          <td colspan=1></td>
-                          <td colspan=1></td>
-                          <td  class="text-right"><strong>Order Total:</strong></td>
-                          <td>$<strong>{{ user_order.get_cart_total }}</strong></td>
-                          <td colspan=2></td>
+                          <td></td>
+                          <td></td>
+                          <td><strong>Order Total:</strong></td>
+                          <td class="text-right">$<strong>{{ user_order.get_cart_total }}</strong></td>
+                          <td></td>
                           {% endif %}
                         </tr>
                         <tr>
@@ -104,7 +152,8 @@
                               {% if user_order %}Continue Shopping{% else %}Continue Shopping {% endif %}
                             </a> 
                           </td>
-                          <td colspan=1 class="text-right">
+                          <td></td>
+                          <td class="text-right">
                             {% if user_order.get_cart_items %}
                               <a href="{% url 'shopping_cart:checkout' %}" class="pull-right btn-lg btn-primary">Checkout</a>
                             {% endif %}
@@ -128,7 +177,7 @@
                         <th scope="col"></th> 
                         <th scope="col"></th> 
                         <th scope="col"></th> 
-                        <th scope="col">Saved for later</th>
+                        <th scope="col"><strong>Saved for later</strong></th>
                         <th scope="col"></th> 
                         <th scope="col"></th> 
                         <th scope="col"></th> 
@@ -136,11 +185,12 @@
                   </thead>            
                   <thead>
                     <tr>
-                        <th scope="col">Book</th>
+                        <th></th>
+                        <th scope="col"><strong>Book</strong></th>
                         <th scope="col"></th> 
                         <th scope="col"></th> 
                         <th scope="col"></th> 
-                        <th scope="col" class="text-right">Price</th>
+                        <th scope="col" class="text-right"><strong>Price</strong></th>
                         <th scope="col"></th>   
                         <th scope="col"></th> 
                     </tr>
@@ -148,10 +198,11 @@
                   <tbody>
                     {% for book in sbooks %}
                       <tr>
-                        <td>'{{ book.saved_book.name }}'</td>
+                        <td><img src="{{ book.saved_book.coverImage.url }} " class="rounded" style="width:50px;height:80px;" alt="{{book.name}}"></td> 
+                        <td><a href="/book/{{book.saved_book.pk}}" style="color:black">'{{ book.saved_book.name }}'</a></td> 
                         <td></td> 
                         <td></td>  
-                        <td></td>          
+                        <td></td>         
                         <td class="text-right" id="price">${{ book.saved_book.price }}</td>
                         <td class="text-right"><button class="btn btn-sm btn-success"> 
                           <a href="{% url 'shopping_cart:add_to_cart_from_saved' book.saved_book.id %}" style="color:white">Add to cart</button>
@@ -176,7 +227,6 @@
   </div>
 
 </body>
-
 
 {% block scripts %}
   <script>
