@@ -116,7 +116,7 @@
                           <tr>
                             <td><img src="{{ book.book.coverImage.url }} " class="rounded" style="width:50px;height:80px;" alt="{{book.name}}"></td>
                             <td><a href="/book/{{book.book.pk}}" style="color:black">'{{ book.book.name }}'</a></td>                    
-                            <td><input type="number" class="count" name="qty" value="1"></td>
+                            <td><input type="number" class="count" name="qty" value="1" min="1"></td>
                             <td class="text-right" id="price">${{ book.book.price }}</td>
                             <td class="text-right">
                               <button class="btn btn-sm btn-dark"> 

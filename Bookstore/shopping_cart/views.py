@@ -34,13 +34,10 @@ def add_to_cart(request, **kwargs):
     # filter books by id
     book = books.objects.filter(id=kwargs.get('item_id', "")).first()
 
-    # check if the user already owns this book
-    if book in request.user.profile.ebooks.all():
-        messages.info(request, 'You already own this ebook')
-        return redirect(reverse('products:product-list')) 
-
     # create orderItem of the selected book
     order_item, status = OrderItem.objects.get_or_create(book=book)
+    
+    print(order_item.quantity)
 
     # create order associated with the user
     user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
@@ -68,11 +65,6 @@ def add_to_cart_from_detail(request, **kwargs):
     book = books.objects.filter(id=kwargs.get('item_id', "")).first()
 
     book_id = kwargs.get('item_id', "")
-
-    # check if the user already owns this book
-    if book in request.user.profile.ebooks.all():
-        messages.info(request, 'You already own this ebook')
-        return redirect(reverse('products:product-list')) 
 
     # create orderItem of the selected book
     order_item, status = OrderItem.objects.get_or_create(book=book)
@@ -183,11 +175,6 @@ def add_to_saved_from_cart(request, **kwargs):
 
     # filter books by id
     saved_book = books.objects.filter(id=kwargs.get('item_id', "")).first()
-
-    # check if the user already owns this book
-    if saved_book in request.user.profile.ebooks.all():
-        messages.info(request, 'You already have this book saved')
-        return redirect(reverse('shopping_cart:order_summary'))
 
     order_item, ostatus = OrderItem.objects.get_or_create(book=book)
     user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
