@@ -26,6 +26,9 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+Group19_Project.iml
+.idea
+Bookstore.iml
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
