@@ -34,10 +34,37 @@ def add_to_cart(request, **kwargs):
     # filter books by id
     book = books.objects.filter(id=kwargs.get('item_id', "")).first()
 
-    # check if the user already owns this book
-    if book in request.user.profile.ebooks.all():
-        messages.info(request, 'You already own this ebook')
-        return redirect(reverse('products:product-list')) 
+    # create orderItem of the selected book
+    order_item, status = OrderItem.objects.get_or_create(book=book)
+    
+    print(order_item.quantity)
+
+    # create order associated with the user
+    user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
+    user_order.items.add(order_item)
+    if status:
+        # generate a reference code
+        user_order.ref_code = generate_order_id()
+        user_order.save()
+
+    books_for_order = OrderItem.objects.all()
+    sbooks = SaveItem.objects.all()
+
+    context = {'user_order': user_order, 'books_for_order': books_for_order, 'sbooks': sbooks}
+
+    # show confirmation message and redirect back to the same page
+    messages.info(request, "Item has been added to cart")
+    return redirect(reverse('products:product-list'))
+
+@login_required()
+def add_to_cart_from_detail(request, **kwargs):
+    # get the user profile
+    user_profile = get_object_or_404(Profile, user=request.user)
+
+    # filter books by id
+    book = books.objects.filter(id=kwargs.get('item_id', "")).first()
+
+    book_id = kwargs.get('item_id', "")
 
     # create orderItem of the selected book
     order_item, status = OrderItem.objects.get_or_create(book=book)
@@ -56,8 +83,8 @@ def add_to_cart(request, **kwargs):
     context = {'user_order': user_order, 'books_for_order': books_for_order, 'sbooks': sbooks}
 
     # show confirmation message and redirect back to the same page
-    messages.info(request, "Item has bee added to cart")
-    return redirect(reverse('products:product-list'))
+    messages.info(request, "Item has been added to cart")
+    return redirect(reverse('book_details', args=book_id))
 
 @login_required()
 def add_to_cart_from_saved(request, **kwargs):
@@ -83,23 +110,20 @@ def add_to_cart_from_saved(request, **kwargs):
 
     context = {'user_order': user_order, 'books_for_order': books_for_order, 'sbooks': sbooks}
 
+    messages.info(request, "Item has been added to cart")
     return render(request,'shopping_cart/order_summary.html', context)
 
 @login_required()
 def add_to_saved(request, **kwargs):
-
-    print('kwargs', kwargs)
 
     # get the user profile
     user_profile = get_object_or_404(Profile, user=request.user)
 
     # filter books by id
     saved_book = books.objects.filter(id=kwargs.get('item_id', "")).first()
-    print(saved_book, 'the name of the book should be here from getting the id')
 
     # create orderItem of the selected book
     saved_item, status = SaveItem.objects.get_or_create(saved_book=saved_book)
-    print(saved_item.saved_book, '............This should be the book for the saved section')
 
     # create saved item that's associated with the user
     user_save, status = Saved.objects.get_or_create(owner=user_profile, is_saved_for_later=False)
@@ -115,6 +139,33 @@ def add_to_saved(request, **kwargs):
     return redirect(reverse('products:product-list'))
 
 @login_required()
+def add_to_saved_from_detail(request, **kwargs):
+
+    # get the user profile
+    user_profile = get_object_or_404(Profile, user=request.user)
+
+    # filter books by id
+    saved_book = books.objects.filter(id=kwargs.get('item_id', "")).first()
+
+    book_id = kwargs.get('item_id', "")
+
+    # create orderItem of the selected book
+    saved_item, status = SaveItem.objects.get_or_create(saved_book=saved_book)
+
+    # create saved item that's associated with the user
+    user_save, status = Saved.objects.get_or_create(owner=user_profile, is_saved_for_later=False)
+    user_save.saved_items.add(saved_item)
+
+    if status:
+        # generate a reference code
+        user_save.ref_code = generate_save_id()
+        user_save.save()
+
+    # show confirmation message and redirect back to the same page
+    messages.info(request, "Item saved for later.")
+    return redirect(reverse('book_details', args=book_id))
+
+@login_required()
 def add_to_saved_from_cart(request, **kwargs):
     # get the user profile
     user_profile = get_object_or_404(Profile, user=request.user)
@@ -124,11 +175,6 @@ def add_to_saved_from_cart(request, **kwargs):
 
     # filter books by id
     saved_book = books.objects.filter(id=kwargs.get('item_id', "")).first()
-
-    # check if the user already owns this book
-    if saved_book in request.user.profile.ebooks.all():
-        messages.info(request, 'You already have this book saved')
-        return redirect(reverse('shopping_cart:order_summary'))
 
     order_item, ostatus = OrderItem.objects.get_or_create(book=book)
     user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
@@ -149,6 +195,7 @@ def add_to_saved_from_cart(request, **kwargs):
         user_save.save()
 
     context = {'sbooks': sbooks, 'books_for_order': books_for_order, 'user_order': user_order}
+    messages.info(request, "Item added to saved for later.")
     return render(request,'shopping_cart/order_summary.html', context)
 
 @login_required()
@@ -192,6 +239,7 @@ def delete_from_cart(request, item_id):
     books_for_order = OrderItem.objects.all()
 
     context = {'sbooks': sbooks, 'books_for_order': books_for_order, 'user_order': user_order}
+    messages.info(request, "Item has been removed from cart.")
     return render(request,'shopping_cart/order_summary.html', context)
 
 @login_required()
@@ -209,6 +257,7 @@ def delete_from_saved(request, item_id):
     books_for_order = OrderItem.objects.all()
 
     context = {'sbooks': sbooks, 'books_for_order': books_for_order, 'user_order': user_order}
+    messages.info(request, "Item has been removed from cart.")
     return render(request,'shopping_cart/order_summary.html', context)
 
 @login_required()
