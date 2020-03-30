@@ -116,7 +116,21 @@
                           <tr>
                             <td><img src="{{ book.book.coverImage.url }} " class="rounded" style="width:50px;height:80px;" alt="{{book.name}}"></td>
                             <td><a href="/book/{{book.book.pk}}" style="color:black">'{{ book.book.name }}'</a></td>                    
-                            <td><input type="number" class="count" name="qty" value="1" min="1"></td>
+                            <td>
+                              <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-number" data-type="minus" data-field="quant[1]">
+                                        <span class="fa fa-minus-square" style="color:red;"></span>
+                                    </button>
+                                </span>
+                                <input type="number" name="quantity" style="width:10px" class="form-control input-number" value="1" min="1" max="20">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
+                                        <span class="fa fa-plus-square" style="color:green;"></span>
+                                    </button>
+                                </span>
+                              </div>
+                            </td>
                             <td class="text-right" id="price">${{ book.book.price }}</td>
                             <td class="text-right">
                               <button class="btn btn-sm btn-dark"> 
@@ -143,6 +157,7 @@
                           <td></td>
                           <td><strong>Order Total:</strong></td>
                           <td class="text-right">$<strong>{{ user_order.get_cart_total }}</strong></td>
+                          <td></td>
                           <td></td>
                           {% endif %}
                         </tr>

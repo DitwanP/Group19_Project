@@ -12,9 +12,15 @@ class OrderItem(models.Model):
     date_added = models.DateTimeField(auto_now=True)
     date_ordered = models.DateTimeField(null=True)
     quantity = models.PositiveIntegerField(default=1)
+    price_in_cart = models.FloatField(default="0.00")
 
     def __str__(self):
         return self.book.name
+
+    def augment_quantity(self, quantity):
+        """ called when a POST request comes in for a Product instance already in the shopping cart """
+        self.quantity = self.quantity + int(quantity)
+        self.save()
 
 class Order(models.Model):
     ref_code = models.CharField(max_length=15)
