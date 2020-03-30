@@ -12,15 +12,11 @@ class OrderItem(models.Model):
     date_added = models.DateTimeField(auto_now=True)
     date_ordered = models.DateTimeField(null=True)
     quantity = models.PositiveIntegerField(default=1)
-    price_in_cart = models.FloatField(default="0.00")
+    price_in_cart = models.DecimalField(max_digits=5, decimal_places=2)
 
     def __str__(self):
         return self.book.name
 
-    def augment_quantity(self, quantity):
-        """ called when a POST request comes in for a Product instance already in the shopping cart """
-        self.quantity = self.quantity + int(quantity)
-        self.save()
 
 class Order(models.Model):
     ref_code = models.CharField(max_length=15)
@@ -33,7 +29,7 @@ class Order(models.Model):
         return self.items.all()
 
     def get_cart_total(self):
-        return sum([item.book.price for item in self.items.all()])
+        return sum([item.price_in_cart for item in self.items.all()])
 
     def __str__(self):
         return '{0} - {1}'.format(self.owner, self.ref_code)

@@ -119,19 +119,19 @@
                             <td>
                               <div class="input-group">
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default btn-number" data-type="minus" data-field="quant[1]">
-                                        <span class="fa fa-minus-square" style="color:red;"></span>
-                                    </button>
+                                  <a class="btn btn-default btn-number" href="{% url 'shopping_cart:decrease_item_quantity' book.book_id %}">
+                                    <span class="fa fa-minus-square" style="color:red;"></span>
+                                  </a>
                                 </span>
-                                <input type="number" name="quantity" style="width:10px" class="form-control input-number" value="1" min="1" max="20">
+                                <p>{{book.quantity}}</p>
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
-                                        <span class="fa fa-plus-square" style="color:green;"></span>
-                                    </button>
+                                    <a class="btn btn-default btn-number" href="{% url 'shopping_cart:increase_item_quantity' book.book_id %}">
+                                      <span class="fa fa-plus-square" style="color:green;"></span>
+                                    </a> 
                                 </span>
                               </div>
                             </td>
-                            <td class="text-right" id="price">${{ book.book.price }}</td>
+                            <td class="text-right" id="price">${{ book.price_in_cart }}</td>
                             <td class="text-right">
                               <button class="btn btn-sm btn-dark"> 
                                 <a href="{% url 'shopping_cart:add_to_saved_from_cart' book.book_id %}" style="color:white">Save for later</a>
