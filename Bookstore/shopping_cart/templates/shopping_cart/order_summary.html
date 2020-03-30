@@ -174,13 +174,14 @@
                 <table class="table table-striped">  
                   <thead>
                     <tr>
-                        <th scope="col"></th> 
-                        <th scope="col"></th> 
-                        <th scope="col"></th> 
-                        <th scope="col"><strong>Saved for later</strong></th>
-                        <th scope="col"></th> 
-                        <th scope="col"></th> 
-                        <th scope="col"></th> 
+                        <th></th> 
+                        <th></th> 
+                        <th></th> 
+                        <th></th> 
+                        <th><strong>Saved for later</strong></th>
+                        <th></th> 
+                        <th></th> 
+                        <th></th> 
                     </tr>
                   </thead>            
                   <thead>
@@ -190,7 +191,7 @@
                         <th scope="col"></th> 
                         <th scope="col"></th> 
                         <th scope="col"></th> 
-                        <th scope="col" class="text-right"><strong>Price</strong></th>
+                        <th scope="col"><strong>Price</strong></th>
                         <th scope="col"></th>   
                         <th scope="col"></th> 
                     </tr>
@@ -203,7 +204,7 @@
                         <td></td> 
                         <td></td>  
                         <td></td>         
-                        <td class="text-right" id="price">${{ book.saved_book.price }}</td>
+                        <td id="price">${{ book.saved_book.price }}</td>
                         <td class="text-right"><button class="btn btn-sm btn-success"> 
                           <a href="{% url 'shopping_cart:add_to_cart_from_saved' book.saved_book.id %}" style="color:white">Add to cart</button>
                           </a>
@@ -217,6 +218,7 @@
                     {% empty %}
                       <tr>
                         <td colspan= 7> Your don't have any saved items. </td>
+                        <td></td> 
                       </tr>
                     {% endfor %}
                   </tbody>
