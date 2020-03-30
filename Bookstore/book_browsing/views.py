@@ -1,6 +1,6 @@
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
-
 
 # Create your views here.
 from django.template import RequestContext
@@ -85,3 +85,47 @@ def search(request):
     context = RequestContext(request)
     return render(request, 'search.html', {"results": results})
 
+
+def viewPage(request):
+    queryString = request.path
+    pageName = queryString.replace('/', '').title()
+    results = BookInfo.objects.filter(Q(genre=pageName)).order_by('bookName')
+    page = request.GET.get('page', 1)
+    paginator = Paginator(results, 8)
+    try:
+        books = paginator.page(page)
+    except PageNotAnInteger:
+        books = paginator.page(1)
+    except EmptyPage:
+        books = paginator.page(paginator.num_pages)
+    return render(request, 'book.html', {'books': books, "title": pageName, "count": results.count()})
+
+
+def fantacy(request):
+    return viewPage(request)
+
+
+def romance(request):
+    return viewPage(request)
+
+
+def fiction(request):
+    return viewPage(request)
+
+
+def history(request):
+    return viewPage(request)
+
+
+def thriller(request):
+    return viewPage(request)
+
+
+def newRelease(request):
+    template = 'new_release.html',
+    return render(request, template)
+
+
+def topSeller(request):
+    template = 'top_sellers.html',
+    return render(request, template)

@@ -7641,3 +7641,17 @@ p.lost-password a:hover {
 .header-search form .fa-search:before {
     content: "\f002";
 }
+
+.pagination-area .pagination .active > span {
+    background-color: #f07c29;
+    color: #ffffff;
+    display: flex;
+    padding: 0 3px;
+    position: relative;
+    top: 3px;
+    text-align: center;
+}
+
+.pagination-area .pagination .disabled{
+    display: none;
+}

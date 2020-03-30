@@ -102,7 +102,25 @@
                                         </ul>
                                     </div>
                                 </li>
-                                <li><a href="{% url 'book_browsing:book' %}">Book</a></li>
+                                <li><a href="javascript:void(0);">Book</a>
+                                    <div class="sub-menu">
+                                        <ul>
+                                            <li><a href="{% url 'book_browsing:new-release' %}">New Release</a></li>
+                                            <li><a href="{% url 'book_browsing:top-sellers' %}">Top Sellers</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li><a href="javascript:void(0)" class="book-list" id="book" data-target="productBook">Search by Genre</a>
+                                    <div class="sub-menu">
+                                        <ul>
+                                            <li><a href="{% url 'book_browsing:fantacy' %}">Fantacy</a></li>
+                                            <li><a href="{% url 'book_browsing:romance' %}">Romance</a></li>
+                                            <li><a href="{% url 'book_browsing:fiction' %}">Fiction</a></li>
+                                            <li><a href="{% url 'book_browsing:history' %}">History</a></li>
+                                            <li><a href="{% url 'book_browsing:thriller' %}">Thriller</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
                                 <li><a href="javascript:void(0)" class="book-list" id="book" data-target="productBook">Audio books</a></li>
                                 <li><a href="javascript:void(0)" class="book-list" data-target="productBook">Children’s books</a></li>
                                 <li><a href="{% url 'book_browsing:blog' %}">Blog</a></li>

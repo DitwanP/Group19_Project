@@ -19,5 +19,12 @@ urlpatterns = [
     path('order/', views.order, name='order'),
     path('new-book/', views.newBook, name='new-book'),
     path('cart/', views.cart, name='cart'),
-    path('search/', views.search, name='search')
+    path('search/', views.search, name='search'),
+    path('fantacy/', views.fantacy, name='fantacy'),
+    path('romance/', views.romance, name='romance'),
+    path('fiction/', views.fiction, name='fiction'),
+    path('history/', views.history, name='history'),
+    path('thriller/', views.thriller, name='thriller'),
+    path('new-release/', views.newRelease, name='new-release'),
+    path('top-sellers/', views.topSeller, name='top-sellers'),
 ]
