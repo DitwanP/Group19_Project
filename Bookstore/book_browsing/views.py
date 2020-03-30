@@ -1,7 +1,12 @@
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 
 
 # Create your views here.
+from django.template import RequestContext
+
+from book_details.models import BookInfo
+
 
 def home(request):
     return render(request, 'index.html')
@@ -68,5 +73,15 @@ def cart(request):
 
 
 def search(request):
-    template = 'search.html',
-    return render(request, template)
+    query = request.GET.get('q')
+    results = None
+    try:
+        query = str(query)
+    except ValueError:
+        query = None
+
+    if query:
+        results = BookInfo.objects.filter(Q(bookName=query) | Q(genre=query))
+    context = RequestContext(request)
+    return render(request, 'search.html', {"results": results})
+
