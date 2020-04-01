@@ -67,7 +67,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
             <ul class="navbar-nav m-auto">
                 <li class="nav-item m-auto">
-                    <a class="nav-link" href="{% url 'homepage:the_homepage' %}">Home</a>
+                    <a class="nav-link" href="{% url 'book_browsing:home' %}">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Categories</a>
@@ -113,9 +113,10 @@
                       </thead>
                       <tbody>
                         {% for book in books_for_order %}
+
                           <tr>
                             <td><img src="{{ book.book.coverImage.url }} " class="rounded" style="width:50px;height:80px;" alt="{{book.name}}"></td>
-                            <td><a href="/book/{{book.book.pk}}" style="color:black">'{{ book.book.name }}'</a></td>                    
+                            <td><a href="/book/{{book.book.pk}}" style="color:black">'{{ book.book.name }}'</a></td>
                             <td><input type="number" class="count" name="qty" value="1" min="1"></td>
                             <td class="text-right" id="price">${{ book.book.price }}</td>
                             <td class="text-right">
@@ -148,7 +149,7 @@
                         </tr>
                         <tr>
                           <td colspan=3>
-                            <a href="{% url 'homepage:the_homepage'  %}" class="btn-lg btn-warning pull-left">
+                            <a href="{% url 'book_browsing:home'  %}" class="btn-lg btn-warning pull-left">
                               {% if user_order %}Continue Shopping{% else %}Continue Shopping {% endif %}
                             </a> 
                           </td>

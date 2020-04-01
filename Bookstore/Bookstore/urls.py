@@ -19,14 +19,13 @@ from django.urls import path, include
 from book_details import views
 from . import settings
 from django.contrib.staticfiles.urls import static
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('', include('book_browsing.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^cart/', include('shopping_cart.urls', namespace='shopping_cart')),
+    url('cart/', include('shopping_cart.urls', namespace='shopping_cart')),
     url(r'^products/', include('products.urls', namespace='products')),
-    url(r'^profiles/', include('accounts.urls', namespace='accounts')),
+    url('profiles/', include('accounts.urls', namespace='accounts')),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^book/(\d+)/$', views.bookDetailsView.as_view(), name='book_details'),
     url(r'^author/(\d+)/$', views.bookAuthorsView.as_view(), name='book_author'),

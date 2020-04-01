@@ -4,8 +4,7 @@ from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from django.template import RequestContext
-
-from book_details.models import BookInfo
+from products.models import Books
 
 
 def home(request):
@@ -74,22 +73,35 @@ def cart(request):
 
 def search(request):
     query = request.GET.get('q')
+    books = None
     results = None
+    count = None
     try:
         query = str(query)
     except ValueError:
         query = None
 
     if query:
-        results = BookInfo.objects.filter(Q(bookName=query) | Q(genre=query))
-    context = RequestContext(request)
-    return render(request, 'search.html', {"results": results})
+        results = Books.objects.filter(Q(name=query) | Q(genre=query))
+        count = results.count()
+
+    if results:
+        page = request.GET.get('page', 1)
+        paginator = Paginator(results, 8)
+        try:
+            books = paginator.page(page)
+        except PageNotAnInteger:
+            books = paginator.page(1)
+        except EmptyPage:
+            books = paginator.page(paginator.num_pages)
+
+    return render(request, 'search.html', {"books": books, "count": count})
 
 
 def viewPage(request):
     queryString = request.path
     pageName = queryString.replace('/', '').title()
-    results = BookInfo.objects.filter(Q(genre=pageName)).order_by('bookName')
+    results = Books.objects.filter(Q(genre=pageName)).order_by('name')
     page = request.GET.get('page', 1)
     paginator = Paginator(results, 8)
     try:
@@ -122,10 +134,45 @@ def thriller(request):
 
 
 def newRelease(request):
-    template = 'new_release.html',
-    return render(request, template)
+    results = Books.objects.order_by('releasedDate').reverse()[:10]
+    page = request.GET.get('page', 1)
+    paginator = Paginator(results, 8)
+    try:
+        books = paginator.page(page)
+    except PageNotAnInteger:
+        books = paginator.page(1)
+    except EmptyPage:
+        books = paginator.page(paginator.num_pages)
+    return render(request, 'new_release.html', {'books': books, "title": "New Release", "count": results.count()})
 
 
 def topSeller(request):
     template = 'top_sellers.html',
     return render(request, template)
+
+
+def filterData(request):
+    sortType = request.GET.get("sort_type")
+    queryString = request.GET.get("page_url")
+
+    pageName = queryString.replace('/', '').title()
+    if sortType == 'releasedDate':
+        results = Books.objects.filter(Q(genre=pageName)).order_by('releasedDate').reverse()
+    elif sortType == 'price':
+        results = Books.objects.filter(Q(genre=pageName)).order_by('price').reverse()
+    elif sortType == 'pricelowtohigh':
+        results = Books.objects.filter(Q(genre=pageName)).order_by('price')
+    elif sortType == 'atoz':
+        results = Books.objects.filter(Q(genre=pageName)).order_by('name')
+    else:
+        results = Books.objects.filter(Q(genre=pageName)).order_by(sortType)
+    page = request.GET.get('page', 1)
+    paginator = Paginator(results, 8)
+    try:
+        books = paginator.page(page)
+    except PageNotAnInteger:
+        books = paginator.page(1)
+    except EmptyPage:
+        books = paginator.page(paginator.num_pages)
+
+    return render(request, 'ajax/book.html', {'books': books})
