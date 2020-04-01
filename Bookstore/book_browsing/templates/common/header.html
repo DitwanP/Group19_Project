@@ -9,9 +9,8 @@
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="account-area text-right">
                         <ul>
-                            <li><a href="{% url 'book_browsing:account' %}">My Account</a></li>
-                            <li><a href="{% url 'book_browsing:checkout' %}">Checkout</a></li>
-                            <li><a href="{% url 'book_browsing:login' %}">Sign in</a></li>
+                            <li><a href="{% url 'accounts:profiles' %}">My Account</a></li>
+                            <li><a href="{% url 'shopping_cart:checkout' %}">Checkout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -26,8 +25,8 @@
             <div class="row">
                 <div class="col-lg-3 col-md-5 col-12">
                     <div class="header-search">
-                        <form action="{% url 'book_browsing:search' %}">
-                            <input type="text" placeholder="Search entire store here...">
+                        <form action="{% url 'book_browsing:search' %}" method="get">
+                            <input type="text" name="q" placeholder="Search entire store here..." value="{{ query }}">
                             <button type="submit" class="search-btn"><i class='fa fa-search'></i></button>
                         </form>
                     </div>
@@ -73,8 +72,8 @@
                                         <h5>Total <span>$12.00</span></h5>
                                     </div>
                                     <div class="cart-bottom">
-                                        <a class="view-cart" href="{% url 'book_browsing:cart' %}">view cart</a>
-                                        <a href="{% url 'book_browsing:checkout' %}">Check out</a>
+                                        <a class="view-cart" href="{% url 'shopping_cart:order_summary' %}">view cart</a>
+                                        <a href="{% url 'shopping_cart:checkout' %}">Check out</a>
                                     </div>
                                 </div>
                             </li>
@@ -102,9 +101,27 @@
                                         </ul>
                                     </div>
                                 </li>
-                                <li><a href="{% url 'book_browsing:book' %}">Book</a></li>
-                                <li><a href="javascript:void(0)" class="book-list" id="book" data-target="productBook">Audio books</a></li>
-                                <li><a href="javascript:void(0)" class="book-list" data-target="productBook">Children’s books</a></li>
+                                <li><a href="javascript:void(0);">Book</a>
+                                    <div class="sub-menu">
+                                        <ul>
+                                            <li><a href="{% url 'book_browsing:new-release' %}">New Release</a></li>
+                                            <li><a href="{% url 'book_browsing:top-sellers' %}">Top Sellers</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li><a href="javascript:void(0)" class="book-list" id="book" data-target="productBook">Search by Genre</a>
+                                    <div class="sub-menu">
+                                        <ul>
+                                            <li><a href="{% url 'book_browsing:fantacy' %}">Fantacy</a></li>
+                                            <li><a href="{% url 'book_browsing:romance' %}">Romance</a></li>
+                                            <li><a href="{% url 'book_browsing:fiction' %}">Fiction</a></li>
+                                            <li><a href="{% url 'book_browsing:history' %}">History</a></li>
+                                            <li><a href="{% url 'book_browsing:thriller' %}">Thriller</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li><a href="javascript:void(0)" class="book-list audio-books" id="book" data-target="productBook">Audio books</a></li>
+                                <li><a href="javascript:void(0)" class="book-list children-book" data-target="productBook">Children’s books</a></li>
                                 <li><a href="{% url 'book_browsing:blog' %}">Blog</a></li>
                             </ul>
                         </nav>

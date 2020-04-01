@@ -38,6 +38,7 @@ class Migration(migrations.Migration):
                 ('price', models.DecimalField(decimal_places=2, max_digits=5)),
                 ('coverImage', models.ImageField(upload_to='images/')),
                 ('authorName', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='book_details.BookAuthor')),
+                ('releasedDate', models.DateField(max_length=100)),
             ],
         ),
     ]
