@@ -25,9 +25,40 @@ def get_user_pending_order(request):
         return order[0]
     return 0
 
+@login_required()
+def increase_item_quantity(request, **kwargs):
+    # get the user profile
+    user_profile = get_object_or_404(Profile, user=request.user)
+
+    # filter books by id
+    book = books.objects.filter(id=kwargs.get('item_id', "")).first()
+
+    # create orderItem of the selected book
+    order_item, status = OrderItem.objects.get_or_create(book=book)
+    order_item.quantity = order_item.quantity + 1
+    order_item.price_in_cart = order_item.book.price * order_item.quantity
+    order_item.save()
+    
+    print(order_item.quantity)
+    print(order_item.price_in_cart)
+
+    # create order associated with the user
+    user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
+    user_order.items.add(order_item)
+    if status:
+        # generate a reference code
+        user_order.ref_code = generate_order_id()
+        user_order.save()
+
+    books_for_order = OrderItem.objects.all()
+    sbooks = SaveItem.objects.all()
+
+    context = {'user_order': user_order, 'books_for_order': books_for_order, 'sbooks': sbooks}
+
+    return render(request,'shopping_cart/order_summary.html', context)
 
 @login_required()
-def add_to_cart(request, **kwargs):
+def decrease_item_quantity(request, **kwargs):
     # get the user profile
     user_profile = get_object_or_404(Profile, user=request.user)
 
@@ -36,8 +67,39 @@ def add_to_cart(request, **kwargs):
 
     # create orderItem of the selected book
     order_item, status = OrderItem.objects.get_or_create(book=book)
+    if order_item.quantity > 1:
+        order_item.quantity = order_item.quantity - 1
+        order_item.price_in_cart = order_item.book.price * order_item.quantity
+        order_item.save()
     
     print(order_item.quantity)
+    print(order_item.price_in_cart)
+
+    # create order associated with the user
+    user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
+    user_order.items.add(order_item)
+    if status:
+        # generate a reference code
+        user_order.ref_code = generate_order_id()
+        user_order.save()
+
+    books_for_order = OrderItem.objects.all()
+    sbooks = SaveItem.objects.all()
+
+    context = {'user_order': user_order, 'books_for_order': books_for_order, 'sbooks': sbooks}
+
+    return render(request,'shopping_cart/order_summary.html', context)
+
+@login_required()
+def add_to_cart(request, **kwargs):
+    # get the user profile
+    user_profile = get_object_or_404(Profile, user=request.user)
+
+    # filter books by id
+    book = books.objects.filter(id=kwargs.get('item_id', "")).first()
+
+    # create orderItem of the selected book
+    order_item, status = OrderItem.objects.get_or_create(book=book, price_in_cart=book.price)
 
     # create order associated with the user
     user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
@@ -64,10 +126,10 @@ def add_to_cart_from_detail(request, **kwargs):
     # filter books by id
     book = Books.objects.filter(id=kwargs.get('item_id', "")).first()
 
-    book_id = kwargs.get('item_id', "")
+    book_id = kwargs.get('item_id')
 
     # create orderItem of the selected book
-    order_item, status = OrderItem.objects.get_or_create(book=book)
+    order_item, status = OrderItem.objects.get_or_create(book=book, price_in_cart=book.price)
 
     # create order associated with the user
     user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
@@ -84,7 +146,7 @@ def add_to_cart_from_detail(request, **kwargs):
 
     # show confirmation message and redirect back to the same page
     messages.info(request, "Item has been added to cart")
-    return redirect(reverse('book_details', args=book_id))
+    return redirect(reverse('book_details', args=(book_id,)))
 
 @login_required()
 def add_to_cart_from_saved(request, **kwargs):
@@ -95,7 +157,7 @@ def add_to_cart_from_saved(request, **kwargs):
     book = Books.objects.filter(id=kwargs.get('item_id', "")).first()
 
     # create orderItem of the selected book
-    order_item, status = OrderItem.objects.get_or_create(book=book)
+    order_item, status = OrderItem.objects.get_or_create(book=book, price_in_cart=book.price)
 
     # create order associated with the user
     user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
@@ -147,7 +209,7 @@ def add_to_saved_from_detail(request, **kwargs):
     # filter books by id
     saved_book = Books.objects.filter(id=kwargs.get('item_id', "")).first()
 
-    book_id = kwargs.get('item_id', "")
+    book_id = kwargs.get('item_id')
 
     # create orderItem of the selected book
     saved_item, status = SaveItem.objects.get_or_create(saved_book=saved_book)
@@ -163,7 +225,7 @@ def add_to_saved_from_detail(request, **kwargs):
 
     # show confirmation message and redirect back to the same page
     messages.info(request, "Item saved for later.")
-    return redirect(reverse('book_details', args=book_id))
+    return redirect(reverse('book_details', args=(book_id,)))
 
 @login_required()
 def add_to_saved_from_cart(request, **kwargs):
@@ -176,7 +238,7 @@ def add_to_saved_from_cart(request, **kwargs):
     # filter books by id
     saved_book = Books.objects.filter(id=kwargs.get('item_id', "")).first()
 
-    order_item, ostatus = OrderItem.objects.get_or_create(book=book)
+    order_item, ostatus = OrderItem.objects.get_or_create(book=book, price_in_cart=book.price)
     user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
 
     # create saveItem of the selected book
@@ -207,7 +269,7 @@ def update_cart_quantities(request, **kwargs):
     book = Books.objects.filter(id=kwargs.get('item_id', "")).first()
 
     # create orderItem of the selected book
-    order_item, status = OrderItem.objects.get_or_create(book=book)
+    order_item, status = OrderItem.objects.get_or_create(book=book, price_in_cart=book.price)
 
     # update the cart with new item quantity
     order = Order.objects.all()

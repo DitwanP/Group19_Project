@@ -113,12 +113,25 @@
                       </thead>
                       <tbody>
                         {% for book in books_for_order %}
-
                           <tr>
                             <td><img src="{{ book.book.coverImage.url }} " class="rounded" style="width:50px;height:80px;" alt="{{book.name}}"></td>
-                            <td><a href="/book/{{book.book.pk}}" style="color:black">'{{ book.book.name }}'</a></td>
-                            <td><input type="number" class="count" name="qty" value="1" min="1"></td>
-                            <td class="text-right" id="price">${{ book.book.price }}</td>
+                            <td><a href="/book/{{book.book.pk}}" style="color:black">'{{ book.book.name }}'</a></td>                    
+                            <td>
+                              <div class="input-group">
+                                <span class="input-group-btn">
+                                  <a class="btn btn-default btn-number" href="{% url 'shopping_cart:decrease_item_quantity' book.book_id %}">
+                                    <span class="fa fa-minus-square" style="color:red;"></span>
+                                  </a>
+                                </span>
+                                <p>{{book.quantity}}</p>
+                                <span class="input-group-btn">
+                                    <a class="btn btn-default btn-number" href="{% url 'shopping_cart:increase_item_quantity' book.book_id %}">
+                                      <span class="fa fa-plus-square" style="color:green;"></span>
+                                    </a> 
+                                </span>
+                              </div>
+                            </td>
+                            <td class="text-right" id="price">${{ book.price_in_cart }}</td>
                             <td class="text-right">
                               <button class="btn btn-sm btn-dark"> 
                                 <a href="{% url 'shopping_cart:add_to_saved_from_cart' book.book_id %}" style="color:white">Save for later</a>
@@ -144,6 +157,7 @@
                           <td></td>
                           <td><strong>Order Total:</strong></td>
                           <td class="text-right">$<strong>{{ user_order.get_cart_total }}</strong></td>
+                          <td></td>
                           <td></td>
                           {% endif %}
                         </tr>
@@ -175,13 +189,14 @@
                 <table class="table table-striped">  
                   <thead>
                     <tr>
-                        <th scope="col"></th> 
-                        <th scope="col"></th> 
-                        <th scope="col"></th> 
-                        <th scope="col"><strong>Saved for later</strong></th>
-                        <th scope="col"></th> 
-                        <th scope="col"></th> 
-                        <th scope="col"></th> 
+                        <th></th> 
+                        <th></th> 
+                        <th></th> 
+                        <th></th> 
+                        <th><strong>Saved for later</strong></th>
+                        <th></th> 
+                        <th></th> 
+                        <th></th> 
                     </tr>
                   </thead>            
                   <thead>
@@ -191,7 +206,7 @@
                         <th scope="col"></th> 
                         <th scope="col"></th> 
                         <th scope="col"></th> 
-                        <th scope="col" class="text-right"><strong>Price</strong></th>
+                        <th scope="col"><strong>Price</strong></th>
                         <th scope="col"></th>   
                         <th scope="col"></th> 
                     </tr>
@@ -204,7 +219,7 @@
                         <td></td> 
                         <td></td>  
                         <td></td>         
-                        <td class="text-right" id="price">${{ book.saved_book.price }}</td>
+                        <td id="price">${{ book.saved_book.price }}</td>
                         <td class="text-right"><button class="btn btn-sm btn-success"> 
                           <a href="{% url 'shopping_cart:add_to_cart_from_saved' book.saved_book.id %}" style="color:white">Add to cart</button>
                           </a>
@@ -218,6 +233,7 @@
                     {% empty %}
                       <tr>
                         <td colspan= 7> Your don't have any saved items. </td>
+                        <td></td> 
                       </tr>
                     {% endfor %}
                   </tbody>
