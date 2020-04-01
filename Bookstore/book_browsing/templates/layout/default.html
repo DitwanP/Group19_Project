@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<!-- saved from url=(0063)# -->
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Book Store – Book Shop</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Favicon -->
+        <link rel="shortcut icon" type="image/x-icon" href="/static/images/favicon.png">
+
+        <!-- bootstrap v3.3.6 css -->
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+        <!-- animate css -->
+        <link rel="stylesheet" href="/static/css/animate.css">
+        <!-- meanmenu css -->
+        <link rel="stylesheet" href="/static/css/meanmenu.min.css">
+        <!-- owl.carousel css -->
+        <link rel="stylesheet" href="/static/css/owl.carousel.css">
+        <!-- font-awesome css -->
+        <link rel="stylesheet" href="/static/css/font-awesome.min.css">
+        <!-- flexslider.css-->
+        <link rel="stylesheet" href="/static/css/flexslider.css">
+        <!-- chosen.min.css-->
+        <link rel="stylesheet" href="/static/css/chosen.min.css">
+        <!-- style css -->
+        <link rel="stylesheet" href="/static/css/style.css">
+        <!-- responsive css -->
+        <link rel="stylesheet" href="/static/css/responsive.css">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <!-- header-area-start -->
+        {% include "common/header.html" %}
+        <!-- header-area-end -->
+
+        {% block content %}
+        {% endblock %}
+
+        <!-- footer-area-start -->
+        {% include "common/footer.html" %}
+        <!-- footer-area-end -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="productModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">x</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-5 col-sm-5 col-xs-12">
+                                <div class="modal-tab">
+                                    <div class="product-details-large tab-content">
+                                        <div class="tab-pane active" id="image-1">
+                                            <img src="/static/images/quickview-l4.jpg" alt="">
+                                        </div>
+                                        <div class="tab-pane" id="image-2">
+                                            <img src="/static/images/quickview-l2.jpg" alt="">
+                                        </div>
+                                        <div class="tab-pane" id="image-3">
+                                            <img src="/static/images/quickview-l3.jpg" alt="">
+                                        </div>
+                                        <div class="tab-pane" id="image-4">
+                                            <img src="/static/images/quickview-l5.jpg" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="product-details-small quickview-active owl-carousel owl-loaded owl-drag">
+
+
+                                        <div class="owl-stage-outer">
+                                            <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s;">
+                                                <div class="owl-item">
+                                                    <a class="active" href="#image-1">
+                                                        <img src="/static/images/quickview-s4.jpg" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="owl-item">
+                                                    <a href="#image-2">
+                                                        <img src="/static/images/quickview-s2.jpg" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="owl-item">
+                                                    <a href="#image-3">
+                                                        <img src="/static/images/quickview-s3.jpg" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="owl-item">
+                                                    <a href="#image-4">
+                                                        <img src="/static/images/quickview-s5.jpg" alt="">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="owl-nav">
+                                            <button type="button" role="presentation" class="owl-prev">
+                                                <i class="fa fa-angle-left"></i>
+                                            </button>
+                                            <button type="button" role="presentation" class="owl-next">
+                                                <i class="fa fa-angle-right"></i>
+                                            </button>
+                                        </div>
+                                        <div class="owl-dots">
+                                            <button role="button" class="owl-dot active">
+                                                <span></span>
+                                            </button>
+                                            <button role="button" class="owl-dot">
+                                                <span></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-7 col-sm-7 col-xs-12">
+                                <div class="modal-pro-content">
+                                    <h3>Chaz Kangeroo Hoodie3</h3>
+                                    <div class="price">
+                                        <span>$70.00</span>
+                                    </div>
+                                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet.</p>
+                                    <div class="quick-view-select">
+                                        <div class="select-option-part">
+                                            <label>Size*</label>
+                                            <select class="select">
+                                                <option value="">S</option>
+                                                <option value="">M</option>
+                                                <option value="">L</option>
+                                            </select>
+                                        </div>
+                                        <div class="quickview-color-wrap">
+                                            <label>Color*</label>
+                                            <div class="quickview-color">
+                                                <ul>
+                                                    <li class="blue">b</li>
+                                                    <li class="red">r</li>
+                                                    <li class="pink">p</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <form action="#">
+                                        <input type="number" value="1">
+                                        <button>Add to cart</button>
+                                    </form>
+                                    <span>
+                                        <i class="fa fa-check"></i>
+                                        In stock
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal end -->
+
+
+        <!-- all js here -->
+        <!-- jquery latest version -->
+        <script src="/static/js/jquery-1.12.0.min.js"></script>
+        <script src="/static/js/modernizr-2.8.3.min.js"></script>
+        <!-- popper js -->
+        <script src="/static/js/popper.min.js"></script>
+        <!-- bootstrap js -->
+        <script src="/static/js/bootstrap.min.js"></script>
+        <!-- owl.carousel js -->
+        <script src="/static/js/owl.carousel.min.js"></script>
+        <!-- meanmenu js -->
+        <script src="/static/js/jquery.meanmenu.js"></script>
+        <!-- wow js -->
+        <script src="/static/js/wow.min.js"></script>
+        <!-- jquery.parallax-1.1.3.js -->
+        <script src="/static/js/jquery.parallax-1.1.3.js"></script>
+        <!-- jquery.countdown.min.js -->
+        <script src="/static/js/jquery.countdown.min.js"></script>
+        <!-- jquery.flexslider.js -->
+        <script src="/static/js/jquery.flexslider.js"></script>
+        <!-- chosen.jquery.min.js -->
+        <script src="/static/js/chosen.jquery.min.js"></script>
+        <!-- jquery.counterup.min.js -->
+        <script src="/static/js/jquery.counterup.min.js"></script>
+        <!-- waypoints.min.js -->
+        <script src="/static/js/waypoints.min.js"></script>
+        <!-- plugins js -->
+        <script src="/static/js/plugins.js"></script>
+        <!-- main js -->
+        <script src="/static/js/main.js"></script>
+        <script src="/static/js/layout.js"></script>
+    </body>
+</html>
