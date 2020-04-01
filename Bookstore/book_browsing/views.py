@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from django.template import RequestContext
-from products.models import Books
+from products.models import books
 
 
 def home(request):
@@ -67,7 +67,7 @@ def newBook(request):
 
 
 def cart(request):
-    template = 'cart.html',
+    template = 'order_summary.html',
     return render(request, template)
 
 
@@ -82,7 +82,7 @@ def search(request):
         query = None
 
     if query:
-        results = Books.objects.filter(Q(name=query) | Q(genre=query))
+        results = books.objects.filter(Q(name=query) | Q(genre=query))
         count = results.count()
 
     if results:
@@ -101,7 +101,7 @@ def search(request):
 def viewPage(request):
     queryString = request.path
     pageName = queryString.replace('/', '').title()
-    results = Books.objects.filter(Q(genre=pageName)).order_by('name')
+    results = books.objects.filter(Q(genre=pageName)).order_by('name')
     page = request.GET.get('page', 1)
     paginator = Paginator(results, 8)
     try:
@@ -134,7 +134,7 @@ def thriller(request):
 
 
 def newRelease(request):
-    results = Books.objects.order_by('releasedDate').reverse()[:10]
+    results = books.objects.order_by('releasedDate').reverse()[:10]
     page = request.GET.get('page', 1)
     paginator = Paginator(results, 8)
     try:
@@ -157,15 +157,15 @@ def filterData(request):
 
     pageName = queryString.replace('/', '').title()
     if sortType == 'releasedDate':
-        results = Books.objects.filter(Q(genre=pageName)).order_by('releasedDate').reverse()
+        results = books.objects.filter(Q(genre=pageName)).order_by('releasedDate').reverse()
     elif sortType == 'price':
-        results = Books.objects.filter(Q(genre=pageName)).order_by('price').reverse()
+        results = books.objects.filter(Q(genre=pageName)).order_by('price').reverse()
     elif sortType == 'pricelowtohigh':
-        results = Books.objects.filter(Q(genre=pageName)).order_by('price')
+        results = books.objects.filter(Q(genre=pageName)).order_by('price')
     elif sortType == 'atoz':
-        results = Books.objects.filter(Q(genre=pageName)).order_by('name')
+        results = books.objects.filter(Q(genre=pageName)).order_by('name')
     else:
-        results = Books.objects.filter(Q(genre=pageName)).order_by(sortType)
+        results = books.objects.filter(Q(genre=pageName)).order_by(sortType)
     page = request.GET.get('page', 1)
     paginator = Paginator(results, 8)
     try:

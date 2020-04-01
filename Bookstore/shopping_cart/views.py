@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from accounts.models import Profile
-from products.models import Books
+from products.models import books
 
 from shopping_cart.extras import generate_order_id,  generate_save_id, transact, generate_client_token
 from shopping_cart.models import OrderItem, Order, Transaction, SaveItem, Saved
@@ -38,9 +38,6 @@ def increase_item_quantity(request, **kwargs):
     order_item.quantity = order_item.quantity + 1
     order_item.price_in_cart = order_item.book.price * order_item.quantity
     order_item.save()
-    
-    print(order_item.quantity)
-    print(order_item.price_in_cart)
 
     # create order associated with the user
     user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
@@ -63,7 +60,7 @@ def decrease_item_quantity(request, **kwargs):
     user_profile = get_object_or_404(Profile, user=request.user)
 
     # filter books by id
-    book = Books.objects.filter(id=kwargs.get('item_id', "")).first()
+    book = books.objects.filter(id=kwargs.get('item_id', "")).first()
 
     # create orderItem of the selected book
     order_item, status = OrderItem.objects.get_or_create(book=book)
@@ -71,9 +68,6 @@ def decrease_item_quantity(request, **kwargs):
         order_item.quantity = order_item.quantity - 1
         order_item.price_in_cart = order_item.book.price * order_item.quantity
         order_item.save()
-    
-    print(order_item.quantity)
-    print(order_item.price_in_cart)
 
     # create order associated with the user
     user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
@@ -124,7 +118,7 @@ def add_to_cart_from_detail(request, **kwargs):
     user_profile = get_object_or_404(Profile, user=request.user)
 
     # filter books by id
-    book = Books.objects.filter(id=kwargs.get('item_id', "")).first()
+    book = books.objects.filter(id=kwargs.get('item_id', "")).first()
 
     book_id = kwargs.get('item_id')
 
@@ -154,7 +148,7 @@ def add_to_cart_from_saved(request, **kwargs):
     user_profile = get_object_or_404(Profile, user=request.user)
 
     # filter books by id
-    book = Books.objects.filter(id=kwargs.get('item_id', "")).first()
+    book = books.objects.filter(id=kwargs.get('item_id', "")).first()
 
     # create orderItem of the selected book
     order_item, status = OrderItem.objects.get_or_create(book=book, price_in_cart=book.price)
@@ -182,7 +176,7 @@ def add_to_saved(request, **kwargs):
     user_profile = get_object_or_404(Profile, user=request.user)
 
     # filter books by id
-    saved_book = Books.objects.filter(id=kwargs.get('item_id', "")).first()
+    saved_book = books.objects.filter(id=kwargs.get('item_id', "")).first()
 
     # create orderItem of the selected book
     saved_item, status = SaveItem.objects.get_or_create(saved_book=saved_book)
@@ -207,7 +201,7 @@ def add_to_saved_from_detail(request, **kwargs):
     user_profile = get_object_or_404(Profile, user=request.user)
 
     # filter books by id
-    saved_book = Books.objects.filter(id=kwargs.get('item_id', "")).first()
+    saved_book = books.objects.filter(id=kwargs.get('item_id', "")).first()
 
     book_id = kwargs.get('item_id')
 
@@ -233,10 +227,10 @@ def add_to_saved_from_cart(request, **kwargs):
     user_profile = get_object_or_404(Profile, user=request.user)
 
     # filter books by id
-    book = Books.objects.filter(id=kwargs.get('item_id', "")).first()
+    book = books.objects.filter(id=kwargs.get('item_id', "")).first()
 
     # filter books by id
-    saved_book = Books.objects.filter(id=kwargs.get('item_id', "")).first()
+    saved_book = books.objects.filter(id=kwargs.get('item_id', "")).first()
 
     order_item, ostatus = OrderItem.objects.get_or_create(book=book, price_in_cart=book.price)
     user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
@@ -266,7 +260,7 @@ def update_cart_quantities(request, **kwargs):
     user_profile = get_object_or_404(Profile, user=request.user)
 
     # filter books by id
-    book = Books.objects.filter(id=kwargs.get('item_id', "")).first()
+    book = books.objects.filter(id=kwargs.get('item_id', "")).first()
 
     # create orderItem of the selected book
     order_item, status = OrderItem.objects.get_or_create(book=book, price_in_cart=book.price)
@@ -325,8 +319,6 @@ def delete_from_saved(request, item_id):
 @login_required()
 def order_details(request, **kwargs):
     existing_order = get_user_pending_order(request)
-
-    print(existing_order)
     
     # get the user profile
     user_profile = get_object_or_404(Profile, user=request.user)

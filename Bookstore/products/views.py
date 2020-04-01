@@ -2,11 +2,11 @@ from __future__ import unicode_literals
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from shopping_cart.models import Order
-from .models import Books
+from .models import books
 
 @login_required
 def product_list(request):
-    object_list = Books.objects.all()
+    object_list = books.objects.all()
     #filtered_orders = Order.objects.filter(owner=request.user.profile, is_ordered=False)
     #current_order_products = []
     #if filtered_orders.exists():

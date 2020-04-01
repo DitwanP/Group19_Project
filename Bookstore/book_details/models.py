@@ -22,7 +22,6 @@ class BookInfo(models.Model):
     price = models.DecimalField(max_digits=5, decimal_places=2)
     authorName = models.ForeignKey(BookAuthor, on_delete=models.CASCADE)
     coverImage = models.ImageField(upload_to='images/')
-    releasedDate = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.bookName
@@ -33,8 +32,7 @@ class BookInfo(models.Model):
 
 class BookRatings(models.Model):
     bookRating = models.CharField(max_length=1000)  # temporary
-    releasedDate = models.DateTimeField(auto_now_add=True, null=True)
 
 
 class Meta:
-        ordering = ['releasedDate', 'price', 'bookName']
+        ordering = ['price', 'bookName']
