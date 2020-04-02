@@ -13,6 +13,7 @@ class OrderItem(models.Model):
     date_ordered = models.DateTimeField(null=True)
     quantity = models.PositiveIntegerField(default=1)
     price_in_cart = models.DecimalField(max_digits=5, decimal_places=2)
+    is_saved_for_later = models.BooleanField(default=False)
 
     def __str__(self):
         return self.book.name
