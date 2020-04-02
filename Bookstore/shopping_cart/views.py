@@ -31,7 +31,7 @@ def increase_item_quantity(request, **kwargs):
     user_profile = get_object_or_404(Profile, user=request.user)
 
     # filter books by id
-    book = books.objects.filter(id=kwargs.get('item_id', "")).first()
+    book = Books.objects.filter(id=kwargs.get('item_id', "")).first()
 
     # create orderItem of the selected book
     order_item, status = OrderItem.objects.get_or_create(book=book)
@@ -96,7 +96,7 @@ def add_to_cart(request, **kwargs):
     user_profile = get_object_or_404(Profile, user=request.user)
 
     # filter books by id
-    book = books.objects.filter(id=kwargs.get('item_id', "")).first()
+    book = Books.objects.filter(id=kwargs.get('item_id', "")).first()
 
     # create orderItem of the selected book
     order_item, status = OrderItem.objects.get_or_create(book=book, price_in_cart=book.price)
