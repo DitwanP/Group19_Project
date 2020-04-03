@@ -3,16 +3,17 @@ from __future__ import unicode_literals
 from django.db import models
 
 from accounts.models import Profile
-from products.models import Books
+from products.models import books
 
 
 class OrderItem(models.Model):
-    book = models.OneToOneField(Books, on_delete=models.SET_NULL, null=True)
+    book = models.OneToOneField(books, on_delete=models.SET_NULL, null=True)
     is_ordered = models.BooleanField(default=False)
     date_added = models.DateTimeField(auto_now=True)
     date_ordered = models.DateTimeField(null=True)
     quantity = models.PositiveIntegerField(default=1)
     price_in_cart = models.DecimalField(max_digits=5, decimal_places=2)
+    is_saved_for_later = models.BooleanField(default=False)
 
     def __str__(self):
         return self.book.name
@@ -36,7 +37,7 @@ class Order(models.Model):
 
 
 class SaveItem(models.Model):
-    saved_book = models.OneToOneField(Books, on_delete=models.SET_NULL, null=True)
+    saved_book = models.OneToOneField(books, on_delete=models.SET_NULL, null=True)
     is_ordered = models.BooleanField(default=False)
     date_added = models.DateTimeField(auto_now=True)
     date_ordered = models.DateTimeField(null=True)

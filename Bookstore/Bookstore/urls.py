@@ -23,7 +23,7 @@ from django.contrib.staticfiles.urls import static
 urlpatterns = [
     path('', include('book_browsing.urls')),
     url(r'^admin/', admin.site.urls),
-    url('cart/', include('shopping_cart.urls', namespace='shopping_cart')),
+    url(r'cart/', include('shopping_cart.urls', namespace='shopping_cart')),
     url(r'^products/', include('products.urls', namespace='products')),
     url('profiles/', include('accounts.urls', namespace='accounts')),
     url(r'^accounts/', include('allauth.urls')),

@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'profile_management',
     'book_details',
     'book_browsing',
-
 ]
 
 MIDDLEWARE = [
