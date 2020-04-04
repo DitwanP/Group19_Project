@@ -10,9 +10,6 @@ urlpatterns = [
     path('book/', views.book, name='book'),
     path(r'about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
-    path('blog/', views.blog, name='blog'),
-    path('sales-off/', views.salesOff, name='sales-off'),
-    path('blog-details/', views.blogDetails, name='blog-details'),
     path('order/', views.order, name='order'),
     path('new-book/', views.newBook, name='new-book'),
     path('search/', views.search, name='search'),
@@ -24,4 +21,5 @@ urlpatterns = [
     path('new-release/', views.newRelease, name='new-release'),
     path('top-sellers/', views.topSeller, name='top-sellers'),
     path('filter-data/', views.filterData, name='filter-data'),
+    path('filter-released-data/', views.filterReleasedData, name='filter-released-data'),
 ]

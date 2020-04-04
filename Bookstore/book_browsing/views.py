@@ -1,3 +1,4 @@
+import books as books
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
@@ -41,21 +42,6 @@ def contact(request):
     return render(request, template)
 
 
-def blog(request):
-    template = "blog.html",
-    return render(request, template)
-
-
-def salesOff(request):
-    template = "sales_off.html",
-    return render(request, template)
-
-
-def blogDetails(request):
-    template = "blog_details.html",
-    return render(request, template)
-
-
 def order(request):
     template = "order.html",
     return render(request, template)
@@ -73,7 +59,7 @@ def cart(request):
 
 def search(request):
     query = request.GET.get('q')
-    books = None
+    bookResult = None
     results = None
     count = None
     try:
@@ -89,13 +75,13 @@ def search(request):
         page = request.GET.get('page', 1)
         paginator = Paginator(results, 8)
         try:
-            books = paginator.page(page)
+            bookResult = paginator.page(page)
         except PageNotAnInteger:
-            books = paginator.page(1)
+            bookResult = paginator.page(1)
         except EmptyPage:
-            books = paginator.page(paginator.num_pages)
+            bookResult = paginator.page(paginator.num_pages)
 
-    return render(request, 'search.html', {"books": books, "count": count})
+    return render(request, 'search.html', {"books": bookResult, "count": count})
 
 
 def viewPage(request):
@@ -105,12 +91,12 @@ def viewPage(request):
     page = request.GET.get('page', 1)
     paginator = Paginator(results, 8)
     try:
-        books = paginator.page(page)
+        bookResult = paginator.page(page)
     except PageNotAnInteger:
-        books = paginator.page(1)
+        bookResult = paginator.page(1)
     except EmptyPage:
-        books = paginator.page(paginator.num_pages)
-    return render(request, 'book.html', {'books': books, "title": pageName, "count": results.count()})
+        bookResult = paginator.page(paginator.num_pages)
+    return render(request, 'book.html', {'books': bookResult, "title": pageName, "count": results.count()})
 
 
 def fantacy(request):
@@ -138,12 +124,12 @@ def newRelease(request):
     page = request.GET.get('page', 1)
     paginator = Paginator(results, 8)
     try:
-        books = paginator.page(page)
+        bookResult = paginator.page(page)
     except PageNotAnInteger:
-        books = paginator.page(1)
+        bookResult = paginator.page(1)
     except EmptyPage:
-        books = paginator.page(paginator.num_pages)
-    return render(request, 'new_release.html', {'books': books, "title": "New Release", "count": results.count()})
+        bookResult = paginator.page(paginator.num_pages)
+    return render(request, 'new_release.html', {'books': bookResult, "title": "New Release", "count": results.count()})
 
 
 def topSeller(request):
@@ -166,13 +152,39 @@ def filterData(request):
         results = books.objects.filter(Q(genre=pageName)).order_by('name')
     else:
         results = books.objects.filter(Q(genre=pageName)).order_by(sortType)
+
     page = request.GET.get('page', 1)
     paginator = Paginator(results, 8)
     try:
-        books = paginator.page(page)
+        bookResult = paginator.page(page)
     except PageNotAnInteger:
-        books = paginator.page(1)
+        bookResult = paginator.page(1)
     except EmptyPage:
-        books = paginator.page(paginator.num_pages)
+        bookResult = paginator.page(paginator.num_pages)
 
-    return render(request, 'ajax/book.html', {'books': books})
+    return render(request, 'ajax/book.html', {'books': bookResult})
+
+
+def filterReleasedData(request):
+    sortType = request.GET.get("sort_type")
+    if sortType == 'releasedDate':
+        results = books.objects.all().order_by('releasedDate').reverse()
+    elif sortType == 'price':
+        results = books.objects.all().order_by('releasedDate', 'price').reverse()
+    elif sortType == 'pricelowtohigh':
+        results = books.objects.all().order_by('releasedDate', 'price')
+    elif sortType == 'atoz':
+        results = books.objects.all().order_by('releasedDate', 'name')
+    else:
+        results = books.objects.all().order_by('releasedDate', sortType)
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(results, 8)
+    try:
+        bookResult = paginator.page(page)
+    except PageNotAnInteger:
+        bookResult = paginator.page(1)
+    except EmptyPage:
+        bookResult = paginator.page(paginator.num_pages)
+
+    return render(request, 'ajax/book.html', {'books': bookResult})
