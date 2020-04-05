@@ -170,13 +170,13 @@ def filterReleasedData(request):
     if sortType == 'releasedDate':
         results = books.objects.all().order_by('releasedDate').reverse()
     elif sortType == 'price':
-        results = books.objects.all().order_by('releasedDate', 'price').reverse()
+        results = books.objects.all().order_by('price', 'releasedDate').reverse()
     elif sortType == 'pricelowtohigh':
-        results = books.objects.all().order_by('releasedDate', 'price')
+        results = books.objects.all().order_by('price', 'releasedDate')
     elif sortType == 'atoz':
-        results = books.objects.all().order_by('releasedDate', 'name')
+        results = books.objects.all().order_by('name', 'releasedDate')
     else:
-        results = books.objects.all().order_by('releasedDate', sortType)
+        results = books.objects.all().order_by(sortType, 'releasedDate')
 
     page = request.GET.get('page', 1)
     paginator = Paginator(results, 8)
