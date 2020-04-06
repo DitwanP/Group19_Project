@@ -1,88 +1,47 @@
 <header>
     <!-- header-top-area-start -->
-    <div class="header-top-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-12">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-                </div>
-                <div class="col-lg-6 col-md-6 col-12">
-                    <div class="account-area text-right">
-                        <ul>
-                            <li><a href="{% url 'accounts:profiles' %}">My Account</a></li>
-                            <li><a href="{% url 'shopping_cart:checkout' %}">Checkout</a></li>
-                        </ul>
-                    </div>
-                </div>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">G19 Bookstore </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div></div>
+
+            <div class="row" style="position:absolute; right:1050px; top:0px;">                                  
+                <div class="header-search">
+                    <form action="{% url 'book_browsing:search' %}" method="get">
+                        <input type="text" name="q" placeholder="Search entire store here..." value="{{ query }}">
+                        <button type="submit" class="search-btn"><i class='fa fa-search'></i></button>
+                    </form>
+                </div>                                            
+            </div>
+           
+            <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+                <ul class="navbar-nav m-auto">
+                    <li class="nav-item m-auto">
+                        <a class="nav-link" href="{% url 'book_browsing:home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Profile <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+    
+                <form class="form-inline my-2 my-lg-0">   
+                    <a class="btn btn-success btn-sm ml-3" href="{%  url 'shopping_cart:order_summary' %}">
+                        <i class="fa fa-shopping-cart"></i> Cart
+                        <span class="badge badge-light"></span>
+                    </a>
+                </form>
             </div>
         </div>
-    </div>
+      </nav>
     <!-- header-top-area-end -->
 
     <!-- header-mid-area-start -->
-    <div class="header-mid-area ptb-40">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-5 col-12">
-                    <div class="header-search">
-                        <form action="{% url 'book_browsing:search' %}" method="get">
-                            <input type="text" name="q" placeholder="Search entire store here..." value="{{ query }}">
-                            <button type="submit" class="search-btn"><i class='fa fa-search'></i></button>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-4 col-12">
-                    <div class="logo-area text-center logo-xs-mrg">
-                        <h3>Group 19 Online Book Store</h3>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-12">
-                    <div class="my-cart">
-                        <ul>
-                            <li><a href="javascript:void(0)"><i class="fa fa-shopping-cart"></i>My Cart</a>
-                                <span>2</span>
-                                <div class="mini-cart-sub">
-                                    <div class="cart-product">
-                                        <div class="single-cart">
-                                            <div class="cart-img">
-                                                <a href="javascript:void(0)"><img src="/static/images/1(1).jpg" alt="book"></a>
-                                            </div>
-                                            <div class="cart-info">
-                                                <h5><a href="javascript:void(0)">Joust Duffle Bag</a></h5>
-                                                <p>1 x $60.00</p>
-                                            </div>
-                                            <div class="cart-icon">
-                                                <a href="javascript:void(0)"><i class="fa fa-remove"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="single-cart">
-                                            <div class="cart-img">
-                                                <a href="javascript:void(0)"><img src="/static/images/3(1).jpg" alt="book"></a>
-                                            </div>
-                                            <div class="cart-info">
-                                                <h5><a href="javascript:void(0)">Chaz Kangeroo Hoodie</a></h5>
-                                                <p>1 x $52.00</p>
-                                            </div>
-                                            <div class="cart-icon">
-                                                <a href="javascript:void(0)"><i class="fa fa-remove"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="cart-totals">
-                                        <h5>Total <span>$12.00</span></h5>
-                                    </div>
-                                    <div class="cart-bottom">
-                                        <a class="view-cart" href="{% url 'shopping_cart:order_summary' %}">view cart</a>
-                                        <a href="{% url 'shopping_cart:checkout' %}">Check out</a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- header-mid-area-end -->
 
     <!-- main-menu-area-start -->
