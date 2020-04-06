@@ -1,6 +1,5 @@
-from collections import defaultdict
-
 import books as books
+
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
