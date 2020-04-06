@@ -1,22 +1,22 @@
 <header>
     <!-- header-top-area-start -->
-    <div class="header-top-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-12">
-
-                </div>
-                <div class="col-lg-6 col-md-6 col-12">
-                    <div class="account-area text-right">
-                        <ul>
-                            <li><a href="{% url 'accounts:profiles' %}">My Account</a></li>
-                            <li><a href="{% url 'shopping_cart:checkout' %}">Checkout</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+{#    <div class="header-top-area">#}
+{#        <div class="container">#}
+{#            <div class="row">#}
+{#                <div class="col-lg-6 col-md-6 col-12">#}
+{##}
+{#                </div>#}
+{#                <div class="col-lg-6 col-md-6 col-12">#}
+{#                    <div class="account-area text-right">#}
+{#                        <ul>#}
+{#                            <li><a href="{% url 'accounts:profiles' %}">My Account</a></li>#}
+{#                            <li><a href="{% url 'shopping_cart:checkout' %}">Checkout</a></li>#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
     <!-- header-top-area-end -->
 
     <!-- header-mid-area-start -->
@@ -43,33 +43,25 @@
                                 <span>2</span>
                                 <div class="mini-cart-sub">
                                     <div class="cart-product">
+                                        {% for book in books_for_order %}
                                         <div class="single-cart">
                                             <div class="cart-img">
-                                                <a href="javascript:void(0)"><img src="/static/images/1(1).jpg" alt="book"></a>
+                                                <a href="javascript:void(0)"><img src="/static/images/product/{{ book.book.coverImage }}" alt="{{book.book.name}}"></a>
                                             </div>
                                             <div class="cart-info">
-                                                <h5><a href="javascript:void(0)">Joust Duffle Bag</a></h5>
-                                                <p>1 x $60.00</p>
+                                                <h5><a href="javascript:void(0)">{{book.book.name}}</a></h5>
+                                                <p>{{book.quantity}} x ${{ book.book.price }}</p>
                                             </div>
                                             <div class="cart-icon">
-                                                <a href="javascript:void(0)"><i class="fa fa-remove"></i></a>
+                                                <a href="{% url 'shopping_cart:delete_item_from_saved' book.id %}" onclick="return confirm_delete_saved();"><i class="fa fa-remove"></i></a>
                                             </div>
                                         </div>
-                                        <div class="single-cart">
-                                            <div class="cart-img">
-                                                <a href="javascript:void(0)"><img src="/static/images/3(1).jpg" alt="book"></a>
-                                            </div>
-                                            <div class="cart-info">
-                                                <h5><a href="javascript:void(0)">Chaz Kangeroo Hoodie</a></h5>
-                                                <p>1 x $52.00</p>
-                                            </div>
-                                            <div class="cart-icon">
-                                                <a href="javascript:void(0)"><i class="fa fa-remove"></i></a>
-                                            </div>
-                                        </div>
+                                        {% empty %}
+                                            <h4>Your cart is empty</h4>
+                                        {% endfor %}
                                     </div>
                                     <div class="cart-totals">
-                                        <h5>Total <span>$12.00</span></h5>
+                                        <h5>Total <span>{% if user_order.get_cart_total != None %} ${{ user_order.get_cart_total }}{% endif %}</span></h5>
                                     </div>
                                     <div class="cart-bottom">
                                         <a class="view-cart" href="{% url 'shopping_cart:order_summary' %}">view cart</a>

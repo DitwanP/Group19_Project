@@ -19,6 +19,8 @@
         <link rel="stylesheet" href="/static/css/meanmenu.min.css">
         <!-- owl.carousel css -->
         <link rel="stylesheet" href="/static/css/owl.carousel.css">
+
+        <link rel="stylesheet" href="/static/css/owl.theme.default.min.css">
         <!-- font-awesome css -->
         <link rel="stylesheet" href="/static/css/font-awesome.min.css">
         <!-- flexslider.css-->
@@ -197,5 +199,37 @@
         <!-- main js -->
         <script src="/static/js/main.js"></script>
         <script src="/static/js/layout.js"></script>
+
+        {% block scripts %}
+            <script>
+                function confirm_delete(){
+                    return confirm("Are you sure you want to remove this item from cart?");
+                }
+
+                $(document).ready(function() {
+                    $('.owl-carousel').owlCarousel({
+                        loop: true,
+                        margin: 10,
+                        responsiveClass: true,
+                        responsive: {
+                            0: {
+                                items: 1,
+                                nav: true
+                            },
+                            600: {
+                                items: 3,
+                                nav: false
+                            },
+                            1000: {
+                                items: 5,
+                                nav: true,
+                                loop: false,
+                                margin: 20
+                            }
+                        }
+                    })
+                })
+            </script>
+        {% endblock scripts %}
     </body>
 </html>

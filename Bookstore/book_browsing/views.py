@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 import books as books
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
@@ -5,11 +7,30 @@ from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from django.template import RequestContext
+
+from accounts.models import Profile
 from products.models import books
+from shopping_cart.models import OrderItem, Order
 
 
 def home(request):
-    return render(request, 'index.html')
+    user_profile = get_object_or_404(Profile, user=request.user)
+    user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
+    books_for_order = OrderItem.objects.all()[0:2]
+
+    # Top Interest
+    new_release = books.objects.order_by('releasedDate').reverse()[:15]
+    feature_products = books.objects.filter(Q(category='Entertainment')).order_by("name")[:15]
+    on_sales = books.objects.all().order_by("name")[:15]
+
+    # Best Selling
+    best_sellings = OrderItem.objects.all()
+
+    all_books = books.objects.all()
+
+    context = {'books_for_order': books_for_order, "user_order": user_order, "new_release": new_release, "on_sales": on_sales, "feature_products": feature_products, "best_sellings": best_sellings, "all_books": all_books, "all_books_count": range(0, int(all_books.count()/3))}
+
+    return render(request, 'index.html', context)
 
 
 def account(request):
