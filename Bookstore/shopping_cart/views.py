@@ -110,7 +110,7 @@ def add_to_cart(request, **kwargs):
 
     # show confirmation message and redirect back to the same page
     messages.info(request, "Item has been added to cart")
-    return redirect(reverse('products:product-list'))
+    return redirect(request.META['HTTP_REFERER'])
 
 @login_required()
 def add_to_cart_from_detail(request, **kwargs):
