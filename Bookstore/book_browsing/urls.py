@@ -8,7 +8,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     url(r'^home/$', views.home, name='home'),
     path('book/', views.book, name='book'),
-    path(r'about/', views.about, name='about'),
+    path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
     path('order/', views.order, name='order'),
     path('new-book/', views.newBook, name='new-book'),
@@ -22,4 +22,5 @@ urlpatterns = [
     path('top-sellers/', views.topSeller, name='top-sellers'),
     path('filter-data/', views.filterData, name='filter-data'),
     path('filter-released-data/', views.filterReleasedData, name='filter-released-data'),
+    path('get-book-details/', views.getBookDetailsById, name='get-book-details'),
 ]

@@ -1,0 +1,29 @@
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-5 col-sm-5 col-xs-12">
+            <div class="modal-tab">
+                <div class="product-details-large tab-content">
+                    <div class="tab-pane active" id="image-1">
+                        <img src="/static/images/product/{{ book.coverImage }}" alt="{{ book.name }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7 col-sm-7 col-xs-12">
+            <div class="modal-pro-content">
+                <h3>{{ book.name }}</h3>
+                <div class="price">
+                    <span>${{ book.price }}</span>
+                </div>
+                <div class="book_details">
+                    <p>{{ book.description }}</p>
+                </div>
+                <form action="#">
+                    <input type="number" name="qty" value="1">
+                    <a href="{% url 'shopping_cart:add_to_cart' result.id %}"><button>Add to cart</button></a>
+                </form>
+                <span><i class="fa fa-check"></i> In stock</span>
+            </div>
+        </div>
+    </div>
+</div>

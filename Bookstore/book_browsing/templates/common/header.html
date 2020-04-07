@@ -1,10 +1,9 @@
 <header>
     <!-- header-top-area-start -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark header-mid-area">
         <div class="container">
-            <a class="navbar-brand" href="#">G19 Bookstore </a>
+            <a class="navbar-brand" href="{% url 'book_browsing:home' %}">G19 Bookstore </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -22,27 +21,49 @@
            
             <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
                 <ul class="navbar-nav m-auto">
-                    <li class="nav-item m-auto">
-                        <a class="nav-link" href="{% url 'book_browsing:home' %}">Home</a>
-                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Profile <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="{% url 'accounts:profiles' %}">Profile <span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
-    
-                <form class="form-inline my-2 my-lg-0">   
-                    <a class="btn btn-success btn-sm ml-3" href="{%  url 'shopping_cart:order_summary' %}">
-                        <i class="fa fa-shopping-cart"></i> Cart
-                        <span class="badge badge-light"></span>
-                    </a>
-                </form>
+
+                <div class="my-cart">
+                    <ul>
+                        <li><a href="javascript:void(0)"><i class="fa fa-shopping-cart"></i>Cart</a>
+                            <span>2</span>
+                            <div class="mini-cart-sub">
+                                <div class="cart-product">
+                                    {% for book in books_for_order %}
+                                        <div class="single-cart">
+                                            <div class="cart-img">
+                                                <a href="javascript:void(0)"><img src="/static/images/product/{{ book.book.coverImage }}" alt="{{book.book.name}}"></a>
+                                            </div>
+                                            <div class="cart-info">
+                                                <h5><a href="javascript:void(0)">{{book.book.name}}</a></h5>
+                                                <p>{{book.quantity}} x ${{ book.book.price }}</p>
+                                            </div>
+                                            <div class="cart-icon">
+                                                <a href="{% url 'shopping_cart:delete_item_from_saved' book.id %}" onclick="return confirm_delete_saved();"><i class="fa fa-remove"></i></a>
+                                            </div>
+                                        </div>
+                                    {% empty %}
+                                        <h4>Your cart is empty</h4>
+                                    {% endfor %}
+                                </div>
+                                <div class="cart-totals">
+                                    <h5> <span>{% if user_order.get_cart_total != None %} Total ${{ user_order.get_cart_total }}{% endif %}</span></h5>
+                                </div>
+                                <div class="cart-bottom">
+                                    <a class="view-cart" href="{% url 'shopping_cart:order_summary' %}">view cart</a>
+                                    <a href="{% url 'shopping_cart:checkout' %}">Check out</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
       </nav>
     <!-- header-top-area-end -->
-
-    <!-- header-mid-area-start -->
-    <!-- header-mid-area-end -->
 
     <!-- main-menu-area-start -->
     <div class="main-menu-area d-md-none d-none d-lg-block sticky-header-1" id="header-sticky">
@@ -73,14 +94,14 @@
                                         <ul>
                                             <li><a href="{% url 'book_browsing:fantacy' %}">Fantacy</a></li>
                                             <li><a href="{% url 'book_browsing:romance' %}">Romance</a></li>
-                                            <li><a href="{% url 'book_browsing:fiction' %}">Fiction</a></li>
+                                            <li><a href="{% url 'book_browsing:fiction' %}">Science Fiction</a></li>
                                             <li><a href="{% url 'book_browsing:history' %}">History</a></li>
                                             <li><a href="{% url 'book_browsing:thriller' %}">Thriller</a></li>
                                         </ul>
                                     </div>
                                 </li>
-                                <li><a href="javascript:void(0)" class="book-list audio-books" id="book" data-target="productBook">Audio books</a></li>
-                                <li><a href="javascript:void(0)" class="book-list children-book" data-target="productBook">Children’s books</a></li>
+                                <li><a href="javascript:void(0)" class="book-list audio-books" id="book" data-target="productBook">Science Fiction's books</a></li>
+                                <li><a href="javascript:void(0)" class="book-list children-book" data-target="productBook">History’s books</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -105,8 +126,8 @@
                                     </ul>
                                 </li>
                                 <li><a href="{% url 'book_browsing:book' %}">Book</a></li>
-                                <li><a href="javascript:void(0)" class="book-list audio-books" id="book" data-target="productBook">Audio books</a></li>
-                                <li><a href="javascript:void(0)" class="book-list children-book" data-target="productBook">Children’s books</a></li>
+                                <li><a href="javascript:void(0)" class="book-list audio-books" id="book" data-target="productBook">Science Fiction's books</a></li>
+                                <li><a href="javascript:void(0)" class="book-list children-book" data-target="productBook">History’s books</a></li>
                             </ul>
                         </nav>
                     </div>

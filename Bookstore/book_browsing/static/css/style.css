@@ -642,7 +642,7 @@ body {
 }
 
 .header-mid-area .my-cart ul > li > a {
-    color: #444444;
+    color: #ffffff !important;
     display: inline-block;
     font-size: 16px;
     font-weight: 700;
@@ -658,7 +658,7 @@ body {
 }
 
 .header-mid-area .my-cart ul li > a > i {
-    font-size: 40px;
+    font-size: 30px;
     padding-right: 30px;
 }
 
@@ -1477,6 +1477,10 @@ body {
     transition: all 0.5s ease-in-out 0s;
     width: 100%;
     pointer-events: none;
+}
+
+.single-most-product {
+    min-height: 109px;
 }
 
 .product-wrapper:hover .product-img::after,
@@ -5307,7 +5311,7 @@ nav.menu .cr-dropdown ul {
     cursor: pointer;
 }
 
-.product-area{
+.product-area {
     margin-bottom: 90px;
 }
 
@@ -7656,6 +7660,29 @@ p.lost-password a:hover {
     text-align: center;
 }
 
-.pagination-area .pagination .disabled{
+.pagination-area .pagination .disabled {
     display: none;
+}
+
+.modal-body .book_details {
+    margin: 0 0 20px 0;
+}
+
+.modal-body .product-details-large img {
+    width: 300px;
+    height: 400px;
+}
+
+.modal-body p {
+    text-align: justify;
+}
+
+#interesting .product-img img, #featuredBook .product-img img {
+    width: 206px;
+    height: 300px;
+}
+
+#new_release .product-img img{
+    width: 263px;
+    height: 394px;
 }

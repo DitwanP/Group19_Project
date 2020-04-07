@@ -60,3 +60,23 @@ $('#sorter_released').change(function () {
         }
     });
 });
+
+$('.book-details').click(function (e) {
+    var bookId = $(this).attr('data-id');
+
+    if (bookId > 0) {
+        var data = {"book_id": bookId};
+        $.ajax({
+            type: "GET",
+            url: BASEURL + "get-book-details/",
+            data: data,
+            async: false,
+            success: function (response) {
+                $("#book_details").html(response);
+            },
+            error: function () {
+                alert('Error occured');
+            }
+        });
+    }
+});

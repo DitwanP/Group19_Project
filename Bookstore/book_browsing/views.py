@@ -13,9 +13,12 @@ from shopping_cart.models import OrderItem, Order
 
 
 def home(request):
-    user_profile = get_object_or_404(Profile, user=request.user)
-    user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
-    books_for_order = OrderItem.objects.all()[0:2]
+    books_for_order = None
+    user_order = None
+    if request.user.is_active:
+        user_profile = get_object_or_404(Profile, user=request.user)
+        user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
+        books_for_order = OrderItem.objects.all()[0:2]
 
     # Top Interest
     new_release = books.objects.order_by('releasedDate').reverse()[:15]
@@ -25,10 +28,19 @@ def home(request):
     # Best Selling
     best_sellings = OrderItem.objects.all()
 
+    # Book
     all_books = books.objects.all()
 
-    context = {'books_for_order': books_for_order, "user_order": user_order, "new_release": new_release, "on_sales": on_sales, "feature_products": feature_products, "best_sellings": best_sellings, "all_books": all_books, "all_books_count": range(0, int(all_books.count()/3))}
+    # Science Fiction
+    science_fiction_books = books.objects.filter(Q(genre="Science Fiction")).order_by('name')
 
+    # History Book
+    history_books = books.objects.filter(Q(genre="Science Fiction")).order_by('name')
+
+    # Fantacy Book
+    fantacy_books = books.objects.filter(Q(genre="Fantacy")).order_by('name')
+
+    context = {'books_for_order': books_for_order, "user_order": user_order, "new_release": new_release, "on_sales": on_sales, "feature_products": feature_products, "best_sellings": best_sellings, "all_books": all_books, "science_fiction_books": science_fiction_books, "history_books": history_books, "fantacy_books": fantacy_books}
     return render(request, 'index.html', context)
 
 
@@ -107,6 +119,10 @@ def search(request):
 def viewPage(request):
     queryString = request.path
     pageName = queryString.replace('/', '').title()
+
+    if pageName == "Fiction":
+        pageName = "Science Fiction"
+
     results = books.objects.filter(Q(genre=pageName)).order_by('name')
     page = request.GET.get('page', 1)
     paginator = Paginator(results, 8)
@@ -162,6 +178,10 @@ def filterData(request):
     queryString = request.GET.get("page_url")
 
     pageName = queryString.replace('/', '').title()
+
+    if pageName == "Fiction":
+        pageName = "Science Fiction"
+
     if sortType == 'releasedDate':
         results = books.objects.filter(Q(genre=pageName)).order_by('releasedDate').reverse()
     elif sortType == 'price':
@@ -208,3 +228,10 @@ def filterReleasedData(request):
         bookResult = paginator.page(paginator.num_pages)
 
     return render(request, 'ajax/book.html', {'books': bookResult})
+
+
+def getBookDetailsById(request):
+    bookId = request.GET.get("book_id")
+    bookObject = books.objects.get(pk=int(bookId))
+
+    return render(request, 'ajax/book_details.html', {'book': bookObject})
