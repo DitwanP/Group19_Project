@@ -18,11 +18,7 @@
                 <div class="book_details">
                     <p>{{ book.description }}</p>
                 </div>
-                <form action="#">
-                    <input type="number" name="qty" value="1">
-                    <a href="{% url 'shopping_cart:add_to_cart' book.id %}"><button>Add to cart</button></a>
-                </form>
-                <span><i class="fa fa-check"></i> In stock</span>
+                <a class="btn btn-dark" href="{% url 'shopping_cart:add_to_cart' book.id %}" title="Add to cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
             </div>
         </div>
     </div>

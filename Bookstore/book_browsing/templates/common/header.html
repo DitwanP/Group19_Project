@@ -10,15 +10,15 @@
 
             <div></div>
 
-            <div class="row" style="position:absolute; right:1050px; top:0px;">                                  
+            <div class="row" style="position:absolute; right:1050px; top:0px;">
                 <div class="header-search">
                     <form action="{% url 'book_browsing:search' %}" method="get">
                         <input type="text" name="q" placeholder="Search entire store here..." value="{{ query }}">
                         <button type="submit" class="search-btn"><i class='fa fa-search'></i></button>
                     </form>
-                </div>                                            
+                </div>
             </div>
-           
+
             <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
                 <ul class="navbar-nav m-auto">
                     <li class="nav-item">
@@ -29,17 +29,17 @@
                 <div class="my-cart">
                     <ul>
                         <li><a href="javascript:void(0)"><i class="fa fa-shopping-cart"></i>Cart</a>
-                            <span>2</span>
+                            <span>{{ user_order.cart_item_count }}</span>
                             <div class="mini-cart-sub">
                                 <div class="cart-product">
                                     {% for book in books_for_order %}
                                         <div class="single-cart">
                                             <div class="cart-img">
-                                                <a href="javascript:void(0)"><img src="/static/images/product/{{ book.book.coverImage }}" alt="{{book.book.name}}"></a>
+                                                <a href="javascript:void(0)"><img src="/static/images/product/{{ book.book.coverImage }}" alt="{{ book.book.name }}"></a>
                                             </div>
                                             <div class="cart-info">
-                                                <h5><a href="javascript:void(0)">{{book.book.name}}</a></h5>
-                                                <p>{{book.quantity}} x ${{ book.book.price }}</p>
+                                                <h5><a href="javascript:void(0)">{{ book.book.name }}</a></h5>
+                                                <p>{{ book.quantity }} x ${{ book.book.price }}</p>
                                             </div>
                                             <div class="cart-icon">
                                                 <a href="{% url 'shopping_cart:delete_item_from_saved' book.id %}" onclick="return confirm_delete_saved();"><i class="fa fa-remove"></i></a>
@@ -50,7 +50,7 @@
                                     {% endfor %}
                                 </div>
                                 <div class="cart-totals">
-                                    <h5> <span>{% if user_order.get_cart_total != None %} Total ${{ user_order.get_cart_total }}{% endif %}</span></h5>
+                                    <h5><span>{% if user_order.get_cart_total != None %} Total ${{ user_order.get_cart_total|floatformat:'2' }}{% endif %}</span></h5>
                                 </div>
                                 <div class="cart-bottom">
                                     <a class="view-cart" href="{% url 'shopping_cart:order_summary' %}">view cart</a>
@@ -62,7 +62,7 @@
                 </div>
             </div>
         </div>
-      </nav>
+    </nav>
     <!-- header-top-area-end -->
 
     <!-- main-menu-area-start -->

@@ -778,7 +778,8 @@ body {
 
 .cart-totals h5 span {
     display: block;
-    float: right;
+    text-align: left;
+    margin-bottom: 10px;
 }
 
 .home-3 .header-mid-area .my-cart ul > li .mini-cart-sub .cart-totals h5 span {
@@ -7682,7 +7683,19 @@ p.lost-password a:hover {
     height: 300px;
 }
 
-#new_release .product-img img{
+#new_release .product-img img {
     width: 263px;
     height: 394px;
 }
+
+.mini-cart-sub .total-price {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.mini-cart-sub .total-price span {
+
+}
+

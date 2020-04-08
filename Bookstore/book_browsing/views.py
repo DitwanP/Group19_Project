@@ -235,3 +235,8 @@ def getBookDetailsById(request):
     bookObject = books.objects.get(pk=int(bookId))
 
     return render(request, 'ajax/book_details.html', {'book': bookObject})
+
+
+def ajaxSubmit(request):
+    print(request)
+    return

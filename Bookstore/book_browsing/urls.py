@@ -23,4 +23,5 @@ urlpatterns = [
     path('filter-data/', views.filterData, name='filter-data'),
     path('filter-released-data/', views.filterReleasedData, name='filter-released-data'),
     path('get-book-details/', views.getBookDetailsById, name='get-book-details'),
+    path('ajax-submit/', views.ajaxSubmit, name='ajax-submit'),
 ]
