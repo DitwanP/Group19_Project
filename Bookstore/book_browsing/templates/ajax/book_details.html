@@ -20,7 +20,7 @@
                 </div>
                 <form action="#">
                     <input type="number" name="qty" value="1">
-                    <a href="{% url 'shopping_cart:add_to_cart' result.id %}"><button>Add to cart</button></a>
+                    <a href="{% url 'shopping_cart:add_to_cart' book.id %}"><button>Add to cart</button></a>
                 </form>
                 <span><i class="fa fa-check"></i> In stock</span>
             </div>
