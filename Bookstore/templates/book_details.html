@@ -126,7 +126,7 @@
             <font size="6">
                 ${{ book.price }}<br>
                 <button type="button" class="btn btn-primary btn-lg">
-                    <a href="{% url 'shopping_cart:add_to_cart_from_detail' object.id %}" style="color: white;">Add to Cart</a>
+                    <a href="{% url 'shopping_cart:add_to_cart' object.id %}" style="color: white;">Add to Cart</a>
                 </button>
                 <button type="button" class="btn btn-outline-primary btn-lg">
                     <a>Add to Wishlist</a>

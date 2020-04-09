@@ -27,10 +27,10 @@ urlpatterns = [
     url(r'^products/', include('products.urls', namespace='products')),
     url('profiles/', include('accounts.urls', namespace='accounts')),
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^book/(\d+)/$', views.bookDetailsView.as_view(), name='book_details'),
     url(r'^author/(\d+)/$', views.bookAuthorsView.as_view(), name='book_author'),
     path('book/<int:pk>', views.bookDetailsView.as_view(), name='book'),
     path('author/<int:pk>', views.bookAuthorsView.as_view(), name='book-author'),
+    url(r'^book/(?P<pk>\d+)/$', views.bookDetailsView.as_view(), name='book_details')
 ]
 
 if settings.DEBUG:
