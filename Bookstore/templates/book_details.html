@@ -3,61 +3,63 @@
 <head>
     <style>
         #myImg {
-        border-radius: 5px;
-        cursor: pointer;
-        transition: 0.3s;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
-        #myImg:hover {opacity: 0.7;}
+        #myImg:hover {
+            opacity: 0.7;
+        }
 
         .modal {
-        display: none; 
-        position: fixed; 
-        z-index: 1; 
-        padding-top: 100px;
-        left: 0;
-        top: 0;
-        width: 100%; 
-        height: 100%; 
-        overflow: auto; 
-        background-color: rgb(0,0,0); 
-        background-color: rgba(0,0,0,0.9); 
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.9);
         }
 
         .modal-content {
-        margin: auto;
-        display: block;
-        width: 80%;
-        max-width: 400px;
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 400px;
         }
 
         .close {
-        position: absolute;
-        top: 15px;
-        right: 35px;
-        font-size: 60px;
-        font-weight: bold;
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            font-size: 60px;
+            font-weight: bold;
         }
 
         .close:hover,
         .close:focus {
-        cursor: pointer;
+            cursor: pointer;
         }
     </style>
-    
+
     <meta charset="UTF-8">
-    <title> {{book.bookName}} </title>
+    <title> {{ book.bookName }} </title>
 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">     
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="#">G19 Bookstore </a>
+        <a class="navbar-brand" href="{% url 'book_browsing:home' %}">G19 Bookstore </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -72,8 +74,8 @@
                 </li>
             </ul>
 
-            <form class="form-inline my-2 my-lg-0">   
-                <a class="btn btn-success btn-sm ml-3" href="{%  url 'shopping_cart:order_summary' %}">
+            <form class="form-inline my-2 my-lg-0">
+                <a class="btn btn-success btn-sm ml-3" href="{% url 'shopping_cart:order_summary' %}">
                     <i class="fa fa-shopping-cart"></i> Cart
                     <span class="badge badge-light"></span>
                 </a>
@@ -87,64 +89,66 @@
         <div class="row">
             <div class="col">
                 <div class="text-center">
-                    <img id="myImg" img src="{{ book.coverImage.url }}" style="width:250px;height:400px;" class="rounded" alt="{{book.name}}">
+                    <img id="myImg" src="/static/images/product/{{ book.coverImage }}" style="width:250px;height:400px;" class="rounded" alt="{{ book.name }}">
                     <div id="myModal" class="modal">
                         <span class="close">&times;</span>
                         <img class="modal-content" id="img01">
                         <div id="caption"></div>
-                      </div>
                     </div>
+                </div>
             </div>
-          <div class="col">
-            <h1 class="jumbotron-heading"><u>{{book.name}}</h1></u><br>
-            {{book.description}}<br>
-          </div>
-          <div class="col">
-            <font size="6">About The Author:<br> <a href="../author/{{book.authorInfo.pk}}">{{book.author}}</a></font><br>
-            {{book.authorInfo.authorBio}}
-          </div>
-          </div>
-     </div>
-     
+            <div class="col">
+                <h1 class="jumbotron-heading"><u>{{ book.name }}</u></h1><br>
+                {{ book.description }}<br>
+            </div>
+            <div class="col">
+                <font size="6">About The Author:<br> <a href="../author/{{ book.authorInfo.pk }}">{{ book.author }}</a></font><br>
+                {{ book.authorInfo.authorBio }}
+            </div>
+        </div>
+    </div>
+
 </section>
 {% include 'messages.html' %}
 {{ message }}
 
 <div class="container">
     <div class="row">
-    <div class="col">
-        <font size="4"><center><br>
-        Genre: {{book.genre}} <br>
-        Publisher: {{book.publisher}}<br>
-        Rating: --- <br></center></font>
-      </div>
-      <div class="col">
-        <font size="6">
-            ${{book.price}}<br>
-            <button type="button" class="btn btn-primary btn-lg">
-                <a href="{% url 'shopping_cart:add_to_cart_from_detail' object.id %}" style="color: white;">Add to Cart</a>
-            </button>
-            <button type="button" class="btn btn-outline-primary btn-lg">
-                <a >Add to Wishlist</a>
-            </button>
+        <div class="col">
+            <font size="4">
+                <center><br>
+                    Genre: {{ book.genre }} <br>
+                    Publisher: {{ book.publisher }}<br>
+                    Rating: --- <br></center>
+            </font>
+        </div>
+        <div class="col">
+            <font size="6">
+                ${{ book.price }}<br>
+                <button type="button" class="btn btn-primary btn-lg">
+                    <a href="{% url 'shopping_cart:add_to_cart_from_detail' object.id %}" style="color: white;">Add to Cart</a>
+                </button>
+                <button type="button" class="btn btn-outline-primary btn-lg">
+                    <a>Add to Wishlist</a>
+                </button>
+            </font>
+        </div>
+    </div>
+    <br><br><br>
+
+
+    <div class="jumbotron">
+        <h1 class="display-">User Reviews:</h1> <br><br><br><br>
+        <font size="4">
+            No Current Reviews
         </font>
-      </div>
-      </div>
-<br><br><br>
+    </div>
 
 
-<div class="jumbotron">
-    <h1 class="display-">User Reviews:</h1> <br><br><br><br>
-    <font size ="4">
-        No Current Reviews
-    </font>
-</div>
-
-
-<!-- Footer -->
-<footer class="text-dark">
-    <div class="container">
-        <div class="row">
+    <!-- Footer -->
+    <footer class="text-dark">
+        <div class="container">
+            <div class="row">
             </div>
             <div class="col-12 copyright mt-3">
                 <p class="float-left">
@@ -152,7 +156,7 @@
                 </p>
             </div>
         </div>
-    </div>
+</div>
 </footer>
 <script>
     var modal = document.getElementById("myModal");
@@ -160,16 +164,16 @@
     var img = document.getElementById("myImg");
     var modalImg = document.getElementById("img01");
     var captionText = document.getElementById("caption");
-    img.onclick = function(){
-    modal.style.display = "block";
-    modalImg.src = this.src;
-    captionText.innerHTML = this.alt;
+    img.onclick = function () {
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
     }
 
     var span = document.getElementsByClassName("close")[0];
 
-    span.onclick = function() {
-    modal.style.display = "none";
+    span.onclick = function () {
+        modal.style.display = "none";
     }
 </script>
 </body>

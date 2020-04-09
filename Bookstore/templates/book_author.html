@@ -47,7 +47,7 @@
 <div class="jumbotron">
     <h1 class="display-">Books By This Author:</h1> <br>
     {% for book in books %}
-        <img src="{{ book.coverImage.url }} " class="rounded" style="width:100px;height:160px;" alt="{{book.name}}">
+        <img src="/static/images/product/{{ book.coverImage }} " class="rounded" style="width:100px;height:160px;" alt="{{book.name}}">
         <font size = "6">
         <a href="../book/{{book.pk}}">{{book.name}} </a><br><br>
         </font>

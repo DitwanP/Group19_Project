@@ -32,7 +32,6 @@
                                 <option value="pricelowtohigh"> Price Low to High</option>
                                 <option value="atoz"> A to Z</option>
                             </select>
-                            <a href="javascript:void(0)"><i class="fa fa-arrow-up"></i></a>
                         </div>
                     </div>
                     <!-- tab-area-start -->
@@ -45,11 +44,11 @@
                                             <!-- single-product-start -->
                                             <div class="product-wrapper mb-40">
                                                 <div class="product-img">
-                                                    <a href="javascript:void(0)">
+                                                    <a href="{% url 'book' result.id %}">
                                                         <img src="/static/images/product/{{ result.coverImage }}" alt="{{ result.name }}" class="primary">
                                                     </a>
                                                     <div class="quick-view">
-                                                        <a class="action-view book-details" href="javascript:void(0)" data-id="{{ result.id }}" data-target="#productModal" data-toggle="modal" title="Quick View">
+                                                        <a class="action-view" href="{% url 'book' result.id %}" title="Quick View">
                                                             <i class="fa fa-search-plus"></i>
                                                         </a>
                                                     </div>
@@ -70,7 +69,7 @@
                                                             <li><a href="javascript:void(0)"><i class="fa fa-star"></i></a></li>
                                                         </ul>
                                                     </div>
-                                                    <h4><a href="javascript:void(0)">{{ result.name }}</a></h4>
+                                                    <h4><a href="{% url 'book' result.id %}">{{ result.name }}</a></h4>
                                                     <div class="product-price">
                                                         <ul>
                                                             <li>${{ result.price }}</li>
@@ -107,7 +106,7 @@
                                             <div class="col-lg-4 col-md-4 col-12">
                                                 <div class="product-wrapper-2">
                                                     <div class="product-img">
-                                                        <a href="javascript:void(0)">
+                                                        <a href="{% url 'book' result.id %}">
                                                             <img src="/static/images/product/{{ result.coverImage }}" alt="{{ result.name }}" class="primary">
                                                         </a>
                                                     </div>
@@ -125,7 +124,7 @@
                                                                 <li><a href="javascript:void(0)"><i class="fa fa-star"></i></a></li>
                                                             </ul>
                                                         </div>
-                                                        <h4><a href="javascript:void(0)">{{ result.name }}</a></h4>
+                                                        <h4><a href="{% url 'book' result.id %}">{{ result.name }}</a></h4>
                                                         <div class="product-price">
                                                             <ul>
                                                                 <li>${{ result.price }}</li>
