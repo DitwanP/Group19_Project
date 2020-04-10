@@ -13,7 +13,7 @@ urlpatterns = [
     path('order/', views.order, name='order'),
     path('new-book/', views.newBook, name='new-book'),
     path('search/', views.search, name='search'),
-    path('fantacy/', views.fantacy, name='fantacy'),
+    path('fantasy/', views.fantasy, name='fantasy'),
     path('romance/', views.romance, name='romance'),
     path('fiction/', views.fiction, name='fiction'),
     path('history/', views.history, name='history'),
@@ -23,4 +23,5 @@ urlpatterns = [
     path('filter-data/', views.filterData, name='filter-data'),
     path('filter-released-data/', views.filterReleasedData, name='filter-released-data'),
     path('get-book-details/', views.getBookDetailsById, name='get-book-details'),
+    path('ajax-submit/', views.ajaxSubmit, name='ajax-submit')
 ]

@@ -22,8 +22,8 @@ def home(request):
 
     # Top Interest
     new_release = books.objects.order_by('releasedDate').reverse()[:15]
-    feature_products = books.objects.filter(Q(category='Entertainment')).order_by("name")[:15]
     on_sales = books.objects.all().order_by("name")[:15]
+    feature_products = books.objects.filter(Q(category='Entertainment')).order_by("name")[:15]
 
     # Best Selling
     best_sellings = OrderItem.objects.all()
@@ -37,10 +37,10 @@ def home(request):
     # History Book
     history_books = books.objects.filter(Q(genre="Science Fiction")).order_by('name')
 
-    # Fantacy Book
-    fantacy_books = books.objects.filter(Q(genre="Fantacy")).order_by('name')
+    # Fantasy Book
+    fantasy_books = books.objects.filter(Q(genre="Fantacy")).order_by('name')
 
-    context = {'books_for_order': books_for_order, "user_order": user_order, "new_release": new_release, "on_sales": on_sales, "feature_products": feature_products, "best_sellings": best_sellings, "all_books": all_books, "science_fiction_books": science_fiction_books, "history_books": history_books, "fantacy_books": fantacy_books}
+    context = {'books_for_order': books_for_order, "user_order": user_order, "new_release": new_release, "on_sales": on_sales, "feature_products": feature_products, "best_sellings": best_sellings, "all_books": all_books, "science_fiction_books": science_fiction_books, "history_books": history_books, "fantasy_books": fantasy_books}
     return render(request, 'index.html', context)
 
 
@@ -135,7 +135,7 @@ def viewPage(request):
     return render(request, 'book.html', {'books': bookResult, "title": pageName, "count": results.count()})
 
 
-def fantacy(request):
+def fantasy(request):
     return viewPage(request)
 
 
@@ -235,3 +235,8 @@ def getBookDetailsById(request):
     bookObject = books.objects.get(pk=int(bookId))
 
     return render(request, 'ajax/book_details.html', {'book': bookObject})
+
+
+def ajaxSubmit(request):
+    print(request)
+    return

@@ -1,0 +1,35 @@
+<div class="col-lg-3 col-md-4 col-12">
+    <div class="section-title-2 mb-30">
+        <h3>Fantasy Books</h3>
+    </div>
+    <div class="product-active-2 owl-carousel owl-theme">
+        {% for book in books %}
+            <div class="item" style="width: 255px;">
+                <div class="product-total-2">
+                    <div class="single-most-product bd mb-18">
+                        <div class="most-product-img">
+                            <a href="{% url 'book' book.id %}"><img src="/static/images/product/{{ book.coverImage }}" alt="book"></a>
+                        </div>
+                        <div class="most-product-content">
+                            <div class="product-rating">
+                                <ul>
+                                    <li><a href="javascript:void(0)"><i class="fa fa-star"></i></a></li>
+                                    <li><a href="javascript:void(0)"><i class="fa fa-star"></i></a></li>
+                                    <li><a href="javascript:void(0)"><i class="fa fa-star"></i></a></li>
+                                    <li><a href="javascript:void(0)"><i class="fa fa-star"></i></a></li>
+                                    <li><a href="javascript:void(0)"><i class="fa fa-star"></i></a></li>
+                                </ul>
+                            </div>
+                            <h4><a class="action-view" href="{% url 'book' book.id %}">{{ book.name }}</a></h4>
+                            <div class="product-price">
+                                <ul>
+                                    <li>${{ book.price }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

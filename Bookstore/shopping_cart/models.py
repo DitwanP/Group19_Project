@@ -32,6 +32,9 @@ class Order(models.Model):
     def get_cart_total(self):
         return sum([item.price_in_cart for item in self.items.all()])
 
+    def cart_item_count(self):
+        return self.items.count()
+
     def __str__(self):
         return '{0} - {1}'.format(self.owner, self.ref_code)
 
