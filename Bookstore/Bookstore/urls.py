@@ -25,7 +25,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'cart/', include('shopping_cart.urls', namespace='shopping_cart')),
     url(r'^products/', include('products.urls', namespace='products')),
-    url('profiles/', include('accounts.urls', namespace='accounts')),
+    url('profiles/', include('profile_management.urls', namespace='profile_management')),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^book/(\d+)/$', views.bookDetailsView.as_view(), name='book_details'),
     url(r'^author/(\d+)/$', views.bookAuthorsView.as_view(), name='book_author'),

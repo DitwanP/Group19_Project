@@ -1,0 +1,29 @@
+{% extends "userProfile/base.html" %}
+{% block content %}
+
+    <form method = 'POST'>
+		
+		{%csrf_token%}
+        <b>Name: </b>
+        <input type="text" name="name" value = "{{thisuser.name}}">
+        <br><br>
+        <b>Nickname:</b>
+        <input type="text" name="nickname" value = "{{thisuser.nickName}}">
+        <br><br>
+		<b>E-mail:</b>
+        <input type="text" name="email" value = "{{thisuser.Email}}">
+        <br><br>
+		<b>Phone Number</b>
+        <input type="text" name="phone" value = "{{thisuser.phoneNumber}}">
+        <br><br>
+        <b>Address: </b>
+        <input type="text" name="address" value = "{{thisuser.Address}}">
+        <br><br>
+        <button type="button">
+            <a href="http://127.0.0.1:8000/userprofile"><b>Go Back</b></a><br/>
+        </button>
+        <button type="submit">
+            <a href="http://127.0.0.1:8000/userprofile"><b>Submit</b></a><br/>
+        </button>
+    </form> 
+{% endblock content %}
