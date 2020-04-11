@@ -240,7 +240,7 @@ def delete_from_cart(request, item_id):
     books_for_order = OrderItem.objects.all()
 
     context = {'sbooks': sbooks, 'books_for_order': books_for_order, 'user_order': user_order}
-    return render(request,'shopping_cart/order_summary.html', context)
+    return redirect(request.META['HTTP_REFERER'])
 
 @login_required()
 def delete_from_saved(request, item_id):

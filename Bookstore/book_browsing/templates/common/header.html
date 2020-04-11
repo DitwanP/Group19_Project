@@ -24,6 +24,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'profile_management:userProfile-home' %}">Profile <span class="sr-only">(current)</span></a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile_management:userProfile-signin' %}">Sign in <span class="sr-only">(current)</span></a>
+                    </li>
+					<li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile_management:userProfile-signup' %}">Sign up <span class="sr-only">(current)</span></a>
+                    </li>
                 </ul>
 
                 <div class="my-cart">
@@ -42,7 +48,7 @@
                                                 <p>{{ book.quantity }} x ${{ book.book.price }}</p>
                                             </div>
                                             <div class="cart-icon">
-                                                <a href="{% url 'shopping_cart:delete_item_from_saved' book.id %}" onclick="return confirm_delete_saved();"><i class="fa fa-remove"></i></a>
+                                                <a href="{% url 'shopping_cart:delete_item' book.id %}" onclick="return confirm_delete_saved();"><i class="fa fa-remove"></i></a>
                                             </div>
                                         </div>
                                     {% empty %}

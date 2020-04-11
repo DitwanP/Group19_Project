@@ -73,19 +73,19 @@ def changepassword(request):
 							#thisuser.set_password(newpass2)
 							thisuser.set_password(newpass2)
 							thisuser.save()
-							return redirect('/profiles/signin')
+							return redirect('/profiles/signin/')
 						else:
 							messages.info(request, 'password must contain letter')
-							return redirect('/profiles/changepassword')
+							return redirect('/profiles/changepassword/')
 					else:
 						messages.info(request, 'password too short')
-						return redirect('/profiles/changepassword')
+						return redirect('/profiles/changepassword/')
 				else:
 					messages.info(request, 'confirm password not match')
-					return redirect('/profiles/changepassword')
+					return redirect('/profiles/changepassword/')
 			else:
 				messages.info(request, 'password incorrect')
-				return redirect('/profiles/changepassword')
+				return redirect('/profiles/changepassword/')
 	else: 
 		return render(request, 'userProfile/changepassword.html')
 
@@ -103,10 +103,10 @@ def addcreditcard(request):
 				name = request.user.username
 				card = creditCards(name = fullname, card_number = card_number, expDate = expDate, cardType = cardType, cvv = cvv, Username = name)
 				card.save()
-				return redirect('/profiles/userprofile')
+				return redirect('/profiles/userprofile/')
 			else:
 				messages.info(request, 'Expiration date invalid.')
-				return redirect('/profiles/addcreditcard')
+				return redirect('/profiles/addcreditcard/')
 	else: 
 		return render (request, 'userProfile/addcard.html')
 	
@@ -120,7 +120,7 @@ def addshippingaddress(request):
 			name = request.user.username
 			address = shippingAddress(address = address, city = city, state = state, zipCode = zipcode, Username = name)
 			address.save()
-			return redirect('/profiles/userprofile')
+			return redirect('/profiles/userprofile/')
 	else: 
 		return render (request, 'userProfile/addaddress.html')
 
@@ -139,21 +139,21 @@ def signup(request):
 		if User.objects.filter(username = username).exists():
 			print('username taken')
 			messages.info(request, 'username taken')
-			return redirect('/profiles/signup')
+			return redirect('/profiles/signup/')
 		else: 
 			if len(password) >= 6:
 				if any(c.isalpha() for c in password):
 					authuser = User.objects.create_user(username = username, password = password, email = email)
 					authuser.save()
-					user = Users(Username = username, name = name, nickName = nickname, Email = email, phoneNumber = phone, Address = address)
+					user = Profile(Username = username, name = name, nickName = nickname, Email = email, phoneNumber = phone, Address = address)
 					user.save()
-					return redirect('/profiles/signin')
+					return redirect('/profiles/signin/')
 				else:
 					messages.info(request, 'password must contain letter')
-					return redirect('/profiles/signup')
+					return redirect('/profiles/signup/')
 			else:
 				messages.info(request, 'password too short')
-				return redirect('/profiles/signup')
+				return redirect('/profiles/signup/')
 	else:
 		return render (request, 'userProfile/signup.html')
 
@@ -165,10 +165,10 @@ def signin(request):
 		
 		if authuser is not None: 
 			auth.login(request, authuser)
-			return redirect('/profiles/userprofile')
+			return redirect('/profiles/userprofile/')
 			
 		else:
 			messages.info(request, 'password or username invalid')
-			return redirect('/profiles/signin')
+			return redirect('/profiles/signin/')
 	else:
 		return render (request, 'userProfile/signin.html')
