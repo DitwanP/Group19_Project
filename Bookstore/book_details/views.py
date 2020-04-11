@@ -41,11 +41,9 @@ class bookDetailsView(generic.DetailView):
 class bookAuthorsView(generic.DetailView):
     template_name= "book_author.html"
 
-    print('heeyyyyyyyyyy')
     def get_context_data(self, **kwargs):
         context=super(bookAuthorsView, self).get_context_data(**kwargs)
         author = authors.objects.get(pk=self.kwargs.get('pk'))
-        print(author)
         context['author'] = author
         context['books'] = books.objects.filter(author=author.authorName)
         return context
