@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import BookInfo
-from .models import BookAuthor
+from products.models import authors
 from django.views import generic
 
 from products.models import *
@@ -41,12 +41,14 @@ class bookDetailsView(generic.DetailView):
 class bookAuthorsView(generic.DetailView):
     template_name= "book_author.html"
 
+    print('heeyyyyyyyyyy')
     def get_context_data(self, **kwargs):
         context=super(bookAuthorsView, self).get_context_data(**kwargs)
         author = authors.objects.get(pk=self.kwargs.get('pk'))
+        print(author)
         context['author'] = author
         context['books'] = books.objects.filter(author=author.authorName)
         return context
     
     def get_queryset(self):
-        return BookAuthor.objects.all()
+        return authors.objects.all()

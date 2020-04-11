@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^products/', include('products.urls', namespace='products')),
     url('profiles/', include('profile_management.urls', namespace='profile_management')),
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^author/(\d+)/$', views.bookAuthorsView.as_view(), name='book_author'),
+    url(r'^author/(?P<pk>\d+)/$', views.bookAuthorsView.as_view(), name='book_author'),
     path('book/<int:pk>', views.bookDetailsView.as_view(), name='book'),
     path('author/<int:pk>', views.bookAuthorsView.as_view(), name='book-author'),
     url(r'^book/(?P<pk>\d+)/$', views.bookDetailsView.as_view(), name='book_details')

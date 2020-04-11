@@ -76,7 +76,7 @@
 
             <form class="form-inline my-2 my-lg-0">
                 <a class="btn btn-success btn-sm ml-3" href="{% url 'shopping_cart:order_summary' %}">
-                    <i class="fa fa-shopping-cart"></i> Cart
+                    <i class="fa fa-shopping-cart"></i> {{ user_order.cart_item_count }}
                     <span class="badge badge-light"></span>
                 </a>
             </form>
@@ -102,7 +102,7 @@
                 {{ book.description }}<br>
             </div>
             <div class="col">
-                <font size="6">About The Author:<br> <a href="../author/{{ book.authorInfo.pk }}">{{ book.author }}</a></font><br>
+                <font size="6">About The Author:<br> <a href="../author/{{ book.authorInfo.pk }}/">{{ book.author }}</a></font><br>
                 {{ book.authorInfo.authorBio }}
             </div>
         </div>

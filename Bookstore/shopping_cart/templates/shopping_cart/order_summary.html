@@ -76,7 +76,7 @@
 
             <form class="form-inline my-2 my-lg-0">   
                 <a class="btn btn-success btn-sm ml-3" href="{%  url 'shopping_cart:order_summary' %}">
-                    <i class="fa fa-shopping-cart"></i> Cart
+                    <i class="fa fa-shopping-cart"></i> {{ user_order.cart_item_count }}
                     <span class="badge badge-light"></span>
                 </a>
             </form>
@@ -111,7 +111,7 @@
                       <tbody>
                         {% for book in books_for_order %}
                           <tr>
-                            <td><img src="{{ book.book.coverImage }} " class="rounded" style="width:50px;height:80px;" alt="{{book.name}}"></td>
+                            <td><img src="/static/images/{{ book.book.coverImage }} " class="rounded" style="width:50px;height:80px;" alt="{{book.name}}"></td>
                             <td><a href="/book/{{book.book.pk}}" style="color:black">'{{ book.book.name }}'</a></td>                    
                             <td>
                               <div class="input-group">
@@ -211,7 +211,7 @@
                   <tbody>
                     {% for book in sbooks %}
                       <tr>
-                        <td><img src="{{ book.saved_book.coverImage.url }} " class="rounded" style="width:50px;height:80px;" alt="{{book.name}}"></td> 
+                        <td><img src="/static/images/{{ book.saved_book.coverImage }} " class="rounded" style="width:50px;height:80px;" alt="{{book.name}}"></td> 
                         <td><a href="/book/{{book.saved_book.pk}}" style="color:black">'{{ book.saved_book.name }}'</a></td> 
                         <td></td> 
                         <td></td>  
