@@ -2,6 +2,8 @@ from django.db import models
 from django.urls import reverse
 
 from accounts.models import Profile
+
+
 # Create your models here.
 
 class BookAuthor(models.Model):
@@ -29,4 +31,8 @@ class BookInfo(models.Model):
 
 
 class BookRatings(models.Model):
-    bookRating = models.CharField(max_length=1000) #temporary
+    bookRating = models.CharField(max_length=1000)  # temporary
+
+
+class Meta:
+        ordering = ['price', 'bookName']

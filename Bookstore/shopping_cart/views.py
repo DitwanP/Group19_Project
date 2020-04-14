@@ -25,6 +25,64 @@ def get_user_pending_order(request):
         return order[0]
     return 0
 
+@login_required()
+def increase_item_quantity(request, **kwargs):
+    # get the user profile
+    user_profile = get_object_or_404(Profile, user=request.user)
+
+    # filter books by id
+    book = books.objects.filter(id=kwargs.get('item_id', "")).first()
+
+    # create orderItem of the selected book
+    order_item, status = OrderItem.objects.get_or_create(book=book)
+    order_item.quantity = order_item.quantity + 1
+    order_item.price_in_cart = order_item.book.price * order_item.quantity
+    order_item.save()
+
+    # create order associated with the user
+    user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
+    user_order.items.add(order_item)
+    if status:
+        # generate a reference code
+        user_order.ref_code = generate_order_id()
+        user_order.save()
+
+    books_for_order = OrderItem.objects.all().order_by('-book')
+    sbooks = SaveItem.objects.all()
+
+    context = {'user_order': user_order, 'books_for_order': books_for_order, 'sbooks': sbooks}
+
+    return render(request,'shopping_cart/order_summary.html', context)
+
+@login_required()
+def decrease_item_quantity(request, **kwargs):
+    # get the user profile
+    user_profile = get_object_or_404(Profile, user=request.user)
+
+    # filter books by id
+    book = books.objects.filter(id=kwargs.get('item_id', "")).first()
+
+    # create orderItem of the selected book
+    order_item, status = OrderItem.objects.get_or_create(book=book)
+    if order_item.quantity > 1:
+        order_item.quantity = order_item.quantity - 1
+        order_item.price_in_cart = order_item.book.price * order_item.quantity
+        order_item.save()
+
+    # create order associated with the user
+    user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
+    user_order.items.add(order_item)
+    if status:
+        # generate a reference code
+        user_order.ref_code = generate_order_id()
+        user_order.save()
+
+    books_for_order = OrderItem.objects.all().order_by('-book')
+    sbooks = SaveItem.objects.all()
+
+    context = {'user_order': user_order, 'books_for_order': books_for_order, 'sbooks': sbooks}
+
+    return render(request,'shopping_cart/order_summary.html', context)
 
 @login_required()
 def add_to_cart(request, **kwargs):
@@ -35,9 +93,7 @@ def add_to_cart(request, **kwargs):
     book = books.objects.filter(id=kwargs.get('item_id', "")).first()
 
     # create orderItem of the selected book
-    order_item, status = OrderItem.objects.get_or_create(book=book)
-    
-    print(order_item.quantity)
+    order_item, status = OrderItem.objects.get_or_create(book=book, price_in_cart=book.price)
 
     # create order associated with the user
     user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
@@ -47,14 +103,14 @@ def add_to_cart(request, **kwargs):
         user_order.ref_code = generate_order_id()
         user_order.save()
 
-    books_for_order = OrderItem.objects.all()
+    books_for_order = OrderItem.objects.all().order_by('-book')
     sbooks = SaveItem.objects.all()
 
     context = {'user_order': user_order, 'books_for_order': books_for_order, 'sbooks': sbooks}
 
     # show confirmation message and redirect back to the same page
     messages.info(request, "Item has been added to cart")
-    return redirect(reverse('products:product-list'))
+    return redirect(request.META['HTTP_REFERER'])
 
 @login_required()
 def add_to_cart_from_detail(request, **kwargs):
@@ -64,10 +120,10 @@ def add_to_cart_from_detail(request, **kwargs):
     # filter books by id
     book = books.objects.filter(id=kwargs.get('item_id', "")).first()
 
-    book_id = kwargs.get('item_id', "")
+    book_id = kwargs.get('item_id')
 
     # create orderItem of the selected book
-    order_item, status = OrderItem.objects.get_or_create(book=book)
+    order_item, status = OrderItem.objects.get_or_create(book=book, price_in_cart=book.price)
 
     # create order associated with the user
     user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
@@ -77,14 +133,14 @@ def add_to_cart_from_detail(request, **kwargs):
         user_order.ref_code = generate_order_id()
         user_order.save()
 
-    books_for_order = OrderItem.objects.all()
+    books_for_order = OrderItem.objects.all().order_by('-book')
     sbooks = SaveItem.objects.all()
 
     context = {'user_order': user_order, 'books_for_order': books_for_order, 'sbooks': sbooks}
 
     # show confirmation message and redirect back to the same page
     messages.info(request, "Item has been added to cart")
-    return redirect(reverse('book_details', args=book_id))
+    return redirect(reverse('book_details', args=(book_id,)))
 
 @login_required()
 def add_to_cart_from_saved(request, **kwargs):
@@ -92,25 +148,26 @@ def add_to_cart_from_saved(request, **kwargs):
     user_profile = get_object_or_404(Profile, user=request.user)
 
     # filter books by id
-    book = books.objects.filter(id=kwargs.get('item_id', "")).first() 
+    book = books.objects.filter(id=kwargs.get('item_id', "")).first()
 
     # create orderItem of the selected book
-    order_item, status = OrderItem.objects.get_or_create(book=book)
+    saved_to_cart, status = OrderItem.objects.get_or_create(book_id=kwargs.get('item_id'))
+    saved_to_cart.is_saved_for_later = False
+    saved_to_cart.save()
 
     # create order associated with the user
     user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
-    user_order.items.add(order_item)
+    user_order.items.add(saved_to_cart)
     if status:
         # generate a reference code
         user_order.ref_code = generate_save_id()
         user_order.save()
 
-    books_for_order = OrderItem.objects.all()
     sbooks = SaveItem.objects.all()
 
-    context = {'user_order': user_order, 'books_for_order': books_for_order, 'sbooks': sbooks}
+    books_for_order = OrderItem.objects.exclude(is_saved_for_later=True).order_by('-book')
 
-    messages.info(request, "Item has been added to cart")
+    context = {'user_order': user_order, 'books_for_order': books_for_order, 'sbooks': sbooks}
     return render(request,'shopping_cart/order_summary.html', context)
 
 @login_required()
@@ -139,97 +196,41 @@ def add_to_saved(request, **kwargs):
     return redirect(reverse('products:product-list'))
 
 @login_required()
-def add_to_saved_from_detail(request, **kwargs):
-
-    # get the user profile
-    user_profile = get_object_or_404(Profile, user=request.user)
-
-    # filter books by id
-    saved_book = books.objects.filter(id=kwargs.get('item_id', "")).first()
-
-    book_id = kwargs.get('item_id', "")
-
-    # create orderItem of the selected book
-    saved_item, status = SaveItem.objects.get_or_create(saved_book=saved_book)
-
-    # create saved item that's associated with the user
-    user_save, status = Saved.objects.get_or_create(owner=user_profile, is_saved_for_later=False)
-    user_save.saved_items.add(saved_item)
-
-    if status:
-        # generate a reference code
-        user_save.ref_code = generate_save_id()
-        user_save.save()
-
-    # show confirmation message and redirect back to the same page
-    messages.info(request, "Item saved for later.")
-    return redirect(reverse('book_details', args=book_id))
-
-@login_required()
 def add_to_saved_from_cart(request, **kwargs):
     # get the user profile
     user_profile = get_object_or_404(Profile, user=request.user)
 
     # filter books by id
-    book = books.objects.filter(id=kwargs.get('item_id', "")).first()
-
-    # filter books by id
     saved_book = books.objects.filter(id=kwargs.get('item_id', "")).first()
-
-    order_item, ostatus = OrderItem.objects.get_or_create(book=book)
-    user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
 
     # create saveItem of the selected book
     saved_item, status = SaveItem.objects.get_or_create(saved_book=saved_book)
 
     # create saved that's associated with the user
-    user_save, status = Saved.objects.get_or_create(owner=user_profile, is_saved_for_later=False)
+    user_save, status = Saved.objects.get_or_create(owner=user_profile, is_saved_for_later=True)
     user_save.saved_items.add(saved_item)
 
     sbooks = SaveItem.objects.all()
-    books_for_order = OrderItem.objects.all()
+
+    cart_to_saved, status = OrderItem.objects.get_or_create(book_id=kwargs.get('item_id'))
+    cart_to_saved.is_saved_for_later = True
+    cart_to_saved.save()
+
+    books_for_order = OrderItem.objects.exclude(is_saved_for_later=True).order_by('-book')
 
     if status:
         # generate a reference code
         user_save.ref_code = generate_save_id()
         user_save.save()
 
-    context = {'sbooks': sbooks, 'books_for_order': books_for_order, 'user_order': user_order}
-    messages.info(request, "Item added to saved for later.")
+    context = {'sbooks': sbooks, 'books_for_order': books_for_order}
     return render(request,'shopping_cart/order_summary.html', context)
-
-@login_required()
-def update_cart_quantities(request, **kwargs): 
-    # get the user profile
-    user_profile = get_object_or_404(Profile, user=request.user)
-
-    # filter books by id
-    book = books.objects.filter(id=kwargs.get('item_id', "")).first()
-
-    # create orderItem of the selected book
-    order_item, status = OrderItem.objects.get_or_create(book=book)
-
-    # update the cart with new item quantity
-    order = Order.objects.all()
-
-    if not book in order.items.all():
-        order.items.add(order_item)
-    else:
-        order.items.remove(order_item)   
-
-    new_total = 0.00
-    for item in order.items.all():
-        line_total = float(item.book.price) * item.quantity
-        new_total += line_total
-
-    return redirect(reverse('products:product-list'))
 
 @login_required()
 def delete_from_cart(request, item_id):
     item_to_delete = OrderItem.objects.filter(pk=item_id)
     if item_to_delete.exists():
         item_to_delete[0].delete()
-        messages.info(request, "Item has been deleted")
 
     # get the user profile
     user_profile = get_object_or_404(Profile, user=request.user)
@@ -239,15 +240,13 @@ def delete_from_cart(request, item_id):
     books_for_order = OrderItem.objects.all()
 
     context = {'sbooks': sbooks, 'books_for_order': books_for_order, 'user_order': user_order}
-    messages.info(request, "Item has been removed from cart.")
-    return render(request,'shopping_cart/order_summary.html', context)
+    return redirect(request.META['HTTP_REFERER'])
 
 @login_required()
 def delete_from_saved(request, item_id):
     item_to_delete = SaveItem.objects.filter(pk=item_id)
     if item_to_delete.exists():
         item_to_delete[0].delete()
-        messages.info(request, "Item has been deleted")
     
     # get the user profile
     user_profile = get_object_or_404(Profile, user=request.user)
@@ -257,7 +256,6 @@ def delete_from_saved(request, item_id):
     books_for_order = OrderItem.objects.all()
 
     context = {'sbooks': sbooks, 'books_for_order': books_for_order, 'user_order': user_order}
-    messages.info(request, "Item has been removed from cart.")
     return render(request,'shopping_cart/order_summary.html', context)
 
 @login_required()

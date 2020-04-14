@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!-- saved from url=(0063)# -->
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Book Store – Book Shop</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/static/images/favicon.png">
+
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <!-- animate css -->
+    <link rel="stylesheet" href="/static/css/animate.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="/static/css/meanmenu.min.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="/static/css/owl.carousel.css">
+
+    <link rel="stylesheet" href="/static/css/owl.theme.default.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="/static/css/font-awesome.min.css">
+    <!-- flexslider.css-->
+    <link rel="stylesheet" href="/static/css/flexslider.css">
+    <!-- chosen.min.css-->
+    <link rel="stylesheet" href="/static/css/chosen.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="/static/css/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/static/css/responsive.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <script type="text/javascript">
+        var BASEURL = "http://127.0.0.1:8000/";
+        var IMAGEPATH = "http://127.0.0.1:8000/static/images/"
+    </script>
+</head>
+
+<body>
+<!-- header-area-start -->
+{% include "common/header.html" %}
+<!-- header-area-end -->
+
+{% block content %}
+{% endblock %}
+
+<!-- footer-area-start -->
+{% include "common/footer.html" %}
+<!-- footer-area-end -->
+
+<!-- Modal -->
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="model_content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="book_details"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal end -->
+
+
+<!-- all js here -->
+<!-- jquery latest version -->
+<script src="/static/js/jquery-1.12.0.min.js"></script>
+<script src="/static/js/modernizr-2.8.3.min.js"></script>
+<!-- popper js -->
+<script src="/static/js/popper.min.js"></script>
+<!-- bootstrap js -->
+<script src="/static/js/bootstrap.min.js"></script>
+<!-- owl.carousel js -->
+<script src="/static/js/owl.carousel.min.js"></script>
+<!-- meanmenu js -->
+<script src="/static/js/jquery.meanmenu.js"></script>
+<!-- wow js -->
+<script src="/static/js/wow.min.js"></script>
+<!-- jquery.parallax-1.1.3.js -->
+<script src="/static/js/jquery.parallax-1.1.3.js"></script>
+<!-- jquery.countdown.min.js -->
+<script src="/static/js/jquery.countdown.min.js"></script>
+<!-- jquery.flexslider.js -->
+<script src="/static/js/jquery.flexslider.js"></script>
+<!-- chosen.jquery.min.js -->
+<script src="/static/js/chosen.jquery.min.js"></script>
+<!-- jquery.counterup.min.js -->
+<script src="/static/js/jquery.counterup.min.js"></script>
+<!-- waypoints.min.js -->
+<script src="/static/js/waypoints.min.js"></script>
+<!-- plugins js -->
+<script src="/static/js/plugins.js"></script>
+<!-- main js -->
+<script src="/static/js/main.js"></script>
+<script src="/static/js/layout.js"></script>
+
+{% block scripts %}
+    <script>
+        function confirm_delete() {
+            return confirm("Are you sure you want to remove this item from cart?");
+        }
+
+        $(document).ready(function () {
+            $('.owl-carousel').owlCarousel({
+                loop: true,
+                margin: 10,
+                responsiveClass: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                        nav: true
+                    },
+                    600: {
+                        items: 3,
+                        nav: false
+                    },
+                    1000: {
+                        items: 5,
+                        nav: true,
+                        loop: false,
+                        margin: 20
+                    }
+                }
+            })
+        })
+    </script>
+{% endblock scripts %}
+</body>
+</html>

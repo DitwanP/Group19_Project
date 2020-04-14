@@ -12,9 +12,12 @@ class OrderItem(models.Model):
     date_added = models.DateTimeField(auto_now=True)
     date_ordered = models.DateTimeField(null=True)
     quantity = models.PositiveIntegerField(default=1)
+    price_in_cart = models.DecimalField(max_digits=5, decimal_places=2)
+    is_saved_for_later = models.BooleanField(default=False)
 
     def __str__(self):
         return self.book.name
+
 
 class Order(models.Model):
     ref_code = models.CharField(max_length=15)
@@ -27,7 +30,10 @@ class Order(models.Model):
         return self.items.all()
 
     def get_cart_total(self):
-        return sum([item.book.price for item in self.items.all()])
+        return sum([item.price_in_cart for item in self.items.all()])
+
+    def cart_item_count(self):
+        return self.items.count()
 
     def __str__(self):
         return '{0} - {1}'.format(self.owner, self.ref_code)

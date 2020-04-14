@@ -1,65 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-  
+
 <head>
-  <style>
-    #myImg {
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-    }
+    <style>
+        #myImg {
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-    #myImg:hover {opacity: 0.7;}
+        #myImg:hover {
+            opacity: 0.7;
+        }
 
-    .modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1; 
-    padding-top: 100px;
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.9); 
-    }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.9);
+        }
 
-    .modal-content {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 400px;
-    }
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 400px;
+        }
 
-    .close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    font-size: 60px;
-    font-weight: bold;
-    }
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            font-size: 60px;
+            font-weight: bold;
+        }
 
-    .close:hover,
-    .close:focus {
-    cursor: pointer;
-    }
-  </style>
+        .close:hover,
+        .close:focus {
+            cursor: pointer;
+        }
+    </style>
 
-  <meta charset="UTF-8">
-  <title> Bookbuy </title>
+    <meta charset="UTF-8">
+    <title> Bookbuy </title>
 
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
-  
-<body>
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<body>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="#">G19 Bookstore </a>
+        <a class="navbar-brand" href="{% url 'book_browsing:home' %}">G19 Bookstore </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -67,174 +69,191 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
             <ul class="navbar-nav m-auto">
                 <li class="nav-item m-auto">
-                    <a class="nav-link" href="{% url 'homepage:the_homepage' %}">Home</a>
+                    <a class="nav-link" href="{% url 'book_browsing:home' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Profile <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{% url 'profile_management:userProfile-home' %}">Profile <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
 
-            <form class="form-inline my-2 my-lg-0">   
-                <a class="btn btn-success btn-sm ml-3" href="{%  url 'shopping_cart:order_summary' %}">
-                    <i class="fa fa-shopping-cart"></i> Cart
+            <form class="form-inline my-2 my-lg-0">
+                <a class="btn btn-success btn-sm ml-3" href="{% url 'shopping_cart:order_summary' %}">
+                    <i class="fa fa-shopping-cart"></i> {{ user_order.cart_item_count }}
                     <span class="badge badge-light"></span>
                 </a>
             </form>
         </div>
     </div>
-  </nav>
+</nav>
 
-  <section class="jumbotron text-center">
+<section class="jumbotron text-center">
     <div class="container">
         <h1 class="jumbotron-heading">YOUR CART</h1>
-     </div>
-  </section>
-  {% include 'messages.html' %}
-    {% block content %}
-      {{ message }}
-    {% endblock content %}
-  <div class="container mb-4">
+    </div>
+</section>
+{% include 'messages.html' %}
+{% block content %}
+    {{ message }}
+{% endblock content %}
+<div class="container mb-4">
     <div class="row">
         <div class="col-12">
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
-                        <tr>
-                            <th></th>
-                            <th scope="col"><strong>Book</strong></th>
-                            <th scope="col"><strong>Quantity</strong></th>
-                            <th scope="col" class="text-right"><strong>Price</strong></th>
-                            <th scope="col"> </th>
-                            <th scope="col"> </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% for book in books_for_order %}
-                          <tr>
-                            <td><img src="{{ book.book.coverImage.url }} " class="rounded" style="width:50px;height:80px;" alt="{{book.name}}"></td>
-                            <td><a href="/book/{{book.book.pk}}" style="color:black">'{{ book.book.name }}'</a></td>                    
-                            <td><input type="number" class="count" name="qty" value="1" min="1"></td>
-                            <td class="text-right" id="price">${{ book.book.price }}</td>
-                            <td class="text-right">
-                              <button class="btn btn-sm btn-dark"> 
-                                <a href="{% url 'shopping_cart:add_to_saved_from_cart' book.book_id %}" style="color:white">Save for later</a>
-                              </button>
-                            </td>
-                            <td>
-                              <button class="btn btn-sm btn-danger"> 
-                                <a href="{% url 'shopping_cart:delete_item' book.id %}" style="color:white"
-                                  onclick="return confirm_delete();">Remove 
-                                </a>
-                              </button>
-                            </td>
-                          </tr>
-                        {% empty %}
-                          <tr>
-                            <td colspan= 6> Your cart is empty. </td>
-                          </tr>
-                        {% endfor %}
-
-                        <tr>
-                          {% if user_order.get_cart_total != None %}
-                          <td></td>
-                          <td></td>
-                          <td><strong>Order Total:</strong></td>
-                          <td class="text-right">$<strong>{{ user_order.get_cart_total }}</strong></td>
-                          <td></td>
-                          {% endif %}
-                        </tr>
-                        <tr>
-                          <td colspan=3>
-                            <a href="{% url 'homepage:the_homepage'  %}" class="btn-lg btn-warning pull-left">
-                              {% if user_order %}Continue Shopping{% else %}Continue Shopping {% endif %}
-                            </a> 
-                          </td>
-                          <td></td>
-                          <td class="text-right">
-                            {% if user_order.get_cart_items %}
-                              <a href="{% url 'shopping_cart:checkout' %}" class="pull-right btn-lg btn-primary">Checkout</a>
-                            {% endif %}
-                          </td>
-                          <td colspan=2></td>
-                        </tr>
-                      </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-  </div>
-
-  <div class="container mb-4">
-    <div class="row">
-        <div class="col-12">
-            <div class="table-responsive">
-                <table class="table table-striped">  
-                  <thead>
-                    <tr>
-                        <th></th> 
-                        <th></th> 
-                        <th></th> 
-                        <th></th> 
-                        <th><strong>Saved for later</strong></th>
-                        <th></th> 
-                        <th></th> 
-                        <th></th> 
-                    </tr>
-                  </thead>            
-                  <thead>
                     <tr>
                         <th></th>
                         <th scope="col"><strong>Book</strong></th>
-                        <th scope="col"></th> 
-                        <th scope="col"></th> 
-                        <th scope="col"></th> 
-                        <th scope="col"><strong>Price</strong></th>
-                        <th scope="col"></th>   
-                        <th scope="col"></th> 
+                        <th scope="col"><strong>Quantity</strong></th>
+                        <th scope="col" class="text-right"><strong>Price</strong></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {% for book in sbooks %}
-                      <tr>
-                        <td><img src="{{ book.saved_book.coverImage.url }} " class="rounded" style="width:50px;height:80px;" alt="{{book.name}}"></td> 
-                        <td><a href="/book/{{book.saved_book.pk}}" style="color:black">'{{ book.saved_book.name }}'</a></td> 
-                        <td></td> 
-                        <td></td>  
-                        <td></td>         
-                        <td id="price">${{ book.saved_book.price }}</td>
-                        <td class="text-right"><button class="btn btn-sm btn-success"> 
-                          <a href="{% url 'shopping_cart:add_to_cart_from_saved' book.saved_book.id %}" style="color:white">Add to cart</button>
-                          </a>
-                        </td>
-                        <td><button class="btn btn-sm btn-danger"> 
-                          <a href="{% url 'shopping_cart:delete_item_from_saved' book.id %}" style="color:white"
-                            onclick="return confirm_delete_saved();">Remove</button>
-                          </a>
-                        </td>
-                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for book in books_for_order %}
+                        <tr>
+                            <td><img src="/static/images/{{ book.book.coverImage }} " class="rounded" style="width:50px;height:80px;" alt="{{ book.name }}"></td>
+                            <td><a href="/book/{{ book.book.pk }}" style="color:black">'{{ book.book.name }}'</a></td>
+                            <td>
+                                <div class="input-group">
+                                <span class="input-group-btn">
+                                  <a class="btn btn-default btn-number" href="{% url 'shopping_cart:decrease_item_quantity' book.book_id %}">
+                                    <span class="fa fa-minus-square" style="color:red;"></span>
+                                  </a>
+                                </span>
+                                    <p>{{ book.quantity }}</p>
+                                    <span class="input-group-btn">
+                                    <a class="btn btn-default btn-number" href="{% url 'shopping_cart:increase_item_quantity' book.book_id %}">
+                                      <span class="fa fa-plus-square" style="color:green;"></span>
+                                    </a> 
+                                </span>
+                                </div>
+                            </td>
+                            <td class="text-right" id="price">${{ book.price_in_cart }}</td>
+                            <td class="text-right">
+                                <button class="btn btn-sm btn-dark">
+                                    <a href="{% url 'shopping_cart:add_to_saved_from_cart' book.book_id %}" style="color:white">Save for later</a>
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-danger">
+                                    <a href="{% url 'shopping_cart:delete_item' book.id %}" style="color:white"
+                                       onclick="return confirm_delete();">Remove
+                                    </a>
+                                </button>
+                            </td>
+                        </tr>
                     {% empty %}
-                      <tr>
-                        <td colspan= 7> Your don't have any saved items. </td>
-                        <td></td> 
-                      </tr>
+                        <tr>
+                            <td colspan=6> Your cart is empty.</td>
+                        </tr>
                     {% endfor %}
-                  </tbody>
+
+                    <tr>
+                        {% if user_order.get_cart_total != None %}
+                            <td></td>
+                            <td></td>
+                            <td><strong>Order Total:</strong></td>
+                            <td class="text-right">$<strong>{{ user_order.get_cart_total|floatformat:"2" }}</strong></td>
+                            <td></td>
+                            <td></td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td colspan=3>
+                            <a href="{% url 'book_browsing:home' %}" class="btn-lg btn-warning pull-left">
+                                {% if user_order %}Continue Shopping{% else %}Continue Shopping {% endif %}
+                            </a>
+                        </td>
+                        <td></td>
+                        <td class="text-right">
+                            {% if user_order.get_cart_items %}
+                                <a href="{% url 'shopping_cart:checkout' %}" class="pull-right btn-lg btn-primary">Checkout</a>
+                            {% endif %}
+                        </td>
+                        <td colspan=2></td>
+                    </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
     </div>
-  </div>
+</div>
+
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th><strong>Saved for later</strong></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th scope="col"><strong>Book</strong></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"><strong>Price</strong></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for book in sbooks %}
+                        <tr>
+                            <td><img src="/static/images/{{ book.saved_book.coverImage }} " class="rounded" style="width:50px;height:80px;" alt="{{ book.name }}"></td>
+                            <td><a href="/book/{{ book.saved_book.pk }}" style="color:black">'{{ book.saved_book.name }}'</a></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td id="price">${{ book.saved_book.price }}</td>
+                            <td class="text-right">
+                                <button class="btn btn-sm btn-success">
+                                    <a href="{% url 'shopping_cart:add_to_cart_from_saved' book.saved_book.id %}" style="color:white">Add to cart</button>
+                                </a>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-danger">
+                                    <a href="{% url 'shopping_cart:delete_item_from_saved' book.id %}" style="color:white"
+                                       onclick="return confirm_delete_saved();">Remove</button>
+                                </a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan=7> Your don't have any saved items.</td>
+                            <td></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 
 {% block scripts %}
-  <script>
-    function confirm_delete(){
-      return confirm("Are you sure you want to remove this item from cart?");
-    }  </script>
+    <script>
+        function confirm_delete() {
+            return confirm("Are you sure you want to remove this item from cart?");
+        }  </script>
 
-  <script>
-    function confirm_save(){
-      return confirm("Are you sure you want to save this item for later?");
-    }  </script>
+    <script>
+        function confirm_save() {
+            return confirm("Are you sure you want to save this item for later?");
+        }  </script>
 {% endblock scripts %}

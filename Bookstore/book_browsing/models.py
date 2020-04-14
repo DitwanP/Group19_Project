@@ -1,3 +1,8 @@
-from django.db import models
+from tempfile import template
 
-# Create your models here.
+from shopping_cart.templatetags.cart_template_tag import register
+
+
+@register.filter
+def count_true(value):
+    return value.filter(boolean_field=True).count()

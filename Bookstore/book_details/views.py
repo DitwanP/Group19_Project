@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import BookInfo
-from .models import BookAuthor
+from products.models import authors
 from django.views import generic
 
 from products.models import *
@@ -49,4 +49,4 @@ class bookAuthorsView(generic.DetailView):
         return context
     
     def get_queryset(self):
-        return BookAuthor.objects.all()
+        return authors.objects.all()

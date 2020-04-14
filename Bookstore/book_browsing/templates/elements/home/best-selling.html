@@ -1,0 +1,26 @@
+<div class="bestseller-active owl-carousel owl-theme">
+    {% for book in books %}
+        <div class="item" style="width: 165px; margin-right: 20px;">
+            <div class="bestseller-total">
+                <div class="single-bestseller mb-25">
+                    <div class="bestseller-img">
+                        <a href="{% url 'book' book.book.id %}"><img src="/static/images/product/{{ book.book.coverImage }}" alt="{{ book.book.name }}"></a>
+                        <div class="product-flag">
+                            <ul>
+                                <li><span class="sale">new</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bestseller-text text-center">
+                        <h3><a class="action-view" href="{% url 'book' book.book.id %}">{{ book.book.name }}</a></h3>
+                        <div class="price">
+                            <ul>
+                                <li><span class="new-price">${{ book.book.price }}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

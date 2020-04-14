@@ -1,0 +1,53 @@
+<div class="tab-pane fade show active" id="Audiobooks">
+    <div class="tab-active owl-carousel owl-theme">
+        <!-- single-product-end -->
+        {% for book in books %}
+            <div class="item" style="width: 206px; margin-right: 20px;">
+                <div class="product-wrapper">
+                    <div class="product-img">
+                        <a href="{% url 'book' book.id %}">
+                            <img src="/static/images/product/{{ book.coverImage }}" alt="{{ book.name }}" class="primary">
+                        </a>
+                        <div class="quick-view">
+                            <a class="action-view" href="{% url 'book' book.id %}" title="Quick View">
+                                <i class="fa fa-search-plus"></i>
+                            </a>
+                        </div>
+                        <div class="product-flag">
+                            <ul>
+                                <li><span class="sale">new</span> <br></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="product-details text-center">
+                        <div class="product-rating">
+                            <ul>
+                                <li><a href="javascript:void(0)"><i class="fa fa-star"></i></a></li>
+                                <li><a href="javascript:void(0)"><i class="fa fa-star"></i></a></li>
+                                <li><a href="javascript:void(0)"><i class="fa fa-star"></i></a></li>
+                                <li><a href="javascript:void(0)"><i class="fa fa-star"></i></a></li>
+                                <li><a href="javascript:void(0)"><i class="fa fa-star"></i></a></li>
+                            </ul>
+                        </div>
+                        <h4><a href="{% url 'book' book.id %}">{{ book.name }}</a></h4>
+                        <div class="product-price">
+                            <ul>
+                                <li>${{ book.price }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="product-link">
+                        <div class="product-button">
+                            <a href="{% url 'shopping_cart:add_to_cart' book.id %}" title="Add to cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                        </div>
+                        <div class="add-to-link">
+                            <ul>
+                                <li><a href="javascript:void(0)" title="Details"><i class="fa fa-external-link"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

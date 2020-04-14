@@ -1,0 +1,149 @@
+<header>
+    <!-- header-top-area-start -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark header-mid-area">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'book_browsing:home' %}">G19 Bookstore </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div></div>
+
+            <div class="row" style="position:absolute; right:1050px; top:0px;">
+                <div class="header-search">
+                    <form action="{% url 'book_browsing:search' %}" method="get">
+                        <input type="text" name="q" placeholder="Search entire store here..." value="{{ query }}">
+                        <button type="submit" class="search-btn"><i class='fa fa-search'></i></button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+                <ul class="navbar-nav m-auto">
+                    {%if user.is_authenticated%}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile_management:userProfile-home' %}">Profile <span class="sr-only">(current)</span></a>
+                    </li>
+					<li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile_management:userProfile-signin' %}">Switch User <span class="sr-only">(current)</span></a>
+                    </li>
+
+					{%else%}
+					<li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile_management:userProfile-signin' %}">Sign in <span class="sr-only">(current)</span></a>
+                    </li>
+					<li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile_management:userProfile-signup' %}">Sign up <span class="sr-only">(current)</span></a>
+                    </li>
+                    {%endif%}
+                </ul>
+
+                <div class="my-cart">
+                    <ul>
+                        <li><a href="javascript:void(0)"><i class="fa fa-shopping-cart"></i>Cart</a>
+                            <span>{{ user_order.cart_item_count }}</span>
+                            <div class="mini-cart-sub">
+                                <div class="cart-product">
+                                    {% for book in books_for_order %}
+                                        <div class="single-cart">
+                                            <div class="cart-img">
+                                                <a href="javascript:void(0)"><img src="/static/images/product/{{ book.book.coverImage }}" style="width:50px;height:80px;" alt="{{ book.book.name }}"></a>
+                                            </div>
+                                            <div class="cart-info">
+                                                <h5><a href="javascript:void(0)">{{ book.book.name }}</a></h5>
+                                                <p>{{ book.quantity }} x ${{ book.book.price }}</p>
+                                            </div>
+                                            <div class="cart-icon">
+                                                <a href="{% url 'shopping_cart:delete_item' book.id %}" onclick="return confirm_delete_saved();"><i class="fa fa-remove"></i></a>
+                                            </div>
+                                        </div>
+                                    {% empty %}
+                                        <h4>Your cart is empty</h4>
+                                    {% endfor %}
+                                </div>
+                                <div class="cart-totals">
+                                    <h5><span>{% if user_order.get_cart_total != None %} Total ${{ user_order.get_cart_total|floatformat:'2' }}{% endif %}</span></h5>
+                                </div>
+                                <div class="cart-bottom">
+                                    <a class="view-cart" href="{% url 'shopping_cart:order_summary' %}">view cart</a>
+                                    <a href="{% url 'shopping_cart:checkout' %}">Check out</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- header-top-area-end -->
+
+    <!-- main-menu-area-start -->
+    <div class="main-menu-area d-md-none d-none d-lg-block sticky-header-1" id="header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="menu-area">
+                        <nav>
+                            <ul>
+                                <li class="active"><a href="{% url 'book_browsing:home' %}">Home<i class="fa fa-angle-down"></i></a>
+                                    <div class="sub-menu">
+                                        <ul>
+                                            <li><a href="{% url 'book_browsing:about' %}">About Us</a></li>
+                                            <li><a href="{% url 'book_browsing:contact' %}">Contact Us</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li><a href="javascript:void(0);">Book</a>
+                                    <div class="sub-menu">
+                                        <ul>
+                                            <li><a href="{% url 'book_browsing:new-release' %}">New Release</a></li>
+                                            <li><a href="{% url 'book_browsing:top-sellers' %}">Top Sellers</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li><a href="javascript:void(0)" class="book-list" id="book" data-target="productBook">Search by Genre</a>
+                                    <div class="sub-menu">
+                                        <ul>
+                                            <li><a href="{% url 'book_browsing:fantasy' %}">Fantasy</a></li>
+                                            <li><a href="{% url 'book_browsing:romance' %}">Romance</a></li>
+                                            <li><a href="{% url 'book_browsing:fiction' %}">Science Fiction</a></li>
+                                            <li><a href="{% url 'book_browsing:history' %}">History</a></li>
+                                            <li><a href="{% url 'book_browsing:thriller' %}">Thriller</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- main-menu-area-end -->
+
+    <!-- mobile-menu-area-start -->
+    <div class="mobile-menu-area d-lg-none d-block fix">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="mobile-menu">
+                        <nav id="mobile-menu-active" style="display: block;">
+                            <ul id="nav">
+                                <li><a href="{% url 'book_browsing:home' %}">Home</a>
+                                    <ul>
+                                        <li><a href="{% url 'book_browsing:about' %}">About Us</a></li>
+                                        <li><a href="{% url 'book_browsing:contact' %}">Contact Us</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="{% url 'book_browsing:book' %}">Book</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- mobile-menu-area-end -->
+</header>
