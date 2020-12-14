@@ -2,15 +2,15 @@
     <!-- header-top-area-start -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark header-mid-area">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'book_browsing:home' %}">G19 Bookstore </a>
+        <div class="container" style="display: flex; justify-content: space-between; max-width: 100%;">
+            <a class="navbar-brand" href="{% url 'book_browsing:home' %}">G19 Bookstore</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div></div>
 
-            <div class="row" style="position:absolute; right:1050px; top:0px;">
+            <div class="row" style="position:absolute; right:400px; top:5px;">
                 <div class="header-search">
                     <form action="{% url 'book_browsing:search' %}" method="get">
                         <input type="text" name="q" placeholder="Search entire store here..." value="{{ query }}">

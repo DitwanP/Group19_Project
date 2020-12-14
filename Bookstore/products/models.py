@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import django
 from django.db import models
 from django.utils import timezone
 
@@ -19,7 +20,6 @@ class books(models.Model):
     publisher = models.CharField(max_length=1000)
     coverImage = models.ImageField(upload_to='images/')
     authorInfo = models.ForeignKey(authors, on_delete=models.CASCADE)
-    releasedDate = models.DateField(default=timezone.now())
-    
+    releasedDate = models.DateField(default=django.utils.timezone.now)
     def __str__(self):
         return self.name
